@@ -237,6 +237,7 @@
 
 <nav class="nav-sticky">
     <div class="nav-inner">
+        <a href="#updates" class="nav-link">アプデ情報</a>
         <a href="#basics" class="nav-link">基本情報</a>
         <a href="#regions" class="nav-link">エリア</a>
         <a href="#stands" class="nav-link">スタンド</a>
@@ -251,11 +252,56 @@
         <a href="#skins" class="nav-link">スキン</a>
         <a href="#accessories" class="nav-link">アクセサリー</a>
         <a href="#npcs" class="nav-link">NPC</a>
-        <a href="#updates" class="nav-link">アプデ情報</a>
     </div>
 </nav>
 
 <main class="container">
+
+    <!-- ===== アップデート情報 ===== -->
+    <section id="updates">
+        <div class="section-header">
+            <h2>アップデート情報</h2>
+            <p>Bizarre Lineageの最新パッチノート・変更点まとめ</p>
+        </div>
+
+        <div class="card" style="max-width:800px;">
+            <h3 style="display:flex; align-items:center; gap:.6rem; margin-bottom:1.2rem;">
+                <span style="background:linear-gradient(135deg,var(--primary),var(--accent)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">最新パッチノート</span>
+                <span class="rarity-badge rarity-rare" style="font-size:.7rem;">NEW</span>
+            </h3>
+
+            <p class="sub-label">バグ修正</p>
+            <ul style="list-style:none; padding:0; margin-bottom:1.5rem;">
+                <li style="color:var(--text-dim); font-size:.92rem; line-height:2; padding-left:1.2rem; position:relative;"><span style="position:absolute; left:0; color:var(--uncommon);">&#10003;</span>ゲームモードでリセットできなくなりました</li>
+                <li style="color:var(--text-dim); font-size:.92rem; line-height:2; padding-left:1.2rem; position:relative;"><span style="position:absolute; left:0; color:var(--uncommon);">&#10003;</span>瞑想中のゴーストがアリーナの外に出てしまう問題を修正</li>
+                <li style="color:var(--text-dim); font-size:.92rem; line-height:2; padding-left:1.2rem; position:relative;"><span style="position:absolute; left:0; color:var(--uncommon);">&#10003;</span>デイリークエストが正しく動作しない問題を修正</li>
+                <li style="color:var(--text-dim); font-size:.92rem; line-height:2; padding-left:1.2rem; position:relative;"><span style="position:absolute; left:0; color:var(--uncommon);">&#10003;</span>1v1sで奇妙なエリアに配置されるグラブを修正</li>
+                <li style="color:var(--text-dim); font-size:.92rem; line-height:2; padding-left:1.2rem; position:relative;"><span style="position:absolute; left:0; color:var(--uncommon);">&#10003;</span>削除されたギャングを適切に残すことができます</li>
+                <li style="color:var(--text-dim); font-size:.92rem; line-height:2; padding-left:1.2rem; position:relative;"><span style="position:absolute; left:0; color:var(--uncommon);">&#10003;</span>あなた以外のプレイヤーにとって実行中のアニメーションが不安定になる問題を修正</li>
+                <li style="color:var(--text-dim); font-size:.92rem; line-height:2; padding-left:1.2rem; position:relative;"><span style="position:absolute; left:0; color:var(--uncommon);">&#10003;</span>一部のグラブ/インタラクションでの落下アニメーションのクリッピングを修正</li>
+            </ul>
+
+            <p class="sub-label">変更・調整</p>
+            <ul style="list-style:none; padding:0; margin-bottom:1.5rem;">
+                <li style="color:var(--text-dim); font-size:.92rem; line-height:2; padding-left:1.2rem; position:relative;"><span style="position:absolute; left:0; color:var(--accent);">&#9670;</span>ワールドイベント（現実）でプレイヤーを攻撃できなくなりました</li>
+                <li style="color:var(--text-dim); font-size:.92rem; line-height:2; padding-left:1.2rem; position:relative;"><span style="position:absolute; left:0; color:var(--accent);">&#9670;</span>テスター/クリエイター向けのフリーカムを有効にしました</li>
+                <li style="color:var(--text-dim); font-size:.92rem; line-height:2; padding-left:1.2rem; position:relative;"><span style="position:absolute; left:0; color:var(--accent);">&#9670;</span>キラレイドステージ2のNPC爆弾爆発をナーフし、ビジュアルを修正しました</li>
+                <li style="color:var(--text-dim); font-size:.92rem; line-height:2; padding-left:1.2rem; position:relative;"><span style="position:absolute; left:0; color:var(--accent);">&#9670;</span>キラレイドで死亡すると、ステージの開始位置に戻ります</li>
+                <li style="color:var(--text-dim); font-size:.92rem; line-height:2; padding-left:1.2rem; position:relative;"><span style="position:absolute; left:0; color:var(--accent);">&#9670;</span>襲撃時のうなり声の赤みを軽減しました</li>
+            </ul>
+
+            <p class="sub-label">コード打ち方</p>
+            <p style="color:var(--text-dim); font-size:.92rem; margin-bottom:1rem;">グループに参加してチャットにてコードを打つ</p>
+            <div style="display:flex; flex-wrap:wrap; gap:.6rem;">
+                <code style="background:rgba(108,60,224,.15); border:1px solid rgba(108,60,224,.3); border-radius:8px; padding:.5rem 1rem; color:#b89aff; font-size:.95rem; font-weight:600;">!code 30kLikes</code>
+                <code style="background:rgba(108,60,224,.15); border:1px solid rgba(108,60,224,.3); border-radius:8px; padding:.5rem 1rem; color:#b89aff; font-size:.95rem; font-weight:600;">!code 100kLikes</code>
+                <code style="background:rgba(108,60,224,.15); border:1px solid rgba(108,60,224,.3); border-radius:8px; padding:.5rem 1rem; color:#b89aff; font-size:.95rem; font-weight:600;">!code shutdownoops</code>
+                <code style="background:rgba(108,60,224,.15); border:1px solid rgba(108,60,224,.3); border-radius:8px; padding:.5rem 1rem; color:#b89aff; font-size:.95rem; font-weight:600;">!code 1week</code>
+            </div>
+        </div>
+    </section>
+
+    <hr class="section-divider">
 
     <!-- ===== 基本情報 ===== -->
     <section id="basics">
@@ -1476,48 +1522,6 @@
         </div>
     </section>
 
-    <hr class="section-divider">
-
-    <section id="updates">
-        <div class="container">
-            <div class="section-header">
-                <h2>アップデート情報</h2>
-                <p>Bizarre Lineageの最新パッチノート・変更点まとめ</p>
-            </div>
-
-            <div class="card" style="max-width:800px;">
-                <h3 style="display:flex; align-items:center; gap:.6rem; margin-bottom:1.2rem;">
-                    <span style="background:linear-gradient(135deg,var(--primary),var(--accent)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">最新パッチノート</span>
-                    <span class="rarity-badge rarity-rare" style="font-size:.7rem;">NEW</span>
-                </h3>
-
-                <p class="sub-label">バグ修正</p>
-                <ul style="list-style:none; padding:0; margin-bottom:1.5rem;">
-                    <li style="color:var(--text-dim); font-size:.92rem; line-height:2; padding-left:1.2rem; position:relative;"><span style="position:absolute; left:0; color:var(--uncommon);">&#10003;</span>ゲームモードでリセットできなくなりました</li>
-                    <li style="color:var(--text-dim); font-size:.92rem; line-height:2; padding-left:1.2rem; position:relative;"><span style="position:absolute; left:0; color:var(--uncommon);">&#10003;</span>瞑想中のゴーストがアリーナの外に出てしまう問題を修正</li>
-                    <li style="color:var(--text-dim); font-size:.92rem; line-height:2; padding-left:1.2rem; position:relative;"><span style="position:absolute; left:0; color:var(--uncommon);">&#10003;</span>デイリークエストが正しく動作しない問題を修正</li>
-                    <li style="color:var(--text-dim); font-size:.92rem; line-height:2; padding-left:1.2rem; position:relative;"><span style="position:absolute; left:0; color:var(--uncommon);">&#10003;</span>1v1sで奇妙なエリアに配置されるグラブを修正</li>
-                    <li style="color:var(--text-dim); font-size:.92rem; line-height:2; padding-left:1.2rem; position:relative;"><span style="position:absolute; left:0; color:var(--uncommon);">&#10003;</span>削除されたギャングを適切に残すことができます</li>
-                    <li style="color:var(--text-dim); font-size:.92rem; line-height:2; padding-left:1.2rem; position:relative;"><span style="position:absolute; left:0; color:var(--uncommon);">&#10003;</span>あなた以外のプレイヤーにとって実行中のアニメーションが不安定になる問題を修正</li>
-                    <li style="color:var(--text-dim); font-size:.92rem; line-height:2; padding-left:1.2rem; position:relative;"><span style="position:absolute; left:0; color:var(--uncommon);">&#10003;</span>一部のグラブ/インタラクションでの落下アニメーションのクリッピングを修正</li>
-                </ul>
-
-                <p class="sub-label">変更・調整</p>
-                <ul style="list-style:none; padding:0; margin-bottom:1.5rem;">
-                    <li style="color:var(--text-dim); font-size:.92rem; line-height:2; padding-left:1.2rem; position:relative;"><span style="position:absolute; left:0; color:var(--accent);">&#9670;</span>ワールドイベント（現実）でプレイヤーを攻撃できなくなりました</li>
-                    <li style="color:var(--text-dim); font-size:.92rem; line-height:2; padding-left:1.2rem; position:relative;"><span style="position:absolute; left:0; color:var(--accent);">&#9670;</span>テスター/クリエイター向けのフリーカムを有効にしました</li>
-                    <li style="color:var(--text-dim); font-size:.92rem; line-height:2; padding-left:1.2rem; position:relative;"><span style="position:absolute; left:0; color:var(--accent);">&#9670;</span>キラレイドステージ2のNPC爆弾爆発をナーフし、ビジュアルを修正しました</li>
-                    <li style="color:var(--text-dim); font-size:.92rem; line-height:2; padding-left:1.2rem; position:relative;"><span style="position:absolute; left:0; color:var(--accent);">&#9670;</span>キラレイドで死亡すると、ステージの開始位置に戻ります</li>
-                    <li style="color:var(--text-dim); font-size:.92rem; line-height:2; padding-left:1.2rem; position:relative;"><span style="position:absolute; left:0; color:var(--accent);">&#9670;</span>襲撃時のうなり声の赤みを軽減しました</li>
-                </ul>
-
-                <p class="sub-label">新しいコード</p>
-                <div style="background:rgba(108,60,224,.1); border:1px solid rgba(108,60,224,.3); border-radius:10px; padding:1rem 1.2rem; display:inline-block;">
-                    <p style="color:var(--text-dim); font-size:.9rem;">新コードが追加されました。ゲーム内メニューから入力してください！</p>
-                </div>
-            </div>
-        </div>
-    </section>
 </main>
 
 <footer>
