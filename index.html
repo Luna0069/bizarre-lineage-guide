@@ -36,8 +36,10 @@
 
         /* Nav */
         .nav-sticky { position:sticky; top:0; z-index:100; background:rgba(10,10,26,.9); backdrop-filter:blur(20px); border-bottom:1px solid var(--border); }
-        .nav-inner { max-width:1200px; margin:0 auto; padding:0 1.5rem; display:flex; overflow-x:auto; scrollbar-width:none; }
-        .nav-inner::-webkit-scrollbar { display:none; }
+        .nav-inner { max-width:1200px; margin:0 auto; padding:0 1.5rem; display:flex; overflow-x:auto; scrollbar-width:thin; scrollbar-color:var(--primary) transparent; -webkit-overflow-scrolling:touch; }
+        .nav-inner::-webkit-scrollbar { height:4px; }
+        .nav-inner::-webkit-scrollbar-track { background:transparent; }
+        .nav-inner::-webkit-scrollbar-thumb { background:var(--primary); border-radius:4px; }
         .nav-link { padding:1rem 1.1rem; color:var(--text-dim); text-decoration:none; font-size:.88rem; font-weight:500; white-space:nowrap; border-bottom:2px solid transparent; transition:all .3s; }
         .nav-link:hover,.nav-link.active { color:var(--text); border-bottom-color:var(--primary); }
 
@@ -1427,6 +1429,7 @@
             <div class="acc-card mythical-border"><img src="images/32288e3839a4.png" alt="Prime Jotaro's Coat" loading="lazy"><div class="acc-card-body"><h4>Prime Jotaro's Coat（プライム承太郎のコート）<span class="rarity-badge rarity-mythical" style="margin-left:.5rem;">神話級</span></h4><p>Defense: 9%, Health: 9, Power: 6, PvE Damage: 5%</p></div></div>
             <div class="acc-card mythical-border"><img src="images/296390785105.png" alt="Crucifix Pendant" loading="lazy"><div class="acc-card-body"><h4>Crucifix Pendant（十字架ペンダント）<span class="rarity-badge rarity-mythical" style="margin-left:.5rem;">神話級</span></h4><p>Defense: 3%, Health: 6, Penetration: 13.5%, PvE Damage: 5%</p></div></div>
             <div class="acc-card mythical-border"><img src="images/22735d8d82df.png" alt="The Bosses Watch" loading="lazy"><div class="acc-card-body"><h4>The Bosses Watch（ボスの時計）<span class="rarity-badge rarity-mythical" style="margin-left:.5rem;">神話級</span></h4><p>ボスからのドロップ。</p></div></div>
+            <div class="acc-card mythical-border"><img src="images/white-fur-hat.png" alt="White Fur Hat" loading="lazy"><div class="acc-card-body"><h4>White Fur Hat（ホワイトファーハット）<span class="rarity-badge rarity-mythical" style="margin-left:.5rem;">神話級</span></h4><p>雷系攻撃が1/5の確率でサンダーストライクを発生させる。入手: Legendary Chest</p></div></div>
         </div>
 
         <p class="sub-label">Legendary（伝説級）</p>
