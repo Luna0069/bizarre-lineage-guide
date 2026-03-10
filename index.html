@@ -253,6 +253,7 @@
         <a href="#skins" class="nav-link">スキン</a>
         <a href="#accessories" class="nav-link">アクセサリー</a>
         <a href="#npcs" class="nav-link">NPC</a>
+        <a href="#comments" class="nav-link">コメント</a>
     </div>
 </nav>
 
@@ -1561,6 +1562,32 @@
         </div>
     </section>
 
+    <hr class="section-divider">
+
+    <!-- ===== コメント ===== -->
+    <section id="comments">
+        <div class="section-header">
+            <h2>コメント</h2>
+            <p>匿名で自由にコメントできます！攻略情報の共有や感想をどうぞ</p>
+        </div>
+
+        <div style="max-width:800px;">
+            <div class="card" style="margin-bottom:2rem;">
+                <h3 style="margin-bottom:1rem; color:#b89aff;">コメントを投稿</h3>
+                <input type="text" id="comment-name" placeholder="名前（空欄で「匿名」になります）" style="width:100%; padding:.7rem 1rem; background:rgba(255,255,255,.05); border:1px solid var(--border); border-radius:8px; color:var(--text); font-size:.92rem; margin-bottom:.8rem; outline:none; font-family:inherit;" maxlength="20">
+                <textarea id="comment-text" placeholder="コメントを入力..." rows="3" style="width:100%; padding:.7rem 1rem; background:rgba(255,255,255,.05); border:1px solid var(--border); border-radius:8px; color:var(--text); font-size:.92rem; margin-bottom:.8rem; outline:none; resize:vertical; font-family:inherit;" maxlength="500"></textarea>
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <span id="comment-status" style="font-size:.85rem; color:var(--text-dim);"></span>
+                    <button id="comment-submit" onclick="postComment()" style="padding:.6rem 1.5rem; background:linear-gradient(135deg,var(--primary),var(--primary-dark)); color:#fff; border:none; border-radius:8px; font-size:.92rem; font-weight:600; cursor:pointer; font-family:inherit; transition:all .3s;">投稿する</button>
+                </div>
+            </div>
+
+            <div id="comments-list">
+                <p style="color:var(--text-dim); text-align:center;">コメントを読み込み中...</p>
+            </div>
+        </div>
+    </section>
+
 </main>
 
 <footer>
@@ -1598,5 +1625,81 @@
     }));
 </script>
 
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script>
+    firebase.initializeApp({
+        apiKey: "AIzaSyDEeuJcS5eTVNyb4RYizylmGlgeJ8te33Q",
+        authDomain: "luna-67.firebaseapp.com",
+        projectId: "luna-67",
+        storageBucket: "luna-67.firebasestorage.app",
+        messagingSenderId: "868530231037",
+        appId: "1:868530231037:web:70daf9e4f7b2b94cd35094"
+    });
+    const db = firebase.firestore();
+    const commentsRef = db.collection('comments');
+
+    function escapeHtml(text) {
+        const d = document.createElement('div');
+        d.textContent = text;
+        return d.innerHTML;
+    }
+
+    function timeAgo(date) {
+        const s = Math.floor((Date.now() - date) / 1000);
+        if (s < 60) return 'たった今';
+        if (s < 3600) return Math.floor(s / 60) + '分前';
+        if (s < 86400) return Math.floor(s / 3600) + '時間前';
+        if (s < 2592000) return Math.floor(s / 86400) + '日前';
+        return date.toLocaleDateString('ja-JP');
+    }
+
+    function renderComments(snapshot) {
+        const list = document.getElementById('comments-list');
+        if (snapshot.empty) {
+            list.innerHTML = '<p style="color:var(--text-dim); text-align:center;">まだコメントはありません。最初のコメントを投稿しよう！</p>';
+            return;
+        }
+        list.innerHTML = '';
+        snapshot.forEach(doc => {
+            const d = doc.data();
+            const date = d.createdAt ? d.createdAt.toDate() : new Date();
+            const card = document.createElement('div');
+            card.style.cssText = 'background:var(--bg-card); border:1px solid var(--border); border-radius:12px; padding:1.2rem; margin-bottom:.8rem;';
+            card.innerHTML = '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:.5rem;">'
+                + '<span style="font-weight:700; color:#b89aff; font-size:.95rem;">' + escapeHtml(d.name) + '</span>'
+                + '<span style="font-size:.8rem; color:var(--text-dim);">' + timeAgo(date) + '</span></div>'
+                + '<p style="color:var(--text-dim); font-size:.92rem; line-height:1.7; white-space:pre-wrap;">' + escapeHtml(d.text) + '</p>';
+            list.appendChild(card);
+        });
+    }
+
+    commentsRef.orderBy('createdAt', 'desc').limit(50).onSnapshot(renderComments, function() {
+        document.getElementById('comments-list').innerHTML = '<p style="color:var(--text-dim); text-align:center;">コメントの読み込みに失敗しました</p>';
+    });
+
+    function postComment() {
+        const nameEl = document.getElementById('comment-name');
+        const textEl = document.getElementById('comment-text');
+        const status = document.getElementById('comment-status');
+        const btn = document.getElementById('comment-submit');
+        const text = textEl.value.trim();
+        if (!text) { status.textContent = 'コメントを入力してください'; status.style.color = 'var(--accent)'; return; }
+        btn.disabled = true; btn.textContent = '投稿中...';
+        commentsRef.add({
+            name: nameEl.value.trim() || '匿名',
+            text: text,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        }).then(function() {
+            nameEl.value = ''; textEl.value = '';
+            status.textContent = '投稿しました！'; status.style.color = 'var(--uncommon)';
+            btn.disabled = false; btn.textContent = '投稿する';
+            setTimeout(function() { status.textContent = ''; }, 3000);
+        }).catch(function() {
+            status.textContent = '投稿に失敗しました'; status.style.color = 'var(--accent)';
+            btn.disabled = false; btn.textContent = '投稿する';
+        });
+    }
+</script>
 </body>
 </html>
