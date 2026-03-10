@@ -1,0 +1,1505 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bizarre Lineage 攻略Wiki | ロブロックス攻略ガイド</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6c3ce0; --primary-dark: #4a1fb8;
+            --accent: #ff6b35; --accent-glow: #ff8c5a;
+            --bg-dark: #0a0a1a; --bg-card: #12122a; --bg-card-hover: #1a1a3a;
+            --text: #e8e8f0; --text-dim: #9090b0; --border: #2a2a4a;
+            --legendary: #ff9500; --mythical: #b44dff; --rare: #4d94ff;
+            --uncommon: #4dff88; --common: #999; --secret: #ff4d6a;
+        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:'Noto Sans JP',sans-serif; background:var(--bg-dark); color:var(--text); line-height:1.7; overflow-x:hidden; }
+
+        /* Hero */
+        .hero { position:relative; min-height:60vh; display:flex; align-items:center; justify-content:center; text-align:center; background:linear-gradient(135deg,#0a0a2e,#1a0a3e 30%,#2a0a4e 60%,#0a0a2e); overflow:hidden; }
+        .hero::before { content:''; position:absolute; top:-50%; left:-50%; width:200%; height:200%; background:radial-gradient(circle at 30% 50%,rgba(108,60,224,.15),transparent 50%),radial-gradient(circle at 70% 50%,rgba(255,107,53,.1),transparent 50%); animation:hf 15s ease-in-out infinite; }
+        @keyframes hf { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-2%,2%) rotate(1deg)} }
+        .hero-content { position:relative; z-index:2; padding:2rem; }
+        .hero-badge { display:inline-block; background:rgba(108,60,224,.3); border:1px solid rgba(108,60,224,.5); padding:.4rem 1.2rem; border-radius:50px; font-size:.85rem; font-weight:500; letter-spacing:.1em; color:#b89aff; margin-bottom:1.5rem; }
+        .hero h1 { font-size:clamp(2.5rem,6vw,4.5rem); font-weight:900; background:linear-gradient(135deg,#fff,#b89aff 50%,#ff6b35); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; margin-bottom:1rem; }
+        .hero p { font-size:1.15rem; color:var(--text-dim); max-width:600px; margin:0 auto 2rem; }
+        .hero-links { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
+        .hero-links a { display:inline-flex; align-items:center; gap:.5rem; padding:.7rem 1.5rem; border-radius:10px; text-decoration:none; font-weight:500; font-size:.95rem; transition:all .3s; }
+        .btn-primary { background:linear-gradient(135deg,var(--primary),var(--primary-dark)); color:#fff; border:1px solid rgba(108,60,224,.5); }
+        .btn-primary:hover { transform:translateY(-2px); box-shadow:0 8px 25px rgba(108,60,224,.4); }
+        .btn-secondary { background:rgba(255,255,255,.05); color:var(--text); border:1px solid var(--border); }
+        .btn-secondary:hover { background:rgba(255,255,255,.1); transform:translateY(-2px); }
+
+        /* Nav */
+        .nav-sticky { position:sticky; top:0; z-index:100; background:rgba(10,10,26,.9); backdrop-filter:blur(20px); border-bottom:1px solid var(--border); }
+        .nav-inner { max-width:1200px; margin:0 auto; padding:0 1.5rem; display:flex; overflow-x:auto; scrollbar-width:none; }
+        .nav-inner::-webkit-scrollbar { display:none; }
+        .nav-link { padding:1rem 1.1rem; color:var(--text-dim); text-decoration:none; font-size:.88rem; font-weight:500; white-space:nowrap; border-bottom:2px solid transparent; transition:all .3s; }
+        .nav-link:hover,.nav-link.active { color:var(--text); border-bottom-color:var(--primary); }
+
+        /* Common */
+        .container { max-width:1200px; margin:0 auto; padding:0 1.5rem; }
+        section { padding:4rem 0; }
+        .section-header { margin-bottom:2.5rem; }
+        .section-header h2 { font-size:2rem; font-weight:700; }
+        .section-header p { color:var(--text-dim); margin-top:.5rem; }
+        .section-divider { border:none; height:1px; background:linear-gradient(90deg,transparent,var(--border),transparent); }
+        .sub-label { font-size:1.1rem; margin-bottom:1rem; color:#b89aff; font-weight:600; }
+
+        /* Cards */
+        .card-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:1.2rem; }
+        .card { background:var(--bg-card); border:1px solid var(--border); border-radius:14px; padding:1.5rem; transition:all .3s; }
+        .card:hover { background:var(--bg-card-hover); border-color:rgba(108,60,224,.3); transform:translateY(-3px); box-shadow:0 8px 30px rgba(0,0,0,.3); }
+        .card h3 { font-size:1.15rem; font-weight:700; margin-bottom:.7rem; }
+        .card p,.card li { color:var(--text-dim); font-size:.92rem; line-height:1.8; }
+        .card ul { list-style:none; padding:0; }
+        .card ul li::before { content:'▸ '; color:var(--primary); font-weight:bold; }
+        .card-img { width:100%; border-radius:10px; margin-bottom:1rem; object-fit:cover; max-height:200px; }
+
+        /* Stands */
+        .stand-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(340px,1fr)); gap:1.5rem; }
+        .stand-card { background:var(--bg-card); border:1px solid var(--border); border-radius:16px; overflow:hidden; transition:all .3s; }
+        .stand-card:hover { transform:translateY(-4px); box-shadow:0 12px 40px rgba(0,0,0,.4); }
+        .stand-card-header { padding:1.2rem 1.5rem; display:flex; align-items:center; justify-content:space-between; }
+        .stand-card-header h3 { font-size:1.2rem; font-weight:700; }
+        .stand-card-img { width:100%; height:220px; object-fit:cover; border-bottom:1px solid var(--border); }
+        .rarity-badge { padding:.25rem .8rem; border-radius:50px; font-size:.75rem; font-weight:700; letter-spacing:.05em; }
+        .rarity-legendary { background:rgba(255,149,0,.15); color:var(--legendary); border:1px solid rgba(255,149,0,.3); }
+        .rarity-mythical { background:rgba(180,77,255,.15); color:var(--mythical); border:1px solid rgba(180,77,255,.3); }
+        .rarity-rare { background:rgba(77,148,255,.15); color:var(--rare); border:1px solid rgba(77,148,255,.3); }
+        .rarity-uncommon { background:rgba(77,255,136,.15); color:var(--uncommon); border:1px solid rgba(77,255,136,.3); }
+        .rarity-common { background:rgba(153,153,153,.15); color:var(--common); border:1px solid rgba(153,153,153,.3); }
+        .rarity-secret { background:rgba(255,77,106,.15); color:var(--secret); border:1px solid rgba(255,77,106,.3); }
+        .legendary-border { border-color:rgba(255,149,0,.3); }
+        .mythical-border { border-color:rgba(180,77,255,.3); }
+        .rare-border { border-color:rgba(77,148,255,.3); }
+        .uncommon-border { border-color:rgba(77,255,136,.3); }
+        .stand-card-body { padding:0 1.5rem 1.5rem; }
+        .move-list { display:flex; flex-wrap:wrap; gap:.4rem; }
+        .move-tag { background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.08); padding:.3rem .7rem; border-radius:8px; font-size:.82rem; color:var(--text-dim); transition:all .2s; }
+        .move-tag:hover { background:rgba(108,60,224,.15); border-color:rgba(108,60,224,.3); color:var(--text); }
+        .move-tag.special { background:rgba(255,107,53,.12); border-color:rgba(255,107,53,.25); color:var(--accent-glow); }
+
+        /* Area */
+        .area-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:1.2rem; }
+        .area-card { background:var(--bg-card); border:1px solid var(--border); border-radius:14px; padding:1.5rem; transition:all .3s; position:relative; overflow:hidden; }
+        .area-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--primary),var(--accent)); opacity:0; transition:opacity .3s; }
+        .area-card:hover::before { opacity:1; }
+        .area-card:hover { background:var(--bg-card-hover); transform:translateY(-3px); box-shadow:0 8px 30px rgba(0,0,0,.3); }
+        .area-card h3 { font-size:1.1rem; font-weight:700; margin-bottom:.5rem; }
+        .bus-stop { display:inline-block; background:rgba(108,60,224,.15); color:#b89aff; padding:.2rem .6rem; border-radius:6px; font-size:.78rem; font-weight:500; margin-bottom:.7rem; }
+        .area-card p { color:var(--text-dim); font-size:.9rem; }
+        .npc-tag { display:inline-block; background:rgba(255,255,255,.06); padding:.2rem .6rem; border-radius:6px; font-size:.8rem; margin:.2rem .2rem 0 0; color:var(--text-dim); }
+
+        /* Progress */
+        .progress-steps { display:flex; flex-direction:column; gap:1rem; }
+        .step { display:flex; gap:1.2rem; align-items:flex-start; }
+        .step-num { flex-shrink:0; width:40px; height:40px; background:linear-gradient(135deg,var(--primary),var(--primary-dark)); border-radius:12px; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:1.1rem; }
+        .step-content h4 { font-weight:700; margin-bottom:.3rem; }
+        .step-content p { color:var(--text-dim); font-size:.92rem; }
+
+        /* Table */
+        .item-table { width:100%; border-collapse:separate; border-spacing:0; background:var(--bg-card); border-radius:14px; overflow:hidden; border:1px solid var(--border); }
+        .item-table thead th { background:rgba(108,60,224,.12); padding:1rem 1.2rem; text-align:left; font-weight:600; font-size:.9rem; color:#b89aff; border-bottom:1px solid var(--border); }
+        .item-table tbody td { padding:.8rem 1.2rem; border-bottom:1px solid rgba(255,255,255,.03); font-size:.9rem; color:var(--text-dim); }
+        .item-table tbody tr:hover td { background:rgba(255,255,255,.02); }
+        .item-table tbody tr:last-child td { border-bottom:none; }
+
+        /* Keybinds */
+        .keybind-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:.8rem; }
+        .keybind { display:flex; align-items:center; gap:.8rem; padding:.8rem 1rem; background:var(--bg-card); border:1px solid var(--border); border-radius:10px; }
+        kbd { display:inline-flex; align-items:center; justify-content:center; min-width:36px; height:32px; padding:0 .5rem; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.15); border-radius:6px; font-family:'Noto Sans JP',monospace; font-size:.82rem; font-weight:600; color:var(--text); box-shadow:0 2px 0 rgba(0,0,0,.3); }
+        .keybind span { font-size:.88rem; color:var(--text-dim); }
+
+        /* Styles */
+        .style-card { background:var(--bg-card); border:1px solid var(--border); border-radius:14px; padding:1.5rem; margin-bottom:1.2rem; }
+        .style-card h3 { font-size:1.2rem; font-weight:700; margin-bottom:.3rem; }
+        .style-card .trainer { color:var(--text-dim); font-size:.88rem; margin-bottom:1rem; }
+        .style-card-img { width:100%; max-height:180px; object-fit:cover; border-radius:10px; margin-bottom:1rem; }
+        .style-moves { display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:.8rem; }
+        .style-move { background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.05); border-radius:10px; padding:.8rem 1rem; }
+        .style-move h4 { font-size:.95rem; font-weight:600; margin-bottom:.3rem; }
+        .style-move p { font-size:.82rem; color:var(--text-dim); }
+
+        /* Trait */
+        .trait-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:1rem; }
+        .trait-card { background:var(--bg-card); border:1px solid var(--border); border-radius:12px; padding:1.2rem; transition:all .3s; }
+        .trait-card:hover { background:var(--bg-card-hover); transform:translateY(-2px); }
+        .trait-card h4 { font-weight:700; margin-bottom:.3rem; display:flex; align-items:center; gap:.5rem; flex-wrap:wrap; }
+        .trait-source { font-size:.75rem; background:rgba(108,60,224,.15); color:#b89aff; padding:.15rem .5rem; border-radius:4px; }
+        .trait-card p { font-size:.88rem; color:var(--text-dim); }
+
+        /* Personality */
+        .personality-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:.8rem; }
+        .personality-card { background:var(--bg-card); border:1px solid var(--border); border-radius:12px; padding:1rem 1.2rem; transition:all .3s; }
+        .personality-card:hover { background:var(--bg-card-hover); transform:translateY(-2px); }
+        .personality-card h4 { font-weight:700; font-size:.95rem; margin-bottom:.3rem; display:flex; align-items:center; gap:.5rem; }
+        .personality-card p { font-size:.85rem; color:var(--text-dim); }
+
+        /* DD */
+        .dd-tiers { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:.8rem; margin-top:1rem; }
+        .dd-tier { background:var(--bg-card); border:1px solid var(--border); border-radius:10px; padding:1rem; text-align:center; }
+        .dd-tier .tier-num { font-size:1.5rem; font-weight:900; color:var(--mythical); margin-bottom:.3rem; }
+        .dd-tier p { font-size:.85rem; color:var(--text-dim); }
+
+        /* Sub img */
+        .sub-img { width:100%; max-height:180px; object-fit:cover; border-radius:10px; margin-bottom:.8rem; }
+        .gif-preview { width:100%; border-radius:8px; margin-top:.5rem; max-height:140px; object-fit:cover; }
+
+        /* Tabs */
+        .tab-buttons { display:flex; gap:.5rem; flex-wrap:wrap; margin-bottom:1.5rem; }
+        .tab-btn { padding:.5rem 1.2rem; background:rgba(255,255,255,.05); border:1px solid var(--border); border-radius:10px; color:var(--text-dim); font-family:'Noto Sans JP',sans-serif; font-size:.9rem; font-weight:500; cursor:pointer; transition:all .3s; }
+        .tab-btn:hover { background:rgba(108,60,224,.15); color:var(--text); }
+        .tab-btn.active { background:linear-gradient(135deg,var(--primary),var(--primary-dark)); border-color:var(--primary); color:#fff; }
+        .tab-content { display:none; }
+        .tab-content.active { display:block; }
+
+        /* Perks */
+        .perk-section { margin-top:.8rem; padding-top:.8rem; border-top:1px solid rgba(255,255,255,.05); }
+        .perk-section-title { font-size:.78rem; font-weight:600; color:#b89aff; margin-bottom:.5rem; letter-spacing:.05em; }
+        .perk-item { background:rgba(108,60,224,.06); border:1px solid rgba(108,60,224,.12); border-radius:8px; padding:.5rem .7rem; margin-bottom:.4rem; }
+        .perk-item h5 { font-size:.82rem; font-weight:600; color:var(--text); margin-bottom:.15rem; }
+        .perk-item p { font-size:.78rem; color:var(--text-dim); line-height:1.5; }
+
+        /* Skin Grid */
+        .skin-stand-section { margin-bottom:2rem; }
+        .skin-stand-title { font-size:1.15rem; font-weight:700; margin-bottom:1rem; padding-bottom:.5rem; border-bottom:1px solid var(--border); }
+        .skin-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:1rem; }
+        .skin-card { background:var(--bg-card); border:1px solid var(--border); border-radius:12px; overflow:hidden; transition:all .3s; }
+        .skin-card:hover { transform:translateY(-3px); box-shadow:0 8px 25px rgba(0,0,0,.3); border-color:rgba(108,60,224,.3); }
+        .skin-card img { width:100%; height:160px; object-fit:cover; }
+        .skin-card-name { padding:.6rem .8rem; font-size:.85rem; font-weight:600; text-align:center; }
+
+        /* Accessory Grid */
+        .acc-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:1rem; }
+        .acc-card { background:var(--bg-card); border:1px solid var(--border); border-radius:12px; overflow:hidden; transition:all .3s; display:flex; flex-direction:column; }
+        .acc-card:hover { transform:translateY(-3px); box-shadow:0 8px 25px rgba(0,0,0,.3); }
+        .acc-card img { width:100%; height:150px; object-fit:cover; }
+        .acc-card-body { padding:.8rem 1rem; flex:1; }
+        .acc-card-body h4 { font-size:.92rem; font-weight:700; margin-bottom:.3rem; }
+        .acc-card-body p { font-size:.82rem; color:var(--text-dim); }
+
+        /* NPC Grid */
+        .npc-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:1.2rem; }
+        .npc-card { background:var(--bg-card); border:1px solid var(--border); border-radius:14px; overflow:hidden; transition:all .3s; }
+        .npc-card:hover { transform:translateY(-3px); box-shadow:0 8px 30px rgba(0,0,0,.3); border-color:rgba(108,60,224,.3); }
+        .npc-card img { width:100%; height:200px; object-fit:cover; }
+        .npc-card-body { padding:1rem 1.2rem; }
+        .npc-card-body h4 { font-size:1rem; font-weight:700; margin-bottom:.3rem; }
+        .npc-card-body .npc-location { font-size:.82rem; color:#b89aff; margin-bottom:.5rem; }
+        .npc-card-body p { font-size:.88rem; color:var(--text-dim); }
+
+        /* Footer */
+        footer { background:rgba(0,0,0,.3); border-top:1px solid var(--border); padding:3rem 0; margin-top:2rem; }
+        .footer-inner { max-width:1200px; margin:0 auto; padding:0 1.5rem; text-align:center; color:var(--text-dim); font-size:.88rem; }
+        .footer-inner a { color:#b89aff; text-decoration:none; }
+        .footer-inner a:hover { text-decoration:underline; }
+
+        ::-webkit-scrollbar { width:8px; }
+        ::-webkit-scrollbar-track { background:var(--bg-dark); }
+        ::-webkit-scrollbar-thumb { background:var(--border); border-radius:4px; }
+
+        @media(max-width:768px) {
+            .card-grid,.stand-grid,.area-grid,.personality-grid { grid-template-columns:1fr; }
+            .keybind-grid { grid-template-columns:repeat(2,1fr); }
+            .hero { min-height:50vh; }
+            section { padding:2.5rem 0; }
+        }
+        @media(max-width:480px) { .keybind-grid { grid-template-columns:1fr; } .hero-links { flex-direction:column; align-items:center; } }
+    </style>
+</head>
+<body>
+
+<header class="hero">
+    <div class="hero-content">
+        <div class="hero-badge">ROBLOX 攻略ガイド</div>
+        <h1>Bizarre Lineage<br>完全攻略</h1>
+        <p>スタンド・エリア・進行・アイテムなど、ゲームのすべてを網羅した日本語攻略ガイド</p>
+        <div class="hero-links">
+            <a href="https://www.roblox.com/games/14890802310/Bizarre-Lineage" target="_blank" class="btn-primary">ゲームをプレイ</a>
+            <a href="https://discord.gg/bizarrelineage" target="_blank" class="btn-secondary">公式Discord</a>
+        </div>
+    </div>
+</header>
+
+<nav class="nav-sticky">
+    <div class="nav-inner">
+        <a href="#basics" class="nav-link">基本情報</a>
+        <a href="#regions" class="nav-link">エリア</a>
+        <a href="#stands" class="nav-link">スタンド</a>
+        <a href="#personalities" class="nav-link">パーソナリティ</a>
+        <a href="#progression" class="nav-link">進行</a>
+        <a href="#fighting" class="nav-link">格闘スタイル</a>
+        <a href="#sub-abilities" class="nav-link">サブ能力</a>
+        <a href="#evolutions" class="nav-link">進化</a>
+        <a href="#items" class="nav-link">アイテム</a>
+        <a href="#mechanics" class="nav-link">ゲーム仕様</a>
+        <a href="#traits" class="nav-link">トレイト</a>
+        <a href="#skins" class="nav-link">スキン</a>
+        <a href="#accessories" class="nav-link">アクセサリー</a>
+        <a href="#npcs" class="nav-link">NPC</a>
+    </div>
+</nav>
+
+<main class="container">
+
+    <!-- ===== 基本情報 ===== -->
+    <section id="basics">
+        <div class="section-header">
+            <h2>基本情報</h2>
+            <p>ゲームを始めるための基礎知識とキー操作</p>
+        </div>
+
+        <h3 class="sub-label">キー操作一覧</h3>
+        <div class="keybind-grid" style="margin-bottom:2rem;">
+            <div class="keybind"><kbd>M</kbd><span>メニューを開く</span></div>
+            <div class="keybind"><kbd>Tab</kbd><span>スタンド召喚</span></div>
+            <div class="keybind"><kbd>W×2</kbd><span>ダッシュ</span></div>
+            <div class="keybind"><kbd>Q</kbd><span>回避</span></div>
+            <div class="keybind"><kbd>F</kbd><span>ガード / パーフェクトブロック</span></div>
+            <div class="keybind"><kbd>`</kbd><span>インベントリ</span></div>
+            <div class="keybind"><kbd>Ctrl</kbd><span>スライディング</span></div>
+            <div class="keybind"><kbd>E,R,Z,X,C</kbd><span>スタンド能力</span></div>
+            <div class="keybind"><kbd>1,2,3...</kbd><span>能力ボタン</span></div>
+            <div class="keybind"><kbd>T</kbd><span>武器装備</span></div>
+            <div class="keybind"><kbd>B</kbd><span>乗り物</span></div>
+            <div class="keybind"><kbd>右クリック</kbd><span>クリティカル攻撃</span></div>
+            <div class="keybind"><kbd>N</kbd><span>イーグルビジョン</span></div>
+            <div class="keybind"><kbd>スライド+Space</kbd><span>スライドジャンプ</span></div>
+            <div class="keybind"><kbd>W×2+M1</kbd><span>ダッシュ攻撃</span></div>
+        </div>
+
+        <div class="card-grid">
+            <div class="card">
+                <img src="images/b4ab077ac46b.png" alt="メニュー" class="card-img" loading="lazy">
+                <h3>ステータス一覧</h3>
+                <ul>
+                    <li>Strength（筋力）— 物理攻撃ダメージ増加</li>
+                    <li>Health（体力）— 最大HP増加</li>
+                    <li>Power（パワー）— サブ能力のダメージ増加</li>
+                    <li>Weapon（武器）— 斬撃/武器ダメージ増加</li>
+                    <li>Destructive Power — スタンド物理攻撃増加</li>
+                    <li>Destructive Energy — スタンド特殊能力ダメージ増加</li>
+                </ul>
+            </div>
+            <div class="card">
+                <img src="images/0baf09f88f7b.png" alt="ゲームモード" class="card-img" loading="lazy">
+                <h3>ゲームモード</h3>
+                <p>勝者はチェスト＋ELOを獲得。敗者はELOを失う。</p>
+                <ul>
+                    <li>1v1 — ソロ対戦</li>
+                    <li>2v2 — ダブルス対戦</li>
+                    <li>3v3 — チーム対戦</li>
+                    <li>Gang Wars — ギャング同士の大規模戦</li>
+                    <li>Graveyard Uprising — サバイバルモード</li>
+                    <li>Deathmatch — チームPVP（2ライフ制）</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- ===== エリア ===== -->
+    <section id="regions">
+        <div class="section-header">
+            <h2>エリアガイド</h2>
+            <p>マップ上の各エリアとNPC情報</p>
+        </div>
+
+        <div class="card" style="margin-bottom:2rem; text-align:center;">
+            <img src="images/e257599ed480.png" alt="マップ全体" style="width:100%; border-radius:10px; max-height:400px; object-fit:contain;" loading="lazy">
+            <p style="margin-top:.8rem; color:#b89aff; font-weight:500;">マップ全体図</p>
+        </div>
+
+        <div class="area-grid">
+            <div class="area-card">
+                <img src="images/fc779b52f756.png" alt="Hotel" style="width:100%; border-radius:8px; margin-bottom:.8rem; max-height:150px; object-fit:cover;" loading="lazy">
+                <h3>Hotel（ホテル / チュートリアル）</h3>
+                <p>ゲーム開始地点。Receptionist（受付NPC）に話しかけてチュートリアルを受けよう。</p>
+                <div><span class="npc-tag">Receptionist（受付係）</span></div>
+            </div>
+            <div class="area-card">
+                <img src="images/fd781cf9ab1a.png" alt="Morioh Station" style="width:100%; border-radius:8px; margin-bottom:.8rem; max-height:150px; object-fit:cover;" loading="lazy">
+                <h3>Morioh Station（杜王駅 / メインハブ）</h3>
+                <p>メイン拠点。World Events発生場所、Kiraボスがいる。</p>
+                <div><span class="npc-tag">Kira（吉良ボス）</span></div>
+            </div>
+            <div class="area-card">
+                <img src="images/0d322a6051eb.png" alt="Gym" style="width:100%; border-radius:8px; margin-bottom:.8rem; max-height:150px; object-fit:cover;" loading="lazy">
+                <h3>Gym（ジム）</h3><span class="bus-stop">バス停 #2</span>
+                <p>トレーニング場。Boxing習得、Jotaro Kujo NPC、Inner World入口。</p>
+                <div><span class="npc-tag">Boxing Coach（ボクシングコーチ）</span><span class="npc-tag">Jotaro Kujo（空条承太郎）</span></div>
+            </div>
+            <div class="area-card">
+                <img src="images/6b30b85da8a4.png" alt="Store" style="width:100%; border-radius:8px; margin-bottom:.8rem; max-height:150px; object-fit:cover;" loading="lazy">
+                <h3>Store（ストア）</h3>
+                <p>買い物と素材クラフトの拠点。</p>
+                <div><span class="npc-tag">Gupta（クラフト）</span><span class="npc-tag">Rahaj（ショップ）</span></div>
+            </div>
+            <div class="area-card">
+                <img src="images/ee5531a14031.png" alt="Kame Yu Market" style="width:100%; border-radius:8px; margin-bottom:.8rem; max-height:150px; object-fit:cover;" loading="lazy">
+                <h3>Kame Yu Market（亀友マーケット）</h3><span class="bus-stop">バス停 #15</span>
+                <p>Kendo（剣道）トレーナーがいるショッピングエリア。</p>
+                <div><span class="npc-tag">Samurai Master（侍マスター / 剣道）</span></div>
+            </div>
+            <div class="area-card">
+                <img src="images/8f4e1df235e9.png" alt="T-Point Gas Station" style="width:100%; border-radius:8px; margin-bottom:.8rem; max-height:150px; object-fit:cover;" loading="lazy">
+                <h3>T-Point Gas Station（ガソリンスタンド）</h3>
+                <p>Gang Territory（ギャングテリトリー）。Okuyasu Nijimuraがいる。</p>
+                <div><span class="npc-tag">Okuyasu Nijimura（虹村億泰）</span></div>
+            </div>
+            <div class="area-card">
+                <img src="images/733d5c1e1224.png" alt="Graveyard" style="width:100%; border-radius:8px; margin-bottom:.8rem; max-height:150px; object-fit:cover;" loading="lazy">
+                <h3>Graveyard（墓地エリア）</h3>
+                <p>複数のサブエリアを含む危険な地域。</p>
+                <div><span class="npc-tag">Dio's Chapel（DIOの礼拝堂）</span><span class="npc-tag">Cultist Castle（カルト教団の城）</span><span class="npc-tag">The Ruins（遺跡）</span><span class="npc-tag">Seaside House（海辺の家）</span></div>
+            </div>
+            <div class="area-card">
+                <img src="images/cb5a948fd755.png" alt="Dio's Chapel" style="width:100%; border-radius:8px; margin-bottom:.8rem; max-height:150px; object-fit:cover;" loading="lazy">
+                <h3>Dio's Chapel（DIOの礼拝堂）</h3>
+                <p>Vampire（ヴァンパイア）とCultist（カルト教団）のレイド場所。</p>
+                <div><span class="npc-tag">Elder Vampire（上位ヴァンパイア）</span></div>
+            </div>
+            <div class="area-card">
+                <img src="pucci.png" alt="Cultist Castle" style="width:100%; border-radius:8px; margin-bottom:.8rem; max-height:150px; object-fit:cover;" loading="lazy">
+                <h3>Cultist Castle（カルト教団の城）</h3><span class="bus-stop">バス停 #18</span>
+                <p>Pucci（プッチ神父）がいる。C-Moon進化のために訪れる。</p>
+                <div><span class="npc-tag">Pucci（プッチ神父）</span></div>
+            </div>
+            <div class="area-card">
+                <img src="images/169404852e6a.png" alt="The Ruins" style="width:100%; border-radius:8px; margin-bottom:.8rem; max-height:150px; object-fit:cover;" loading="lazy">
+                <h3>The Ruins（遺跡）</h3><span class="bus-stop">バス停 #3</span>
+                <p>Stroheim（シュトロハイム / サイボーグ習得）とDr. Bosconovitch。</p>
+                <div><span class="npc-tag">Rudol von Stroheim（シュトロハイム）</span><span class="npc-tag">Dr. Bosconovitch（ボスコノヴィッチ博士）</span></div>
+            </div>
+            <div class="area-card">
+                <img src="images/fa3cff8e2316.png" alt="Hospital" style="width:100%; border-radius:8px; margin-bottom:.8rem; max-height:150px; object-fit:cover;" loading="lazy">
+                <h3>Hospital（病院）</h3><span class="bus-stop">バス停 #15 付近</span>
+                <p>Arch Mage（アーチメイジ / プレステージ）とKarate Sensei（空手師範）がいる。</p>
+                <div><span class="npc-tag">Arch Mage（アーチメイジ）</span><span class="npc-tag">Karate Sensei（空手師範）</span></div>
+            </div>
+            <div class="area-card">
+                <img src="images/89b7b2db8219.png" alt="Docks" style="width:100%; border-radius:8px; margin-bottom:.8rem; max-height:150px; object-fit:cover;" loading="lazy">
+                <h3>Docks（港）</h3>
+                <p>Akira Otoishi（音石明）ボスとMafia Boss（マフィアボス）クエストがある。</p>
+                <div><span class="npc-tag">Akira Otoishi（音石明）</span><span class="npc-tag">Mafia Boss（マフィアボス）</span></div>
+            </div>
+            <div class="area-card">
+                <h3>Ancient Ghost（古代の幽霊の場所）</h3><span class="bus-stop">バス停 #13</span>
+                <p>Ancient Ghost（古代の幽霊）がいる。Hamon（波紋）習得クエスト。</p>
+                <div><span class="npc-tag">Ancient Ghost（古代の幽霊）</span></div>
+            </div>
+            <div class="area-card">
+                <img src="images/bd934f8e5831.jpg" alt="Determination" style="width:100%; border-radius:8px; margin-bottom:.8rem; max-height:150px; object-fit:cover;" loading="lazy">
+                <h3>Determination（デターミネーション）</h3><span class="bus-stop">バス停 #14</span>
+                <p>Dark Determination（ダークデターミネーション）のアンロックNPC。</p>
+                <div><span class="npc-tag">Determination NPC</span></div>
+            </div>
+        </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- ===== スタンド ===== -->
+    <section id="stands">
+        <div class="section-header">
+            <h2>スタンド一覧</h2>
+            <p>レアリティ別のスタンドと技構成（スタンドの矢を使用して入手）</p>
+        </div>
+
+        <div class="tab-buttons">
+            <button class="tab-btn active" onclick="switchTab('mythical')">神話級</button>
+            <button class="tab-btn" onclick="switchTab('legendary')">伝説級</button>
+            <button class="tab-btn" onclick="switchTab('rare')">レア</button>
+            <button class="tab-btn" onclick="switchTab('uncommon')">アンコモン</button>
+            <button class="tab-btn" onclick="switchTab('common')">コモン</button>
+        </div>
+
+        <!-- 神話級 -->
+        <div id="tab-mythical" class="tab-content active">
+            <div class="stand-grid">
+                <div class="stand-card mythical-border">
+                    <img src="images/4cbc5568842e.png" alt="ホワイトスネイク" class="stand-card-img" loading="lazy">
+                    <div class="stand-card-header"><h3>ホワイトスネイク</h3><span class="rarity-badge rarity-mythical">神話級</span></div>
+                    <div class="stand-card-body">
+                        <div class="move-list">
+                            <span class="move-tag">連打攻撃</span><span class="move-tag">足払い</span><span class="move-tag">リボルバー</span>
+                            <span class="move-tag">ディスク投げ</span><span class="move-tag">酸の破裂</span><span class="move-tag special">ディスク抽出</span>
+                        </div>
+                        <div class="perk-section">
+                            <div class="perk-section-title">PERKS</div>
+                            <div class="perk-item"><h5>Null Memory（記憶消去）</h5><p>相手の最初の攻撃のダメージを25%軽減。</p></div>
+                            <div class="perk-item"><h5>Synthetic Focus（合成集中）</h5><p>パワー最大時、防御力+20%。</p></div>
+                            <div class="perk-item"><h5>Autocrat（独裁者）</h5><p>ラグドールから復帰後、防御力+50%を1.25秒間獲得。</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 伝説級 -->
+        <div id="tab-legendary" class="tab-content">
+            <div class="stand-grid">
+                <div class="stand-card legendary-border">
+                    <img src="images/48867f3e0b73.png" alt="ザ・ワールド" class="stand-card-img" loading="lazy">
+                    <div class="stand-card-header"><h3>ザ・ワールド</h3><span class="rarity-badge rarity-legendary">伝説級</span></div>
+                    <div class="stand-card-body">
+                        <div class="move-list">
+                            <span class="move-tag">連打攻撃</span><span class="move-tag">ハードファイト</span><span class="move-tag">包囲</span>
+                            <span class="move-tag">ナイフ</span><span class="move-tag special">時間停止</span><span class="move-tag">キックボレー</span><span class="move-tag special">覚醒</span>
+                        </div>
+                        <div class="perk-section">
+                            <div class="perk-section-title">PERKS</div>
+                            <div class="perk-item"><h5>King of Time（時の王）</h5><p>時間停止中のダメージが10%増加。</p></div>
+                            <div class="perk-item"><h5>Theatrical（演劇的）</h5><p>飛び道具のダメージ+10%。</p></div>
+                            <div class="perk-item"><h5>Play with Your Food（獲物で遊ぶ）</h5><p>HP80%以上の時、超過1%ごとにダメージ+1%。</p></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="stand-card legendary-border">
+                    <img src="images/60b623fef5f4.png" alt="スタープラチナ" class="stand-card-img" loading="lazy">
+                    <div class="stand-card-header"><h3>スタープラチナ</h3><span class="rarity-badge rarity-legendary">伝説級</span></div>
+                    <div class="stand-card-body">
+                        <div class="move-list">
+                            <span class="move-tag">連打攻撃</span><span class="move-tag">スターフィンガー</span><span class="move-tag">吸い込み</span>
+                            <span class="move-tag">スカルクラッシャー</span><span class="move-tag">ハープーン</span><span class="move-tag special">時間停止</span><span class="move-tag special">覚醒</span>
+                        </div>
+                        <div class="perk-section">
+                            <div class="perk-section-title">PERKS</div>
+                            <div class="perk-item"><h5>Unyielding Force（不屈の力）</h5><p>素早く3ヒットでダメージ+5%を6秒間獲得（CD 20秒）。</p></div>
+                            <div class="perk-item"><h5>Fists of Fury（怒りの拳）</h5><p>ガードブレイク成功で相手をラグドール（CD 10秒）。</p></div>
+                            <div class="perk-item"><h5>Absolute Destruction（絶対破壊）</h5><p>壁に叩きつけた相手のガードを破壊（CD 15秒）。</p></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="stand-card legendary-border">
+                    <img src="images/29d2b8277b82.png" alt="キング・クリムゾン" class="stand-card-img" loading="lazy">
+                    <div class="stand-card-header"><h3>キング・クリムゾン</h3><span class="rarity-badge rarity-legendary">伝説級</span></div>
+                    <div class="stand-card-body">
+                        <div class="move-list">
+                            <span class="move-tag">連打攻撃</span><span class="move-tag">チョップ</span><span class="move-tag">串刺し</span>
+                            <span class="move-tag special">時間消去</span><span class="move-tag special">エピタフ</span><span class="move-tag">眼球えぐり</span>
+                        </div>
+                        <div class="perk-section">
+                            <div class="perk-section-title">PERKS</div>
+                            <div class="perk-item"><h5>Hidden Impact（隠された衝撃）</h5><p>回避後3秒以内にブロックすると防御力+15%。</p></div>
+                            <div class="perk-item"><h5>Forecasted Pain（予見された痛み）</h5><p>HP50%以下の敵のガードブレイク時のヒットスタン+25%。</p></div>
+                            <div class="perk-item"><h5>Two Steps Ahead（二歩先）</h5><p>回避→ブロックで防御力+15%を10秒間獲得。</p></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="stand-card legendary-border">
+                    <img src="images/d755e2681c74.png" alt="ザ・ワールド HV" class="stand-card-img" loading="lazy">
+                    <div class="stand-card-header"><h3>ザ・ワールド: ハイボルテージ</h3><span class="rarity-badge rarity-legendary">伝説級</span></div>
+                    <div class="stand-card-body">
+                        <div class="move-list">
+                            <span class="move-tag">連打攻撃</span><span class="move-tag">スピンキック</span><span class="move-tag">リボルバー連打</span>
+                            <span class="move-tag">ナイフ</span><span class="move-tag special">時間停止</span><span class="move-tag">煙幕弾</span>
+                        </div>
+                        <div class="perk-section">
+                            <div class="perk-section-title">PERKS</div>
+                            <div class="perk-item"><h5>Shockflow（衝撃の流れ）</h5><p>パワー10%減少ごとにダメージ+1%。</p></div>
+                            <div class="perk-item"><h5>Static Override（静電オーバーライド）</h5><p>パワー25%以下で移動速度上昇を7秒間獲得。</p></div>
+                            <div class="perk-item"><h5>Shock Conduit（衝撃伝導）</h5><p>パーフェクトブロック後6秒以内のガードブレイクでパワー回復ブースト。</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- レア -->
+        <div id="tab-rare" class="tab-content">
+            <div class="stand-grid">
+                <div class="stand-card rare-border">
+                    <img src="images/4fb83ffca562.png" alt="アヌビス神" class="stand-card-img" loading="lazy">
+                    <div class="stand-card-header"><h3>アヌビス神</h3><span class="rarity-badge rarity-rare">レア</span></div>
+                    <div class="stand-card-body">
+                        <div class="move-list">
+                            <span class="move-tag">連打攻撃</span><span class="move-tag">引き裂き</span><span class="move-tag">ダイスアウト</span>
+                            <span class="move-tag special">呪われた断絶</span><span class="move-tag">閃光斬り</span>
+                        </div>
+                        <div class="perk-section">
+                            <div class="perk-section-title">PERKS</div>
+                            <div class="perk-item"><h5>Sheathe（鞘）</h5><p>カウンター攻撃のダメージ+10%。</p></div>
+                            <div class="perk-item"><h5>The Blade（刃）</h5><p>斬撃ダメージ+10%。</p></div>
+                            <div class="perk-item"><h5>Flow State（フロー状態）</h5><p>HP50%以下でHP10%とパワーを即時回復。</p></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="stand-card rare-border">
+                    <img src="images/b039d8b5b48e.png" alt="キラークイーン" class="stand-card-img" loading="lazy">
+                    <div class="stand-card-header"><h3>キラークイーン</h3><span class="rarity-badge rarity-rare">レア</span></div>
+                    <div class="stand-card-body">
+                        <div class="move-list">
+                            <span class="move-tag">連打攻撃</span><span class="move-tag">第一の爆弾</span><span class="move-tag special">シアーハートアタック</span>
+                            <span class="move-tag">ストレイキャット</span><span class="move-tag">爆弾バウンス</span><span class="move-tag">鍛錬</span>
+                        </div>
+                        <div class="perk-section">
+                            <div class="perk-section-title">PERKS</div>
+                            <div class="perk-item"><h5>Detonate（起爆）</h5><p>ガードブレイク時に炎状態を付与（CD 20秒）。</p></div>
+                            <div class="perk-item"><h5>Heart Attack（心臓発作）</h5><p>ダメージを3秒間に分散。ダメージ-15%だが貫通力+45%。</p></div>
+                            <div class="perk-item"><h5>No Witnesses（目撃者なし）</h5><p>敵を撃破するとダメージ+15%を10秒間獲得。</p></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="stand-card rare-border">
+                    <img src="images/1901f4bd70ee.png" alt="ストーン・フリー" class="stand-card-img" loading="lazy">
+                    <div class="stand-card-header"><h3>ストーン・フリー</h3><span class="rarity-badge rarity-rare">レア</span></div>
+                    <div class="stand-card-body">
+                        <div class="move-list">
+                            <span class="move-tag">連打攻撃</span><span class="move-tag">スティングパンチ</span><span class="move-tag">ドロップキック</span>
+                            <span class="move-tag">糸の罠</span><span class="move-tag">螺旋の糸</span><span class="move-tag">糸の包帯</span>
+                        </div>
+                        <div class="perk-section">
+                            <div class="perk-section-title">PERKS</div>
+                            <div class="perk-item"><h5>Line Tension（糸の張力）</h5><p>通常攻撃以外の3回目の攻撃ごとに追加の確定ダメージ。</p></div>
+                            <div class="perk-item"><h5>Resourceful（機転）</h5><p>全体ダメージ+5%。</p></div>
+                            <div class="perk-item"><h5>Resilient（強靭）</h5><p>自分よりHP5%以上多い相手にダメージ+5%。</p></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="stand-card rare-border">
+                    <img src="images/df49483dd9fd.png" alt="ウェザー・リポート" class="stand-card-img" loading="lazy">
+                    <div class="stand-card-header"><h3>ウェザー・リポート</h3><span class="rarity-badge rarity-rare">レア</span></div>
+                    <div class="stand-card-body">
+                        <div class="move-list">
+                            <span class="move-tag">連打攻撃</span><span class="move-tag">暴風突撃</span><span class="move-tag">帯電跳躍</span>
+                            <span class="move-tag">カエルの豪雨</span><span class="move-tag special">ヘビー・ウェザー</span><span class="move-tag">氷の爆発</span>
+                        </div>
+                        <div class="perk-section">
+                            <div class="perk-section-title">PERKS</div>
+                            <div class="perk-item"><h5>Elementalist（属性使い）</h5><p>天候系攻撃のダメージ+10%。</p></div>
+                            <div class="perk-item"><h5>Thunderous（雷鳴）</h5><p>雷系攻撃のダメージ+10%。</p></div>
+                            <div class="perk-item"><h5>Oppression（圧制）</h5><p>ノックバック攻撃のダメージ+10%。</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- アンコモン -->
+        <div id="tab-uncommon" class="tab-content">
+            <div class="stand-grid">
+                <div class="stand-card uncommon-border">
+                    <img src="images/fde00b82cd47.png" alt="マジシャンズレッド" class="stand-card-img" loading="lazy">
+                    <div class="stand-card-header"><h3>マジシャンズレッド</h3><span class="rarity-badge rarity-uncommon">アンコモン</span></div>
+                    <div class="stand-card-body">
+                        <div class="move-list">
+                            <span class="move-tag">連打攻撃</span><span class="move-tag">炎のパンチ</span><span class="move-tag">火炎放射</span>
+                            <span class="move-tag">生命探知</span><span class="move-tag special">クロスファイヤーハリケーン</span><span class="move-tag">点火バースト</span>
+                        </div>
+                        <div class="perk-section">
+                            <div class="perk-section-title">PERKS</div>
+                            <div class="perk-item"><h5>Ignition Boost（点火ブースト）</h5><p>燃焼中の相手へのダメージ+10%。</p></div>
+                            <div class="perk-item"><h5>Scorchstep（焦熱歩）</h5><p>回避で自分と相手の両方に炎状態を付与（CD 7秒）。</p></div>
+                            <div class="perk-item"><h5>Kindled Resolve（燃える意志）</h5><p>自分が炎状態で攻撃を受けると相手も炎状態に。</p></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="stand-card uncommon-border">
+                    <img src="images/02571fb4446b.png" alt="ザ・ハンド" class="stand-card-img" loading="lazy">
+                    <div class="stand-card-header"><h3>ザ・ハンド</h3><span class="rarity-badge rarity-uncommon">アンコモン</span></div>
+                    <div class="stand-card-body">
+                        <div class="move-list">
+                            <span class="move-tag">連打攻撃</span><span class="move-tag">左フック</span><span class="move-tag">削り払い</span>
+                            <span class="move-tag">削り引き寄せ</span><span class="move-tag">削り発射</span>
+                        </div>
+                        <div class="perk-section">
+                            <div class="perk-section-title">PERKS</div>
+                            <div class="perk-item"><h5>Erasure（消去）</h5><p>HP5%以下の敵を即座に処刑。</p></div>
+                            <div class="perk-item"><h5>Impatient（短気）</h5><p>HP50%以下でパワー回復速度+50%。</p></div>
+                            <div class="perk-item"><h5>Reckless（無謀）</h5><p>ガードブレイクされると次の攻撃のダメージ+25%。</p></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="stand-card uncommon-border">
+                    <img src="images/5f581e396885.png" alt="クレイジー・ダイヤモンド" class="stand-card-img" loading="lazy">
+                    <div class="stand-card-header"><h3>クレイジー・ダイヤモンド</h3><span class="rarity-badge rarity-uncommon">アンコモン</span></div>
+                    <div class="stand-card-body">
+                        <div class="move-list">
+                            <span class="move-tag">連打攻撃</span><span class="move-tag">ヘビーパンチ</span><span class="move-tag">ベアリングショット</span>
+                            <span class="move-tag special">回復モード</span><span class="move-tag">壁破壊</span><span class="move-tag">粉砕</span><span class="move-tag special">怒りモード</span>
+                        </div>
+                        <div class="perk-section">
+                            <div class="perk-section-title">PERKS</div>
+                            <div class="perk-item"><h5>Healing Blow（癒しの一撃）</h5><p>次の回復能力の回復量+40%（CD 15秒）。</p></div>
+                            <div class="perk-item"><h5>Good Friend（良き友人）</h5><p>味方への回復効果+10%。</p></div>
+                            <div class="perk-item"><h5>Brute Force（腕力）</h5><p>連打攻撃のダメージ+20%。</p></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="stand-card uncommon-border">
+                    <img src="images/9026443f6605.png" alt="ゴールド・エクスペリエンス" class="stand-card-img" loading="lazy">
+                    <div class="stand-card-header"><h3>ゴールド・エクスペリエンス</h3><span class="rarity-badge rarity-uncommon">アンコモン</span></div>
+                    <div class="stand-card-body">
+                        <div class="move-list">
+                            <span class="move-tag">連打攻撃</span><span class="move-tag">魂の一撃</span><span class="move-tag special">修復</span>
+                            <span class="move-tag">根の攻撃</span><span class="move-tag">過剰成長</span><span class="move-tag">カエル</span>
+                        </div>
+                        <div class="perk-section">
+                            <div class="perk-section-title">PERKS</div>
+                            <div class="perk-item"><h5>Nature's Armor（自然の鎧）</h5><p>状態異常を受けると防御力+25%を10秒間獲得。</p></div>
+                            <div class="perk-item"><h5>Vital Instinct（生命の本能）</h5><p>HP30%以下で攻撃命中時にパワー+5%。</p></div>
+                            <div class="perk-item"><h5>Life Pulse（生命の脈動）</h5><p>回復時に状態異常を解除。</p></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="stand-card uncommon-border">
+                    <img src="images/49c821b0dbf6.png" alt="パープル・ヘイズ" class="stand-card-img" loading="lazy">
+                    <div class="stand-card-header"><h3>パープル・ヘイズ</h3><span class="rarity-badge rarity-uncommon">アンコモン</span></div>
+                    <div class="stand-card-body">
+                        <div class="move-list">
+                            <span class="move-tag">連打攻撃</span><span class="move-tag">カプセルパンチ</span><span class="move-tag">怒りの一撃</span>
+                            <span class="move-tag special">感染乱舞</span><span class="move-tag">感染カプセル</span><span class="move-tag">カプセル破壊</span><span class="move-tag">暴走</span>
+                        </div>
+                        <div class="perk-section">
+                            <div class="perk-section-title">PERKS</div>
+                            <div class="perk-item"><h5>Corrupted Instinct（腐敗した本能）</h5><p>自分よりHPが低い敵にダメージ+5%。</p></div>
+                            <div class="perk-item"><h5>Frenzied State（狂乱状態）</h5><p>ダメージ+20%、被ダメージ+40%。ハイリスク・ハイリターン。</p></div>
+                            <div class="perk-item"><h5>Unpredictable（予測不能）</h5><p>ランダムでダメージ+25%、貫通力+25%、ライフスティール獲得。</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- コモン -->
+        <div id="tab-common" class="tab-content">
+            <div class="stand-grid">
+                <div class="stand-card">
+                    <img src="images/c749bab0730e.png" alt="RHCP" class="stand-card-img" loading="lazy">
+                    <div class="stand-card-header"><h3>レッド・ホット・チリ・ペッパー</h3><span class="rarity-badge rarity-common">コモン</span></div>
+                    <div class="stand-card-body">
+                        <div class="move-list">
+                            <span class="move-tag">連打攻撃</span><span class="move-tag special">雷神</span><span class="move-tag">フラッシュ</span>
+                            <span class="move-tag">小指斬り</span><span class="move-tag">電撃サージ</span>
+                        </div>
+                        <div class="perk-section">
+                            <div class="perk-section-title">PERKS</div>
+                            <div class="perk-item"><h5>Charge Conduction（充電伝導）</h5><p>ブロック中にパワー回復速度+50%。</p></div>
+                            <div class="perk-item"><h5>Amped Up（過充電）</h5><p>パワー最大時、攻撃ダメージ+5%。</p></div>
+                            <div class="perk-item"><h5>Blackout（停電）</h5><p>ガードブレイク時に相手のパワーを10%吸収。</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- ===== パーソナリティ ===== -->
+    <section id="personalities">
+        <div class="section-header">
+            <h2>パーソナリティ（スタンド性格）</h2>
+            <p>スタンドにランダムで付与される性格。スタンド性格エッセンスでリロール可能。</p>
+        </div>
+
+        <h3 class="sub-label">神話級パーソナリティ</h3>
+        <div class="personality-grid" style="margin-bottom:1.5rem;">
+            <div class="personality-card" style="border-color:rgba(180,77,255,.3);">
+                <h4>Elegant（エレガント）<span class="rarity-badge rarity-mythical">神話級</span></h4>
+                <p>スタンドのクールダウンを10%短縮。攻撃命中で短時間の速度上昇。移動速度に応じてダメージが微増。</p>
+            </div>
+            <div class="personality-card" style="border-color:rgba(180,77,255,.3);">
+                <h4>Feral（フェラル）<span class="rarity-badge rarity-mythical">神話級</span></h4>
+                <p>ダメージ+10%、防御力-10%。攻撃特化型。</p>
+            </div>
+            <div class="personality-card" style="border-color:rgba(180,77,255,.3);">
+                <h4>Transcendent（トランセンデント）<span class="rarity-badge rarity-mythical">神話級</span></h4>
+                <p>ダメージ+7%、パワー回復+7%、防御力+7%。バランス型の最強性格。</p>
+            </div>
+        </div>
+
+        <h3 class="sub-label">伝説級パーソナリティ</h3>
+        <div class="personality-grid" style="margin-bottom:1.5rem;">
+            <div class="personality-card" style="border-color:rgba(255,149,0,.3);">
+                <h4>Methodical（メソディカル）<span class="rarity-badge rarity-legendary">伝説級</span></h4>
+                <p>パーフェクトブロック成功でパワー20%回復＋速度上昇。</p>
+            </div>
+            <div class="personality-card" style="border-color:rgba(255,149,0,.3);">
+                <h4>Dominant（ドミナント）<span class="rarity-badge rarity-legendary">伝説級</span></h4>
+                <p>自分を攻撃していない相手に対してダメージ+25%。</p>
+            </div>
+            <div class="personality-card" style="border-color:rgba(255,149,0,.3);">
+                <h4>Cursed（カースド）<span class="rarity-badge rarity-legendary">伝説級</span></h4>
+                <p>ダメージ+4%、パワー回復+4%、防御力+4%。</p>
+            </div>
+            <div class="personality-card" style="border-color:rgba(255,149,0,.3);">
+                <h4>Rhythmic（リズミック）<span class="rarity-badge rarity-legendary">伝説級</span></h4>
+                <p>パワー回復速度+35%。</p>
+            </div>
+            <div class="personality-card" style="border-color:rgba(255,149,0,.3);">
+                <h4>Artistic（アーティスティック）<span class="rarity-badge rarity-legendary">伝説級</span></h4>
+                <p>ガードブレイク成功で敵を5秒間「脆弱」状態にする（被ダメージ+20%）。</p>
+            </div>
+            <div class="personality-card" style="border-color:rgba(255,149,0,.3);">
+                <h4>Suffocating（サフォケーティング）<span class="rarity-badge rarity-legendary">伝説級</span></h4>
+                <p>持続ダメージ（DoT）効果が50%強化される。</p>
+            </div>
+        </div>
+
+        <h3 class="sub-label">レア パーソナリティ</h3>
+        <div class="personality-grid" style="margin-bottom:1.5rem;">
+            <div class="personality-card" style="border-color:rgba(77,148,255,.3);">
+                <h4>Determined（デターミンド）<span class="rarity-badge rarity-rare">レア</span></h4>
+                <p>HP70%以上の時、ダメージ+4%。</p>
+            </div>
+            <div class="personality-card" style="border-color:rgba(77,148,255,.3);">
+                <h4>Compassionate（コンパッショネイト）<span class="rarity-badge rarity-rare">レア</span></h4>
+                <p>回復効果が25%強化される。</p>
+            </div>
+            <div class="personality-card" style="border-color:rgba(77,148,255,.3);">
+                <h4>Furious（フューリアス）<span class="rarity-badge rarity-rare">レア</span></h4>
+                <p>HP30%以下の時、ダメージ+10%。逆転型。</p>
+            </div>
+            <div class="personality-card" style="border-color:rgba(77,148,255,.3);">
+                <h4>Slugger（スラッガー）<span class="rarity-badge rarity-rare">レア</span></h4>
+                <p>ガードブレイクスキルのダメージ+10%。</p>
+            </div>
+            <div class="personality-card" style="border-color:rgba(77,148,255,.3);">
+                <h4>Fearful（フィアフル）<span class="rarity-badge rarity-rare">レア</span></h4>
+                <p>ガードブレイクされた時、防御力+20%を2秒間獲得。</p>
+            </div>
+            <div class="personality-card" style="border-color:rgba(77,148,255,.3);">
+                <h4>Durable（デュラブル）<span class="rarity-badge rarity-rare">レア</span></h4>
+                <p>状態異常ダメージを100%軽減。</p>
+            </div>
+        </div>
+
+        <h3 class="sub-label">アンコモン パーソナリティ</h3>
+        <div class="personality-grid" style="margin-bottom:1.5rem;">
+            <div class="personality-card" style="border-color:rgba(77,255,136,.3);">
+                <h4>Curious（キュリアス）<span class="rarity-badge rarity-uncommon">アンコモン</span></h4>
+                <p>回避ゲージの獲得量+20%。</p>
+            </div>
+            <div class="personality-card" style="border-color:rgba(77,255,136,.3);">
+                <h4>Astute（アスチュート）<span class="rarity-badge rarity-uncommon">アンコモン</span></h4>
+                <p>ブロックされた攻撃のチップダメージ+10%。</p>
+            </div>
+            <div class="personality-card" style="border-color:rgba(77,255,136,.3);">
+                <h4>Predictive（プレディクティブ）<span class="rarity-badge rarity-uncommon">アンコモン</span></h4>
+                <p>カウンタースキルのダメージ+10%。</p>
+            </div>
+            <div class="personality-card" style="border-color:rgba(77,255,136,.3);">
+                <h4>Kind（カインド）<span class="rarity-badge rarity-uncommon">アンコモン</span></h4>
+                <p>回復効果+10%。</p>
+            </div>
+        </div>
+
+        <h3 class="sub-label">コモン パーソナリティ</h3>
+        <div class="personality-grid">
+            <div class="personality-card">
+                <h4>Erratic（エラティック）<span class="rarity-badge rarity-common">コモン</span></h4>
+                <p>回避成功でパワー5%回復。</p>
+            </div>
+            <div class="personality-card">
+                <h4>Energetic（エナジェティック）<span class="rarity-badge rarity-common">コモン</span></h4>
+                <p>パワー回復速度+10%。</p>
+            </div>
+            <div class="personality-card">
+                <h4>Cowardly（カワードリー）<span class="rarity-badge rarity-common">コモン</span></h4>
+                <p>低HP時にスロー効果の影響を軽減。</p>
+            </div>
+            <div class="personality-card">
+                <h4>Happy（ハッピー）<span class="rarity-badge rarity-common">コモン</span></h4>
+                <p>HP回復速度+5%。</p>
+            </div>
+            <div class="personality-card">
+                <h4>Firm（ファーム）<span class="rarity-badge rarity-common">コモン</span></h4>
+                <p>ブロック中に攻撃を受けるとパワー獲得。</p>
+            </div>
+            <div class="personality-card">
+                <h4>Arrogant（アロガント）<span class="rarity-badge rarity-common">コモン</span></h4>
+                <p>HP最大時にダメージ+5%。</p>
+            </div>
+        </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- ===== 進行 ===== -->
+    <section id="progression">
+        <div class="section-header">
+            <h2>攻略の進め方</h2>
+            <p>ゲームの進行ステップとシステム解説</p>
+        </div>
+
+        <div class="progress-steps" style="margin-bottom:2rem;">
+            <div class="step"><div class="step-num">1</div><div class="step-content"><h4>チュートリアルをクリア</h4><p>杜王グランドホテルの受付NPCに話しかけてチュートリアルを開始。基本操作を学ぼう。</p></div></div>
+            <div class="step"><div class="step-num">2</div><div class="step-content"><h4>スタンドを入手する</h4><p>「スタンドの矢」を自分に使ってスタンドを解放。矢は地面やチェストから入手可能。</p></div></div>
+            <div class="step"><div class="step-num">3</div><div class="step-content"><h4>スタンド能力を解放する</h4><p>ミッション達成、NPC討伐、ランクマッチ、PVP勝利、ジムのマット修行で能力をアンロック。</p></div></div>
+            <div class="step"><div class="step-num">4</div><div class="step-content"><h4>サブ能力を習得する</h4><p>トレーナーから波紋・サイボーグ・スピンを習得。石仮面でヴァンパイアにもなれる。</p></div></div>
+            <div class="step"><div class="step-num">5</div><div class="step-content"><h4>格闘スタイルを習得する</h4><p>剣道・ボクシング・空手のトレーナーから格闘スタイルをアンロック。</p></div></div>
+            <div class="step"><div class="step-num">6</div><div class="step-content"><h4>プレステージする</h4><p><strong>条件：レベル50 + 10,000キャッシュ。</strong>病院のアーチメイジNPCに話しかけて実行。5つのプレステージシャード獲得、スタンドストレージ+1（最大4枠）、プレステージショップ解放。</p></div></div>
+        </div>
+
+        <div class="card-grid">
+            <div class="card">
+                <img src="images/09999fe243c5.png" alt="ミッションボード" class="card-img" loading="lazy">
+                <h3>ミッションボード</h3>
+                <p>PVEとPVPのクエストが用意されている。配達任務や戦闘任務でEXPと報酬を獲得。</p>
+            </div>
+            <div class="card">
+                <img src="images/8be8679755aa.png" alt="インナーワールド" class="card-img" loading="lazy">
+                <h3>インナーワールド（精神世界）</h3>
+                <p>ジムのマットでアクセス。自分のクローンと戦う。</p>
+                <ul>
+                    <li>「Yes」 — クローンと戦闘（パワーポイント獲得）</li>
+                    <li>「限界を超えたい」 — 覚醒版と戦闘（Lv50必須）</li>
+                </ul>
+            </div>
+            <div class="card">
+                <img src="images/ce600a248879.png" alt="プレステージ" class="card-img" loading="lazy">
+                <h3>プレステージ</h3>
+                <p><strong>必要条件：レベル50 + 10,000キャッシュ</strong>。病院のアーチメイジNPCで実行。プレステージシャード5個獲得、限定ショップ解放。</p>
+            </div>
+        </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- ===== 格闘スタイル ===== -->
+    <section id="fighting">
+        <div class="section-header">
+            <h2>格闘スタイル</h2>
+            <p>各トレーナーから習得できる戦闘スタイル</p>
+        </div>
+
+        <div class="style-card">
+            <h3>剣道</h3>
+            <div class="trainer">習得場所：侍マスター（バス停 #15 亀友マーケット）</div>
+            <div class="style-moves">
+                <div class="style-move"><h4>旋風（Whirlwind）</h4><p>ガードブレイク付き斬撃</p></div>
+                <div class="style-move"><h4>旋風・空中変型</h4><p>垂直方向の連続斬撃</p></div>
+                <div class="style-move"><h4>静寂の刃（Silent Edge）</h4><p>ダッシュ斬撃からの連続攻撃</p></div>
+                <div class="style-move"><h4>昇天嵐（Rising Tempest）</h4><p>踏み込みから上方ドラッグ3連斬撃</p></div>
+            </div>
+        </div>
+
+        <div class="style-card">
+            <img src="images/a1ab2a62d617.jpg" alt="ボクシング" class="style-card-img" loading="lazy">
+            <h3>ボクシング</h3>
+            <div class="trainer">習得場所：ボクシングコーチ（バス停 #2 ジム）</div>
+            <div class="style-moves">
+                <div class="style-move"><h4>ホワイトファング</h4><p>2連フック → アッパー → 右フック</p></div>
+                <div class="style-move"><h4>肝臓砕き（Liver Crusher）</h4><p>2連ボディーブロー</p></div>
+                <div class="style-move"><h4>デンプシーロール</h4><p>カウンター型の多段ヒット + 最終フック</p></div>
+            </div>
+        </div>
+
+        <div class="style-card">
+            <h3>空手</h3>
+            <div class="trainer">習得場所：空手師範（バス停 #15 病院付近）</div>
+            <div class="style-moves">
+                <div class="style-move"><h4>正拳連打（Seiken Barrage）</h4><p>ダッシュ連打からの双拳打ち</p></div>
+                <div class="style-move"><h4>六殺（Sixth Massacre）</h4><p>空中叩きつけ + 衝撃波</p></div>
+                <div class="style-move"><h4>竜巻（Tatsumaki）</h4><p>空中回転キック連打</p></div>
+            </div>
+        </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- ===== サブ能力 ===== -->
+    <section id="sub-abilities">
+        <div class="section-header">
+            <h2>サブ能力</h2>
+            <p>追加で習得できる特殊能力</p>
+        </div>
+        <div class="card-grid">
+            <div class="card"><h3>人間（デフォルト）</h3><p>初期状態。0.1秒ごとに0.02のHP自然回復。</p></div>
+            <div class="card" style="border-color:rgba(255,77,106,.3);">
+                <img src="images/8c548f56adef.png" alt="ヴァンパイア" class="card-img" loading="lazy">
+                <h3>ヴァンパイア</h3>
+                <p>石仮面使用で変化。赤メーター満タンでボーナス回復。パッシブ+0.02、ハイスピード+0.04。</p>
+                <ul><li>空裂眼刺驚</li><li>吸血の恐怖</li><li>凍結攻撃</li></ul>
+                <img src="images/f17723ada514.gif" alt="技" class="gif-preview" loading="lazy">
+            </div>
+            <div class="card" style="border-color:rgba(255,215,0,.3);">
+                <img src="images/9d8a9b73c68e.png" alt="波紋" class="card-img" loading="lazy">
+                <h3>波紋（ハモン）</h3>
+                <p>古代の幽霊クエスト（バス停 #13）で習得。ヴァンパイアに特効。</p>
+                <ul><li>山吹色の波紋疾走</li><li>仙道波紋疾走</li><li>緋色の波紋疾走</li></ul>
+                <img src="images/b1f19b6b051f.gif" alt="技" class="gif-preview" loading="lazy">
+            </div>
+            <div class="card" style="border-color:rgba(77,148,255,.3);">
+                <img src="images/a229bfd7bb12.png" alt="サイボーグ" class="card-img" loading="lazy">
+                <h3>サイボーグ</h3>
+                <p>シュトロハイムクエスト（バス停 #3）で習得。防御力+15%。ヴァンパイア特効。</p>
+                <ul><li>紫外線照射装置</li><li>マシンガン</li><li>ミサイルボレー</li></ul>
+                <img src="images/ea6e34cf2714.gif" alt="技" class="gif-preview" loading="lazy">
+            </div>
+        </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- ===== 進化 ===== -->
+    <section id="evolutions">
+        <div class="section-header">
+            <h2>スタンド進化</h2>
+            <p>特定の条件を満たすことで進化するスタンド</p>
+        </div>
+        <div class="stand-grid">
+            <div class="stand-card mythical-border">
+                <img src="images/a817fbe3f267.png" alt="C-Moon" class="stand-card-img" loading="lazy">
+                <div class="stand-card-header"><h3>C-Moon</h3><span class="rarity-badge rarity-mythical">進化</span></div>
+                <div class="stand-card-body">
+                    <p style="color:var(--text-dim); font-size:.88rem; margin-bottom:.8rem;">条件：プレステージ1以上 + プッチ（バス停 #18）+ DIOの日記</p>
+                    <div class="move-list">
+                        <span class="move-tag">連打攻撃</span><span class="move-tag special">重力反転</span><span class="move-tag">岩石連打</span>
+                        <span class="move-tag">重力粉砕</span><span class="move-tag">重力バリア</span><span class="move-tag">貫通打撃</span>
+                    </div>
+                    <div class="perk-section">
+                        <div class="perk-section-title">PERKS</div>
+                        <div class="perk-item"><h5>Gravitational Force（重力場）</h5><p>ブロック時に攻撃者を3秒間スロー（CD 5秒）。</p></div>
+                        <div class="perk-item"><h5>Martial Artist（武術家）</h5><p>格闘技攻撃のダメージ+10%。</p></div>
+                        <div class="perk-item"><h5>No Escape（逃げ場なし）</h5><p>ガードブレイク時に相手の回避を3秒間封印（CD 10秒）。</p></div>
+                    </div>
+                </div>
+            </div>
+            <div class="stand-card mythical-border">
+                <img src="mih.png" alt="メイド・イン・ヘブン" class="stand-card-img" loading="lazy">
+                <div class="stand-card-header"><h3>メイド・イン・ヘブン</h3><span class="rarity-badge rarity-mythical">最終進化</span></div>
+                <div class="stand-card-body">
+                    <p style="color:var(--text-dim); font-size:.88rem; margin-bottom:.8rem;">条件：C-Moonからの進化クエストをクリア</p>
+                    <div class="move-list">
+                        <span class="move-tag">連打攻撃</span><span class="move-tag special">無限追跡</span><span class="move-tag">天国の怒り</span>
+                        <span class="move-tag">ナイフの嵐</span><span class="move-tag special">光速</span><span class="move-tag special">加速</span>
+                    </div>
+                    <div class="perk-section">
+                        <div class="perk-section-title">PERKS</div>
+                        <div class="perk-item"><h5>Rapid Flow（高速の流れ）</h5><p>ダッシュ開始時に短時間の速度ブースト（CD 5秒）。</p></div>
+                        <div class="perk-item"><h5>Accelerated Instinct（加速本能）</h5><p>回避フレームが2倍に増加。</p></div>
+                        <div class="perk-item"><h5>Inevitability（不可避）</h5><p>貫通力+5%。速度ブースト中はさらに増加。</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- ===== アイテム ===== -->
+    <section id="items">
+        <div class="section-header">
+            <h2>アイテム一覧</h2>
+            <p>ゲーム内で入手できる各種アイテム</p>
+        </div>
+
+        <h3 class="sub-label">矢・仮面・特殊アイテム</h3>
+        <table class="item-table" style="margin-bottom:2rem;">
+            <thead><tr><th>アイテム名</th><th>レアリティ</th><th>効果・入手方法</th></tr></thead>
+            <tbody>
+                <tr><td>Stand Arrow（スタンドの矢）</td><td><span class="rarity-badge rarity-uncommon">アンコモン</span></td><td>自分に使用してスタンドを解放。地面やチェストから入手。</td></tr>
+                <tr><td>Stone Mask（石仮面）</td><td><span class="rarity-badge rarity-rare">レア</span></td><td>使用してヴァンパイアに変化。</td></tr>
+                <tr><td>Lucky Arrow（ラッキーアロー）</td><td><span class="rarity-badge rarity-legendary">伝説級</span></td><td>ランダムなスキンが確定付与。</td></tr>
+                <tr><td>DIO's Diary（DIOの日記）</td><td><span class="rarity-badge rarity-mythical">神話級</span></td><td>プッチクエスト（C-Moon進化）に必要。</td></tr>
+                <tr><td>DIO's Bone（DIOの骨）</td><td><span class="rarity-badge rarity-mythical">神話級</span></td><td>進化クエスト用素材。</td></tr>
+                <tr><td>Red Stone of Aja（エイジャの赤石）</td><td><span class="rarity-badge rarity-secret">Robux</span></td><td>伝説スキン確率2倍、コンジュレーション2倍、ラッキーアロー出現率+1%。</td></tr>
+            </tbody>
+        </table>
+
+        <h3 class="sub-label">エッセンス（リセットアイテム）</h3>
+        <table class="item-table" style="margin-bottom:2rem;">
+            <thead><tr><th>エッセンス名</th><th>レアリティ</th><th>効果</th></tr></thead>
+            <tbody>
+                <tr><td>Stat Point Essence（ステータスポイントエッセンス）</td><td><span class="rarity-badge rarity-mythical">神話級</span></td><td>ステータスポイントをリセット</td></tr>
+                <tr><td>Stand Skin Essence（スタンドスキンエッセンス）</td><td><span class="rarity-badge rarity-secret">シークレット</span></td><td>現在のスタンドにスキンを適用</td></tr>
+                <tr><td>Stand Stat Essence（スタンドステータスエッセンス）</td><td><span class="rarity-badge rarity-mythical">神話級</span></td><td>スタンドのステータスをリロール</td></tr>
+                <tr><td>Stand Personality Essence（スタンド性格エッセンス）</td><td><span class="rarity-badge rarity-mythical">神話級</span></td><td>スタンドのパーソナリティをリロール</td></tr>
+                <tr><td>Stand Conjuration Essence（コンジュレーションエッセンス）</td><td><span class="rarity-badge rarity-mythical">神話級</span></td><td>スタンドの召喚力を最大化</td></tr>
+                <tr><td>Custom Clothing Essence（カスタム衣装エッセンス）</td><td><span class="rarity-badge rarity-secret">Robux</span></td><td>Robloxアバターの服を着用可能に</td></tr>
+            </tbody>
+        </table>
+
+        <h3 class="sub-label">武器</h3>
+        <table class="item-table" style="margin-bottom:2rem;">
+            <thead><tr><th>武器名</th><th>入手方法</th></tr></thead>
+            <tbody>
+                <tr><td>Stop Sign（止まれ看板）</td><td>DIOレイドショップ</td></tr>
+                <tr><td>Shadow Axe（シャドウアックス）</td><td>DIOレイドショップ</td></tr>
+                <tr><td>Odachi（大太刀）</td><td>宮本からドロップ（0.5〜1%）</td></tr>
+                <tr><td>Katana（刀）</td><td>侍を倒してドロップ</td></tr>
+                <tr><td>Hammer（ハンマー）</td><td>Dedequannクエスト（ジム付近）</td></tr>
+                <tr><td>Shovel（シャベル）</td><td>カルト教団リーダー / エリートマフィアからドロップ</td></tr>
+                <tr><td>Luck & Pluck（ラック＆プラック）</td><td>ブラフォードクエスト（バス停 #17 北東ビーチ）</td></tr>
+            </tbody>
+        </table>
+
+        <h3 class="sub-label">乗り物・素材</h3>
+        <table class="item-table">
+            <thead><tr><th>アイテム名</th><th>入手方法</th></tr></thead>
+            <tbody>
+                <tr><td>Plank Skateboard（板スケートボード）</td><td>Guptaでクラフト or Zuleimaクエスト</td></tr>
+                <tr><td>Skateboard（スケートボード）</td><td>堀米雄斗クエスト（ジム、板スケボ所持必須）</td></tr>
+                <tr><td>Motorcycle（バイク）</td><td>スターターパック購入</td></tr>
+                <tr><td>Fabric / Bronze Fragments / Acid / Leather（布・ブロンズ片・酸・レザー）</td><td>チェストから入手（クラフト素材）</td></tr>
+            </tbody>
+        </table>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- ===== ゲーム仕様 ===== -->
+    <section id="mechanics">
+        <div class="section-header">
+            <h2>ゲーム仕様</h2>
+            <p>ワールドイベント、ギャング、レイド、ダークデターミネーション</p>
+        </div>
+
+        <div class="card-grid">
+            <div class="card">
+                <img src="images/b3b64c34195e.png" alt="ワールドイベント" class="card-img" loading="lazy">
+                <h3>ワールドイベント（20分CD）</h3>
+                <ul><li>Graveyard Uprising — サバイバルウェーブモード</li><li>Deathmatch — チーム対抗PVP（2ライフ制）</li></ul>
+            </div>
+            <div class="card">
+                <img src="images/c6b49f2c37c5.png" alt="ギャング" class="card-img" loading="lazy">
+                <h3>ギャング / クラン</h3>
+                <p>名声 = オーバーワールドキル×5ポイント。ギャングコントラクターでコントラクト受注（3-5ギャングポイント+チェスト）。</p>
+                <ul><li>ギャングウォーズ — 大規模PVP</li><li>テリトリー — 占領で不労所得</li><li>ギャングショップ — 限定アイテム</li></ul>
+            </div>
+            <div class="card">
+                <h3>ギャングショップ商品</h3>
+                <ul><li>Stand Conjuration Essence（コンジュレーションエッセンス）</li><li>Stand Stat Essence（ステータスエッセンス）</li><li>Stand Personality Essence（性格エッセンス）</li><li>Lucky Arrow（ラッキーアロー）</li><li>Legendary Chest / Rare Chest（伝説 / レアチェスト）</li><li>DIO's Bone / DIO's Diary（DIOの骨 / 日記）</li><li>Hammer（ハンマー）</li></ul>
+            </div>
+            <div class="card">
+                <img src="images/d14d078fd0f9.png" alt="レイド" class="card-img" loading="lazy">
+                <h3>レイド（8人協力）</h3>
+                <p>クリアでレイドショップトークン獲得。トークンで限定アイテムやトレイトを購入。</p>
+                <ul><li>承太郎レイド</li><li>アヴドゥルレイド</li><li>吉良レイド</li><li>DIOレイド</li></ul>
+            </div>
+        </div>
+
+        <!-- ダークデターミネーション -->
+        <div style="margin-top:2rem;">
+            <h3 class="sub-label">ダークデターミネーション</h3>
+            <div class="card">
+                <img src="images/f39b58b55f89.png" alt="DD" class="card-img" loading="lazy">
+                <p>バス停 #14のNPCでアンロック。HP60%以下で発動可能。発動中はパッシブバフ、効果切れ後にデバフ発生。</p>
+                <p style="margin-top:.8rem; font-weight:600; color:var(--text);">アンロック条件（全7つクリア必須）：</p>
+                <ul>
+                    <li>Bloodlustパーク装備で吉良を撃破</li>
+                    <li>HP90%以上で1v1勝利</li>
+                    <li>ギャングウォーズ勝利</li>
+                    <li>HP5%以下でThe Self（自分）を撃破</li>
+                    <li>ギャングメンバー5人を倒す</li>
+                    <li>1v1を3連勝</li>
+                    <li>レベル40以上のプレイヤーを10人キル</li>
+                </ul>
+                <div class="dd-tiers">
+                    <div class="dd-tier"><div class="tier-num">Tier 1</div><p>ダメージ +5%</p></div>
+                    <div class="dd-tier"><div class="tier-num">Tier 2</div><p>防御力 +5%</p></div>
+                    <div class="dd-tier"><div class="tier-num">Tier 3</div><p>25HP回復（数秒間）</p></div>
+                    <div class="dd-tier"><div class="tier-num">Tier 4</div><p>HP%が低い敵にライフスティール</p></div>
+                    <div class="dd-tier"><div class="tier-num">Tier 5</div><p>持続15→20秒、デバフ無し、青ネーム</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- ===== トレイト ===== -->
+    <section id="traits">
+        <div class="section-header">
+            <h2>トレイト（特殊パーク）</h2>
+            <p>レイド・クエスト・ギャングなどで獲得できる特殊効果</p>
+        </div>
+
+        <img src="images/92b41ebbff50.png" alt="トレイト" style="width:100%; border-radius:12px; margin-bottom:2rem; max-height:300px; object-fit:cover;" loading="lazy">
+
+        <h3 class="sub-label">レイド報酬トレイト</h3>
+        <div class="trait-grid" style="margin-bottom:2rem;">
+            <div class="trait-card"><h4>True Warrior（真の戦士） <span class="trait-source">承太郎レイド</span></h4><p>全回復効果-50%。防御力+10%。ラグドール時に防御力+15%を10秒間獲得。</p></div>
+            <div class="trait-card"><h4>King of Flames（炎の王） <span class="trait-source">アヴドゥルレイド</span></h4><p>スタンド能力が火傷（Burn）を付与するようになる。</p></div>
+            <div class="trait-card"><h4>Serial Killer（シリアルキラー） <span class="trait-source">吉良レイド</span></h4><p>HP40%以下の敵にダメージ+20%。</p></div>
+            <div class="trait-card"><h4>Emperor of Time（時の帝王） <span class="trait-source">DIOレイド</span></h4><p>時間系能力の効果時間+2秒。</p></div>
+            <div class="trait-card"><h4>The Godfather（ゴッドファーザー） <span class="trait-source">レイド</span></h4><p>スタンド能力にライフスティール付与（CD 5秒）。</p></div>
+        </div>
+
+        <h3 class="sub-label">ギャング系トレイト</h3>
+        <div class="trait-grid" style="margin-bottom:2rem;">
+            <div class="trait-card"><h4>Commanding Presence（指揮する存在） <span class="trait-source">ギャングウォーズ</span></h4><p>周囲のギャングメンバーがダメージ＆防御力+5%（最大30%まで重複）。</p></div>
+            <div class="trait-card"><h4>The Boss（ザ・ボス） <span class="trait-source">ギャングテリトリー</span></h4><p>ギャングメンバー1人につきお金獲得+4%（最大28%）。</p></div>
+        </div>
+
+        <h3 class="sub-label">戦闘・クエスト系トレイト</h3>
+        <div class="trait-grid" style="margin-bottom:2rem;">
+            <div class="trait-card"><h4>The Fever（ザ・フィーバー） <span class="trait-source">マネーストア</span></h4><p>プレイヤー撃破で相手ステータスの10%を20秒間奪取（CD 10秒）。</p></div>
+            <div class="trait-card"><h4>Grappler（グラップラー） <span class="trait-source">サイドクエスト</span></h4><p>掴み系の技のダメージ+15%。</p></div>
+            <div class="trait-card"><h4>Intimidation（威圧） <span class="trait-source">サイドクエスト</span></h4><p>敵を掴んだ後、7秒間被ダメージ+10%。</p></div>
+            <div class="trait-card"><h4>Journeyman（ジャーニーマン） <span class="trait-source">チュートリアル</span></h4><p>獲得経験値+5%。</p></div>
+            <div class="trait-card"><h4>Conjurer（コンジュラー） <span class="trait-source">サイドクエスト</span></h4><p>スタンドコンジュレーション獲得量が2倍。</p></div>
+        </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- ===== スタンドスキン ===== -->
+    <section id="skins">
+        <div class="section-header">
+            <h2>Stand Skins（スタンドスキン）</h2>
+            <p>スタンドの外見を変更するスキン一覧。Stand Skin Essence（スキンエッセンス）を使ってアンロック。</p>
+        </div>
+        <img src="images/73e0c36cb2a4.png" alt="Skins" style="width:100%; max-height:200px; object-fit:cover; border-radius:14px; margin-bottom:2rem;" loading="lazy">
+
+        <div class="skin-stand-section">
+            <div class="skin-stand-title">Star Platinum（スタープラチナ）</div>
+            <div class="skin-grid">
+                <div class="skin-card"><img src="images/c725f033720b.webp" alt="Holiday" loading="lazy"><div class="skin-card-name">Holiday（ホリデー）</div></div>
+                <div class="skin-card"><img src="images/7fb04f6f1edf.webp" alt="Greyscale" loading="lazy"><div class="skin-card-name">Greyscale（グレースケール）</div></div>
+                <div class="skin-card"><img src="images/b76f320d079b.webp" alt="Deimos" loading="lazy"><div class="skin-card-name">Deimos（デイモス）</div></div>
+                <div class="skin-card"><img src="images/dfbe98981574.webp" alt="Galaxy Garou" loading="lazy"><div class="skin-card-name">Galaxy Garou（ギャラクシーガロウ）</div></div>
+                <div class="skin-card"><img src="images/2fb009ebcbb6.webp" alt="Kawaii" loading="lazy"><div class="skin-card-name">Kawaii（カワイイ）</div></div>
+            </div>
+        </div>
+
+        <div class="skin-stand-section">
+            <div class="skin-stand-title">Stone Free（ストーンフリー）</div>
+            <div class="skin-grid">
+                <div class="skin-card"><img src="images/bbd8528c945b.webp" alt="Turquoise" loading="lazy"><div class="skin-card-name">Turquoise（ターコイズ）</div></div>
+                <div class="skin-card"><img src="images/a19bae86f1ec.webp" alt="Grayscale" loading="lazy"><div class="skin-card-name">Grayscale（グレースケール）</div></div>
+                <div class="skin-card"><img src="images/e8a6d47d3aa3.webp" alt="Makima" loading="lazy"><div class="skin-card-name">Makima（マキマ）</div></div>
+                <div class="skin-card"><img src="images/e4c5844fe87b.webp" alt="Ultimate Makima" loading="lazy"><div class="skin-card-name">Ultimate Makima（究極マキマ）</div></div>
+            </div>
+        </div>
+
+        <div class="skin-stand-section">
+            <div class="skin-stand-title">Whitesnake（ホワイトスネイク）</div>
+            <div class="skin-grid">
+                <div class="skin-card"><img src="images/0efbf0727412.webp" alt="Grayscale" loading="lazy"><div class="skin-card-name">Grayscale（グレースケール）</div></div>
+                <div class="skin-card"><img src="images/39a18de1c6fc.webp" alt="Velvet" loading="lazy"><div class="skin-card-name">Velvet（ベルベット）</div></div>
+                <div class="skin-card"><img src="images/f8593b9cb9c2.webp" alt="Ryuk" loading="lazy"><div class="skin-card-name">Ryuk（リューク）</div></div>
+            </div>
+        </div>
+
+        <div class="skin-stand-section">
+            <div class="skin-stand-title">The World（ザ・ワールド）</div>
+            <div class="skin-grid">
+                <div class="skin-card"><img src="images/a7048742c55e.webp" alt="Goku" loading="lazy"><div class="skin-card-name">Goku（悟空）</div></div>
+                <div class="skin-card"><img src="images/7180ff946e2f.webp" alt="Grayscale" loading="lazy"><div class="skin-card-name">Grayscale（グレースケール）</div></div>
+                <div class="skin-card"><img src="images/fc603884e35d.webp" alt="Deimos" loading="lazy"><div class="skin-card-name">Deimos（デイモス）</div></div>
+                <div class="skin-card"><img src="images/196ef89c1af7.webp" alt="Dark" loading="lazy"><div class="skin-card-name">Dark（ダーク）</div></div>
+                <div class="skin-card"><img src="images/05b8cdc66857.webp" alt="Kawaii" loading="lazy"><div class="skin-card-name">Kawaii（カワイイ）</div></div>
+            </div>
+        </div>
+
+        <div class="skin-stand-section">
+            <div class="skin-stand-title">C-Moon（Cムーン）</div>
+            <div class="skin-grid">
+                <div class="skin-card"><img src="images/790ee6d813e9.webp" alt="Grayscale" loading="lazy"><div class="skin-card-name">Grayscale（グレースケール）</div></div>
+                <div class="skin-card"><img src="images/33add1a9b97c.webp" alt="Blue" loading="lazy"><div class="skin-card-name">Blue（ブルー）</div></div>
+                <div class="skin-card"><img src="images/1cfd72d6b295.webp" alt="Deimos" loading="lazy"><div class="skin-card-name">Deimos（デイモス）</div></div>
+                <div class="skin-card"><img src="images/c114e4765fbf.webp" alt="Momo" loading="lazy"><div class="skin-card-name">Momo（モモ）</div></div>
+            </div>
+        </div>
+
+        <div class="skin-stand-section">
+            <div class="skin-stand-title">Made in Heaven（メイド・イン・ヘブン）</div>
+            <div class="skin-grid">
+                <div class="skin-card"><img src="images/e9feb7d011ad.webp" alt="High Contrast" loading="lazy"><div class="skin-card-name">High Contrast（ハイコントラスト）</div></div>
+                <div class="skin-card"><img src="images/49926db8b2f2.webp" alt="Greyscale" loading="lazy"><div class="skin-card-name">Greyscale（グレースケール）</div></div>
+            </div>
+        </div>
+
+        <div class="skin-stand-section">
+            <div class="skin-stand-title">Crazy Diamond（クレイジー・ダイヤモンド）</div>
+            <div class="skin-grid">
+                <div class="skin-card"><img src="images/76d92dac0020.webp" alt="Grayscale" loading="lazy"><div class="skin-card-name">Grayscale（グレースケール）</div></div>
+                <div class="skin-card"><img src="images/2fd8431c156c.webp" alt="Reverso" loading="lazy"><div class="skin-card-name">Reverso（リバーソ）</div></div>
+                <div class="skin-card"><img src="images/b7adcb8f5afd.webp" alt="Luffy" loading="lazy"><div class="skin-card-name">Luffy（ルフィ）</div></div>
+            </div>
+        </div>
+
+        <div class="skin-stand-section">
+            <div class="skin-stand-title">Killer Queen（キラークイーン）</div>
+            <div class="skin-grid">
+                <div class="skin-card"><img src="images/63a52128640f.webp" alt="Grayscale" loading="lazy"><div class="skin-card-name">Grayscale（グレースケール）</div></div>
+                <div class="skin-card"><img src="images/8b73734c168e.webp" alt="Tan" loading="lazy"><div class="skin-card-name">Tan（タン）</div></div>
+                <div class="skin-card"><img src="images/eacc87a156d5.webp" alt="One Who Laughs" loading="lazy"><div class="skin-card-name">One Who Laughs（笑う者）</div></div>
+                <div class="skin-card"><img src="images/fe33ba47d00b.webp" alt="Bomb Devil" loading="lazy"><div class="skin-card-name">Bomb Devil（ボムデビル）</div></div>
+            </div>
+        </div>
+
+        <div class="skin-stand-section">
+            <div class="skin-stand-title">King Crimson（キング・クリムゾン）</div>
+            <div class="skin-grid">
+                <div class="skin-card"><img src="images/783ffb75da42.webp" alt="Blue" loading="lazy"><div class="skin-card-name">Blue（ブルー）</div></div>
+                <div class="skin-card"><img src="images/80994f28e6c1.webp" alt="Deimos" loading="lazy"><div class="skin-card-name">Deimos（デイモス）</div></div>
+                <div class="skin-card"><img src="images/a4caf5289056.webp" alt="Kawaii" loading="lazy"><div class="skin-card-name">Kawaii（カワイイ）</div></div>
+                <div class="skin-card"><img src="images/9fb9db696208.webp" alt="Igris" loading="lazy"><div class="skin-card-name">Igris（イグリス）</div></div>
+            </div>
+        </div>
+
+        <div class="skin-stand-section">
+            <div class="skin-stand-title">Purple Haze（パープル・ヘイズ）</div>
+            <div class="skin-grid">
+                <div class="skin-card"><img src="images/f86db8fc6ea4.webp" alt="Poison" loading="lazy"><div class="skin-card-name">Poison（ポイズン）</div></div>
+                <div class="skin-card"><img src="images/a7f72327dccf.webp" alt="Grayscale" loading="lazy"><div class="skin-card-name">Grayscale（グレースケール）</div></div>
+            </div>
+        </div>
+
+        <div class="skin-stand-section">
+            <div class="skin-stand-title">Red Hot Chili Pepper（レッド・ホット・チリ・ペッパー）</div>
+            <div class="skin-grid">
+                <div class="skin-card"><img src="images/8381b183851b.webp" alt="Purple" loading="lazy"><div class="skin-card-name">Purple（パープル）</div></div>
+                <div class="skin-card"><img src="images/42aa41c43acb.webp" alt="Grayscale" loading="lazy"><div class="skin-card-name">Grayscale（グレースケール）</div></div>
+                <div class="skin-card"><img src="images/76cd8fa0cde3.webp" alt="Yoruichi" loading="lazy"><div class="skin-card-name">Yoruichi（夜一）</div></div>
+            </div>
+        </div>
+
+        <div class="skin-stand-section">
+            <div class="skin-stand-title">The Hand（ザ・ハンド）</div>
+            <div class="skin-grid">
+                <div class="skin-card"><img src="images/73e7ecb0868c.webp" alt="Purple" loading="lazy"><div class="skin-card-name">Purple（パープル）</div></div>
+                <div class="skin-card"><img src="images/dbb415e5259f.webp" alt="Grayscale" loading="lazy"><div class="skin-card-name">Grayscale（グレースケール）</div></div>
+            </div>
+        </div>
+
+        <div class="skin-stand-section">
+            <div class="skin-stand-title">The World High Voltage（ザ・ワールド・ハイヴォルテージ）</div>
+            <div class="skin-grid">
+                <div class="skin-card"><img src="images/8581f9da2b84.webp" alt="Grayscale" loading="lazy"><div class="skin-card-name">Grayscale（グレースケール）</div></div>
+                <div class="skin-card"><img src="images/5c91bdf76c7d.webp" alt="Lima" loading="lazy"><div class="skin-card-name">Lima（ライマ）</div></div>
+                <div class="skin-card"><img src="images/924b20832d69.webp" alt="Violence" loading="lazy"><div class="skin-card-name">Violence（バイオレンス）</div></div>
+                <div class="skin-card"><img src="images/76b143a53676.webp" alt="Prestige" loading="lazy"><div class="skin-card-name">Prestige（プレステージ）</div></div>
+            </div>
+        </div>
+
+        <div class="skin-stand-section">
+            <div class="skin-stand-title">Weather Report（ウェザー・リポート）</div>
+            <div class="skin-grid">
+                <div class="skin-card"><img src="images/2854123227eb.webp" alt="Grayscale" loading="lazy"><div class="skin-card-name">Grayscale（グレースケール）</div></div>
+                <div class="skin-card"><img src="images/2b1089dec12c.webp" alt="Pinky" loading="lazy"><div class="skin-card-name">Pinky（ピンキー）</div></div>
+                <div class="skin-card"><img src="images/c8d7ff414a82.webp" alt="Nami" loading="lazy"><div class="skin-card-name">Nami（ナミ）</div></div>
+                <div class="skin-card"><img src="images/010c9437b98c.webp" alt="Esdeath" loading="lazy"><div class="skin-card-name">Esdeath（エスデス）</div></div>
+            </div>
+        </div>
+
+        <div class="skin-stand-section">
+            <div class="skin-stand-title">Magician's Red（マジシャンズレッド）</div>
+            <div class="skin-grid">
+                <div class="skin-card"><img src="images/1d6ff1149847.webp" alt="Orange" loading="lazy"><div class="skin-card-name">Orange（オレンジ）</div></div>
+                <div class="skin-card"><img src="images/a800c334350b.webp" alt="Grayscale" loading="lazy"><div class="skin-card-name">Grayscale（グレースケール）</div></div>
+                <div class="skin-card"><img src="images/683d6dd189fb.webp" alt="King" loading="lazy"><div class="skin-card-name">King（キング）</div></div>
+            </div>
+        </div>
+
+        <div class="skin-stand-section">
+            <div class="skin-stand-title">Golden Experience（ゴールド・エクスペリエンス）</div>
+            <div class="skin-grid">
+                <div class="skin-card"><img src="images/f0efeefeee7f.webp" alt="Grayscale" loading="lazy"><div class="skin-card-name">Grayscale（グレースケール）</div></div>
+                <div class="skin-card"><img src="images/3c89992149ad.webp" alt="Green" loading="lazy"><div class="skin-card-name">Green（グリーン）</div></div>
+            </div>
+        </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- ===== アクセサリー ===== -->
+    <section id="accessories">
+        <div class="section-header">
+            <h2>Accessories（アクセサリー）</h2>
+            <p>装備可能なアクセサリー。レアリティが高いほどステータス倍率が上がる。Mythical: 3x / Legendary: 2.5x / Rare: 2x / Uncommon: 1.5x / Common: 1x</p>
+        </div>
+        <img src="images/12a5b18ade88.png" alt="Accessory Stats" style="width:100%; max-height:200px; object-fit:cover; border-radius:14px; margin-bottom:1rem;" loading="lazy">
+        <div class="card" style="margin-bottom:2rem;">
+            <h3>Accessory Stats Guide（アクセサリーステータスガイド）</h3>
+            <ul>
+                <li>Head（頭）— Health + Health Regeneration</li>
+                <li>Face（顔）— Power + Power Regeneration</li>
+                <li>Neck（首）— Health + Penetration</li>
+                <li>Back（背中）— Health + Power Regeneration</li>
+                <li>Body（体）— Health + Defense</li>
+                <li>Arms（腕）— Penetration + Health Regeneration</li>
+                <li>Legs（脚）— Health + Power</li>
+            </ul>
+            <p style="margin-top:.5rem;">ボーナスステータス: Health, Defense, Penetration, Power, PvE Damage, Power Regen, Health Regen</p>
+        </div>
+
+        <p class="sub-label">Mythical（神話級）</p>
+        <div class="acc-grid" style="margin-bottom:2rem;">
+            <div class="acc-card mythical-border"><img src="images/5754cdf85b65.png" alt="Prime Jotaro's Hat" loading="lazy"><div class="acc-card-body"><h4>Prime Jotaro's Hat（プライム承太郎の帽子）<span class="rarity-badge rarity-mythical" style="margin-left:.5rem;">神話級</span></h4><p>Defense: 3.5%, Health: 9, Power: 6, Health Regen: 6%</p></div></div>
+            <div class="acc-card mythical-border"><img src="images/32288e3839a4.png" alt="Prime Jotaro's Coat" loading="lazy"><div class="acc-card-body"><h4>Prime Jotaro's Coat（プライム承太郎のコート）<span class="rarity-badge rarity-mythical" style="margin-left:.5rem;">神話級</span></h4><p>Defense: 9%, Health: 9, Power: 6, PvE Damage: 5%</p></div></div>
+            <div class="acc-card mythical-border"><img src="images/296390785105.png" alt="Crucifix Pendant" loading="lazy"><div class="acc-card-body"><h4>Crucifix Pendant（十字架ペンダント）<span class="rarity-badge rarity-mythical" style="margin-left:.5rem;">神話級</span></h4><p>Defense: 3%, Health: 6, Penetration: 13.5%, PvE Damage: 5%</p></div></div>
+            <div class="acc-card mythical-border"><img src="images/22735d8d82df.png" alt="The Bosses Watch" loading="lazy"><div class="acc-card-body"><h4>The Bosses Watch（ボスの時計）<span class="rarity-badge rarity-mythical" style="margin-left:.5rem;">神話級</span></h4><p>ボスからのドロップ。</p></div></div>
+        </div>
+
+        <p class="sub-label">Legendary（伝説級）</p>
+        <div class="acc-grid" style="margin-bottom:2rem;">
+            <div class="acc-card legendary-border"><img src="images/85d8c21ed69d.png" alt="Jotaro's Hat" loading="lazy"><div class="acc-card-body"><h4>Jotaro's Hat（承太郎の帽子）<span class="rarity-badge rarity-legendary" style="margin-left:.5rem;">伝説級</span></h4></div></div>
+            <div class="acc-card legendary-border"><img src="images/58e36076d147.png" alt="Jotaro's Coat" loading="lazy"><div class="acc-card-body"><h4>Jotaro's Coat（承太郎のコート）<span class="rarity-badge rarity-legendary" style="margin-left:.5rem;">伝説級</span></h4></div></div>
+            <div class="acc-card legendary-border"><img src="images/82c79548db1d.png" alt="Strawberry Tie" loading="lazy"><div class="acc-card-body"><h4>Strawberry Tie（ストロベリータイ）<span class="rarity-badge rarity-legendary" style="margin-left:.5rem;">伝説級</span></h4></div></div>
+            <div class="acc-card legendary-border"><img src="images/18923660d2ab.png" alt="Roundabout Cape" loading="lazy"><div class="acc-card-body"><h4>Roundabout Cape（ラウンドアバウトケープ）<span class="rarity-badge rarity-legendary" style="margin-left:.5rem;">伝説級</span></h4></div></div>
+            <div class="acc-card legendary-border"><img src="images/2bb22341191f.png" alt="Sailor Hat" loading="lazy"><div class="acc-card-body"><h4>Sailor Hat（セーラーハット）<span class="rarity-badge rarity-legendary" style="margin-left:.5rem;">伝説級</span></h4></div></div>
+            <div class="acc-card legendary-border"><img src="images/d484835394ee.png" alt="White Overcoat" loading="lazy"><div class="acc-card-body"><h4>White Overcoat（白オーバーコート）<span class="rarity-badge rarity-legendary" style="margin-left:.5rem;">伝説級</span></h4></div></div>
+            <div class="acc-card legendary-border"><img src="images/f1741a6b2bd6.png" alt="Black Overcoat" loading="lazy"><div class="acc-card-body"><h4>Black Overcoat（黒オーバーコート）<span class="rarity-badge rarity-legendary" style="margin-left:.5rem;">伝説級</span></h4></div></div>
+            <div class="acc-card legendary-border"><img src="images/24302301e3b4.png" alt="Crimson Overcoat" loading="lazy"><div class="acc-card-body"><h4>Crimson Overcoat（クリムゾンオーバーコート）<span class="rarity-badge rarity-legendary" style="margin-left:.5rem;">伝説級</span></h4></div></div>
+            <div class="acc-card legendary-border"><img src="images/27002ebacaec.png" alt="Safari Hat" loading="lazy"><div class="acc-card-body"><h4>Safari Hat（サファリハット）<span class="rarity-badge rarity-legendary" style="margin-left:.5rem;">伝説級</span></h4><p>スピンダメージ+20%</p></div></div>
+            <div class="acc-card legendary-border"><img src="images/3c99e6ceac23.png" alt="American Flag Cape" loading="lazy"><div class="acc-card-body"><h4>American Flag Cape（アメリカ国旗ケープ）<span class="rarity-badge rarity-legendary" style="margin-left:.5rem;">伝説級</span></h4></div></div>
+            <div class="acc-card legendary-border"><img src="images/ba8b7c02f467.png" alt="Heart Headband" loading="lazy"><div class="acc-card-body"><h4>Heart Headband（ハートヘッドバンド）<span class="rarity-badge rarity-legendary" style="margin-left:.5rem;">伝説級</span></h4></div></div>
+        </div>
+
+        <p class="sub-label">Rare（レア）</p>
+        <div class="acc-grid" style="margin-bottom:2rem;">
+            <div class="acc-card rare-border"><img src="images/247d8ac16c06.png" alt="Dark Cowl" loading="lazy"><div class="acc-card-body"><h4>Dark Cowl（ダークカウル）<span class="rarity-badge rarity-rare" style="margin-left:.5rem;">レア</span></h4></div></div>
+            <div class="acc-card rare-border"><img src="images/4fd81980e27d.png" alt="Full Bandage Mask" loading="lazy"><div class="acc-card-body"><h4>Full Bandage Mask（フルバンデージマスク）<span class="rarity-badge rarity-rare" style="margin-left:.5rem;">レア</span></h4><p>Health: 2, Power: 10, Power Regen: 12%, Health Regen: 5%</p></div></div>
+            <div class="acc-card rare-border"><img src="images/da95a19902ae.png" alt="Fighter Hand Wraps" loading="lazy"><div class="acc-card-body"><h4>Fighter Hand Wraps（ファイターハンドラップ）<span class="rarity-badge rarity-rare" style="margin-left:.5rem;">レア</span></h4><p>格闘技攻撃 貫通+7%。Health: 4, Power: 2, Penetration: 8%</p></div></div>
+            <div class="acc-card rare-border"><img src="images/4dabcfd9d26f.png" alt="Cultist Hood" loading="lazy"><div class="acc-card-body"><h4>Cultist Hood（カルティストフード）<span class="rarity-badge rarity-rare" style="margin-left:.5rem;">レア</span></h4></div></div>
+            <div class="acc-card rare-border"><img src="images/9e9c480568a1.png" alt="Cultist Howl" loading="lazy"><div class="acc-card-body"><h4>Cultist Howl（カルティストハウル）<span class="rarity-badge rarity-rare" style="margin-left:.5rem;">レア</span></h4><p>ライフスティール+5%。Health: 4, Defense: 2.5%, PvE: 5%</p></div></div>
+            <div class="acc-card rare-border"><img src="images/a13b2e1e8bee.png" alt="Fancy White Scarf" loading="lazy"><div class="acc-card-body"><h4>Fancy White Scarf（ファンシーホワイトスカーフ）<span class="rarity-badge rarity-rare" style="margin-left:.5rem;">レア</span></h4><p>Penetration: 8%, Health: 4, PvE: 5%, Defense: 2%</p></div></div>
+            <div class="acc-card rare-border"><img src="images/45e2dc3b3bcc.png" alt="Oni Beads" loading="lazy"><div class="acc-card-body"><h4>Oni Beads（鬼のビーズ）<span class="rarity-badge rarity-rare" style="margin-left:.5rem;">レア</span></h4><p>Health: 4, Power: 10, PvE: 6%, Penetration: 1.5%</p></div></div>
+            <div class="acc-card rare-border"><img src="images/3ad08f60c17e.png" alt="Pink Choker" loading="lazy"><div class="acc-card-body"><h4>Pink Choker（ピンクチョーカー）<span class="rarity-badge rarity-rare" style="margin-left:.5rem;">レア</span></h4><p>Penetration: 10%, Health: 5, Power: 3, PvE: 5%, Defense: 2.5%</p></div></div>
+            <div class="acc-card rare-border"><img src="images/75f83756b25f.png" alt="White Ripped Jacket" loading="lazy"><div class="acc-card-body"><h4>White Ripped Jacket（白リップドジャケット）<span class="rarity-badge rarity-rare" style="margin-left:.5rem;">レア</span></h4></div></div>
+            <div class="acc-card rare-border"><img src="images/973fc86ba972.png" alt="Black Ripped Jacket" loading="lazy"><div class="acc-card-body"><h4>Black Ripped Jacket（黒リップドジャケット）<span class="rarity-badge rarity-rare" style="margin-left:.5rem;">レア</span></h4></div></div>
+            <div class="acc-card rare-border"><img src="images/400c81f2973b.png" alt="Crimson Ripped Jacket" loading="lazy"><div class="acc-card-body"><h4>Crimson Ripped Jacket（クリムゾンリップドジャケット）<span class="rarity-badge rarity-rare" style="margin-left:.5rem;">レア</span></h4></div></div>
+            <div class="acc-card rare-border"><img src="images/bd6d2378a09f.png" alt="Green Ripped Jacket" loading="lazy"><div class="acc-card-body"><h4>Green Ripped Jacket（緑リップドジャケット）<span class="rarity-badge rarity-rare" style="margin-left:.5rem;">レア</span></h4></div></div>
+            <div class="acc-card rare-border"><img src="images/f1079ccb96f7.png" alt="Ruby Earrings" loading="lazy"><div class="acc-card-body"><h4>Ruby Earrings（ルビーイヤリング）<span class="rarity-badge rarity-rare" style="margin-left:.5rem;">レア</span></h4></div></div>
+            <div class="acc-card rare-border"><img src="images/859eab0abb55.png" alt="Ushanka" loading="lazy"><div class="acc-card-body"><h4>Ushanka（ウシャンカ）<span class="rarity-badge rarity-rare" style="margin-left:.5rem;">レア</span></h4></div></div>
+            <div class="acc-card rare-border"><img src="images/c69f15cb4307.png" alt="Straw Hat" loading="lazy"><div class="acc-card-body"><h4>Straw Hat（麦わら帽子）<span class="rarity-badge rarity-rare" style="margin-left:.5rem;">レア</span></h4></div></div>
+            <div class="acc-card rare-border"><img src="images/808309aa5367.png" alt="Chef's Hat" loading="lazy"><div class="acc-card-body"><h4>Chef's Hat（シェフハット）<span class="rarity-badge rarity-rare" style="margin-left:.5rem;">レア</span></h4></div></div>
+            <div class="acc-card rare-border"><img src="images/4797d9bc91b8.png" alt="Black Belt" loading="lazy"><div class="acc-card-body"><h4>Black Belt（黒帯）<span class="rarity-badge rarity-rare" style="margin-left:.5rem;">レア</span></h4></div></div>
+        </div>
+
+        <p class="sub-label">Uncommon（アンコモン）</p>
+        <div class="acc-grid" style="margin-bottom:2rem;">
+            <div class="acc-card uncommon-border"><img src="images/1c7770bdfc5b.png" alt="Biker Chain" loading="lazy"><div class="acc-card-body"><h4>Biker Chain（バイカーチェーン）<span class="rarity-badge rarity-uncommon" style="margin-left:.5rem;">アンコモン</span></h4><p>Health: 3, Power: 7.5, Defense: 0.5%, PvE: 5%</p></div></div>
+            <div class="acc-card uncommon-border"><img src="images/1e419d87b758.png" alt="Head Goggles" loading="lazy"><div class="acc-card-body"><h4>Head Goggles（ヘッドゴーグル）<span class="rarity-badge rarity-uncommon" style="margin-left:.5rem;">アンコモン</span></h4></div></div>
+            <div class="acc-card uncommon-border"><img src="images/f42953bd2fce.png" alt="Face Goggles" loading="lazy"><div class="acc-card-body"><h4>Face Goggles（フェイスゴーグル）<span class="rarity-badge rarity-uncommon" style="margin-left:.5rem;">アンコモン</span></h4></div></div>
+            <div class="acc-card uncommon-border"><img src="images/6a6a90c789d1.png" alt="Baseball Cap" loading="lazy"><div class="acc-card-body"><h4>Baseball Cap（ベースボールキャップ）<span class="rarity-badge rarity-uncommon" style="margin-left:.5rem;">アンコモン</span></h4></div></div>
+            <div class="acc-card uncommon-border"><img src="images/499b19d6cf90.png" alt="Red Topcoat" loading="lazy"><div class="acc-card-body"><h4>Red Topcoat（レッドトップコート）<span class="rarity-badge rarity-uncommon" style="margin-left:.5rem;">アンコモン</span></h4></div></div>
+            <div class="acc-card uncommon-border"><img src="images/e195a14b7107.png" alt="Grey Topcoat" loading="lazy"><div class="acc-card-body"><h4>Grey Topcoat（グレートップコート）<span class="rarity-badge rarity-uncommon" style="margin-left:.5rem;">アンコモン</span></h4></div></div>
+            <div class="acc-card uncommon-border"><img src="images/50672640de23.png" alt="White Topcoat" loading="lazy"><div class="acc-card-body"><h4>White Topcoat（ホワイトトップコート）<span class="rarity-badge rarity-uncommon" style="margin-left:.5rem;">アンコモン</span></h4></div></div>
+            <div class="acc-card uncommon-border"><img src="images/2e2aec6e5ae6.png" alt="Bandage Mask" loading="lazy"><div class="acc-card-body"><h4>Bandage Mask（バンデージマスク）<span class="rarity-badge rarity-uncommon" style="margin-left:.5rem;">アンコモン</span></h4></div></div>
+            <div class="acc-card uncommon-border"><img src="images/1c35b546802b.png" alt="Gold Crown" loading="lazy"><div class="acc-card-body"><h4>Gold Crown（ゴールドクラウン）<span class="rarity-badge rarity-uncommon" style="margin-left:.5rem;">アンコモン</span></h4></div></div>
+            <div class="acc-card uncommon-border"><img src="images/68640734d0a0.png" alt="Brown Belt" loading="lazy"><div class="acc-card-body"><h4>Brown Belt（ブラウンベルト）<span class="rarity-badge rarity-uncommon" style="margin-left:.5rem;">アンコモン</span></h4></div></div>
+        </div>
+
+        <p class="sub-label">Common（コモン）</p>
+        <div class="acc-grid">
+            <div class="acc-card"><img src="images/84bcaa0fe73a.png" alt="Mask" loading="lazy"><div class="acc-card-body"><h4>Mask（マスク）<span class="rarity-badge rarity-common" style="margin-left:.5rem;">コモン</span></h4></div></div>
+            <div class="acc-card"><img src="images/c67efed8501b.png" alt="Shades" loading="lazy"><div class="acc-card-body"><h4>Shades（シェード）<span class="rarity-badge rarity-common" style="margin-left:.5rem;">コモン</span></h4></div></div>
+            <div class="acc-card"><img src="images/bf1092e3d2c0.png" alt="Arm Wraps" loading="lazy"><div class="acc-card-body"><h4>Arm Wraps（アームラップ）<span class="rarity-badge rarity-common" style="margin-left:.5rem;">コモン</span></h4></div></div>
+            <div class="acc-card"><img src="images/d5b18abca3ae.png" alt="White Jacket" loading="lazy"><div class="acc-card-body"><h4>White Jacket（ホワイトジャケット）<span class="rarity-badge rarity-common" style="margin-left:.5rem;">コモン</span></h4></div></div>
+            <div class="acc-card"><img src="images/1d6c81135b95.png" alt="Black Jacket" loading="lazy"><div class="acc-card-body"><h4>Black Jacket（ブラックジャケット）<span class="rarity-badge rarity-common" style="margin-left:.5rem;">コモン</span></h4></div></div>
+            <div class="acc-card"><img src="images/ef4b12aaa1ea.png" alt="Grey Jacket" loading="lazy"><div class="acc-card-body"><h4>Grey Jacket（グレージャケット）<span class="rarity-badge rarity-common" style="margin-left:.5rem;">コモン</span></h4></div></div>
+            <div class="acc-card"><img src="images/a39c17d3cf74.png" alt="Eye Patch" loading="lazy"><div class="acc-card-body"><h4>Eye Patch（アイパッチ）<span class="rarity-badge rarity-common" style="margin-left:.5rem;">コモン</span></h4></div></div>
+            <div class="acc-card"><img src="images/9c485a4d07e4.png" alt="Balaclava" loading="lazy"><div class="acc-card-body"><h4>Balaclava（バラクラバ）<span class="rarity-badge rarity-common" style="margin-left:.5rem;">コモン</span></h4></div></div>
+            <div class="acc-card"><img src="images/cb3d8994f84d.png" alt="Simple Cape" loading="lazy"><div class="acc-card-body"><h4>Simple Cape（シンプルケープ）<span class="rarity-badge rarity-common" style="margin-left:.5rem;">コモン</span></h4></div></div>
+            <div class="acc-card"><img src="images/59b2444cf13e.png" alt="Plain White Scarf" loading="lazy"><div class="acc-card-body"><h4>Plain White Scarf（ホワイトスカーフ）<span class="rarity-badge rarity-common" style="margin-left:.5rem;">コモン</span></h4></div></div>
+            <div class="acc-card"><img src="images/b88bfee2b84c.png" alt="White Belt" loading="lazy"><div class="acc-card-body"><h4>White Belt（白帯）<span class="rarity-badge rarity-common" style="margin-left:.5rem;">コモン</span></h4></div></div>
+            <div class="acc-card"><img src="images/22828c3151fe.png" alt="Yellow Belt" loading="lazy"><div class="acc-card-body"><h4>Yellow Belt（黄帯）<span class="rarity-badge rarity-common" style="margin-left:.5rem;">コモン</span></h4></div></div>
+            <div class="acc-card"><img src="images/9ea3881d2119.png" alt="Orange Belt" loading="lazy"><div class="acc-card-body"><h4>Orange Belt（橙帯）<span class="rarity-badge rarity-common" style="margin-left:.5rem;">コモン</span></h4></div></div>
+            <div class="acc-card"><img src="images/742efc62f5bc.png" alt="Green Belt" loading="lazy"><div class="acc-card-body"><h4>Green Belt（緑帯）<span class="rarity-badge rarity-common" style="margin-left:.5rem;">コモン</span></h4></div></div>
+            <div class="acc-card"><img src="images/a7a631e11551.png" alt="Blue Belt" loading="lazy"><div class="acc-card-body"><h4>Blue Belt（青帯）<span class="rarity-badge rarity-common" style="margin-left:.5rem;">コモン</span></h4></div></div>
+            <div class="acc-card"><img src="images/adfa9b1336b5.png" alt="Purple Belt" loading="lazy"><div class="acc-card-body"><h4>Purple Belt（紫帯）<span class="rarity-badge rarity-common" style="margin-left:.5rem;">コモン</span></h4></div></div>
+            <div class="acc-card"><img src="images/7bdb3d781879.png" alt="Red Belt" loading="lazy"><div class="acc-card-body"><h4>Red Belt（赤帯）<span class="rarity-badge rarity-common" style="margin-left:.5rem;">コモン</span></h4></div></div>
+        </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <!-- ===== NPC ===== -->
+    <section id="npcs">
+        <div class="section-header">
+            <h2>NPCs（NPC一覧）</h2>
+            <p>ゲーム内に登場するすべてのNPC。クエスト、ショップ、格闘スタイル、進化などに関わるキャラクター。</p>
+        </div>
+
+        <p class="sub-label">Main NPCs（メインNPC / ストーリーライン）</p>
+        <div class="npc-grid" style="margin-bottom:2rem;">
+            <div class="npc-card"><img src="images/0c58aa226786.webp" alt="Jotaro Kujo" loading="lazy"><div class="npc-card-body"><h4>Jotaro Kujo（空条承太郎）</h4><div class="npc-location">Gym（ジム）- バス停 #2</div><p>メインストーリーのキーNPC。ジムの2階にいる。</p></div></div>
+            <div class="npc-card"><img src="images/ffe2450c3e0e.webp" alt="Koichi Hirose" loading="lazy"><div class="npc-card-body"><h4>Koichi Hirose（広瀬康一）</h4><div class="npc-location">Morioh Station（杜王駅）</div><p>ストーリークエストを提供するNPC。</p></div></div>
+            <div class="npc-card"><img src="images/846f2d15269e.webp" alt="Joseph" loading="lazy"><div class="npc-card-body"><h4>Joseph（ジョセフ）</h4><div class="npc-location">Morioh Station（杜王駅）付近</div><p>ストーリー関連NPC。</p></div></div>
+            <div class="npc-card"><img src="images/854b66561bcf.webp" alt="Shigechi" loading="lazy"><div class="npc-card-body"><h4>Shigechi（重ちー）</h4><div class="npc-location">杜王町内</div><p>ストーリークエストNPC。</p></div></div>
+            <div class="npc-card"><img src="images/4b874b63314b.webp" alt="Rohan" loading="lazy"><div class="npc-card-body"><h4>Rohan（岸辺露伴）</h4><div class="npc-location">杜王町内</div><p>ストーリー関連NPC。</p></div></div>
+            <div class="npc-card"><img src="images/d45ca231a27f.webp" alt="Tonio" loading="lazy"><div class="npc-card-body"><h4>Tonio Trussardi（トニオ・トラサルディー）</h4><div class="npc-location">レストラン</div><p>料理関連のストーリーNPC。</p></div></div>
+            <div class="npc-card"><img src="images/7240beb0535b.webp" alt="Lowly Thief" loading="lazy"><div class="npc-card-body"><h4>Lowly Thief（小泥棒）</h4><div class="npc-location">杜王町内</div><p>ストーリークエストの敵NPC。</p></div></div>
+            <div class="npc-card"><img src="images/114d3f529c7f.webp" alt="The Hand Man" loading="lazy"><div class="npc-card-body"><h4>The Hand Man（ザ・ハンド使い）</h4><div class="npc-location">杜王町内</div><p>ストーリークエストの戦闘NPC。</p></div></div>
+            <div class="npc-card"><img src="images/9eba66a55b39.webp" alt="Masuyo" loading="lazy"><div class="npc-card-body"><h4>Masuyo（マスヨ）</h4><div class="npc-location">杜王町内</div><p>ストーリー関連NPC。</p></div></div>
+            <div class="npc-card"><img src="images/f27d1751b79c.webp" alt="Mr. Rengatei" loading="lazy"><div class="npc-card-body"><h4>Mr. Rengatei（レンガテイ）</h4><div class="npc-location">杜王町内</div><p>ストーリー関連NPC。</p></div></div>
+            <div class="npc-card"><img src="images/edc0885e1696.webp" alt="Akihiko" loading="lazy"><div class="npc-card-body"><h4>Akihiko（アキヒコ）</h4><div class="npc-location">杜王町内</div><p>ストーリー関連NPC。</p></div></div>
+            <div class="npc-card"><img src="images/48938aa91c50.webp" alt="Josuke" loading="lazy"><div class="npc-card-body"><h4>Josuke Higashikata（東方仗助）</h4><div class="npc-location">バス停 #3 付近</div><p>メインストーリーのキーNPC。</p></div></div>
+            <div class="npc-card"><img src="images/6cfba62f383c.webp" alt="Aya" loading="lazy"><div class="npc-card-body"><h4>Aya Tsuji（辻彩）</h4><div class="npc-location">杜王町内</div><p>ストーリー関連NPC。</p></div></div>
+        </div>
+
+        <p class="sub-label">Important NPCs（重要NPC / 機能NPC）</p>
+        <div class="npc-grid" style="margin-bottom:2rem;">
+            <div class="npc-card"><img src="images/a2cc978541bd.webp" alt="Rahaj" loading="lazy"><div class="npc-card-body"><h4>Rahaj（ラハジ / ショップNPC）</h4><div class="npc-location">Store（ストア）</div><p>音楽トラック（50,000キャッシュ）、アクセサリー（1,000〜2,500キャッシュ）、各種エッセンスを販売。</p></div></div>
+            <div class="npc-card"><img src="images/9d33e7316ade.webp" alt="Gupta" loading="lazy"><div class="npc-card-body"><h4>Gupta（グプタ / クラフトNPC）</h4><div class="npc-location">Store（ストア）付近</div><p>Legendary Chest、Rare Chest、Common Chest、Plank Skateboardをクラフト可能。</p></div></div>
+            <div class="npc-card"><img src="images/03a5d1076bab.webp" alt="Arch Mage" loading="lazy"><div class="npc-card-body"><h4>Arch Mage（アーチメイジ）</h4><div class="npc-location">Hospital（病院）- バス停 #10</div><p>プレステージ担当NPC。ショップでアイテム・パーク・スキン・EDICT強化を販売。</p></div></div>
+            <div class="npc-card"><img src="pucci.png" alt="Pucci" loading="lazy"><div class="npc-card-body"><h4>Pucci（プッチ神父）</h4><div class="npc-location">Dio's Chapel（DIOの礼拝堂）- バス停 #18</div><p>スタンド進化の中心NPC。「Journey to Heaven」クエストを提供。丘の穴に入って左。</p></div></div>
+            <div class="npc-card"><img src="images/e407f7c7a9e0.webp" alt="Ancient Ghost" loading="lazy"><div class="npc-card-body"><h4>Ancient Ghost（古代の幽霊 / 波紋）</h4><div class="npc-location">バス停 #5 - 花畑付近のフェンス前</div><p>波紋（Hamon）の全技を習得できるNPC。</p></div></div>
+            <div class="npc-card"><img src="images/dae2e0018afd.webp" alt="Elder Vampire" loading="lazy"><div class="npc-card-body"><h4>Elder Vampire（エルダーヴァンパイア）</h4><div class="npc-location">バス停 #18 - DIO城エントランス左</div><p>ヴァンパイアの全技を習得できるNPC。</p></div></div>
+            <div class="npc-card"><img src="images/a2354a714965.webp" alt="Stroheim" loading="lazy"><div class="npc-card-body"><h4>Rudol von Stroheim（シュトロハイム / サイボーグ）</h4><div class="npc-location">バス停 #3 - 東方仗助の近く</div><p>サイボーグの全技を習得できるNPC。バス停に寄りかかっている。</p></div></div>
+            <div class="npc-card"><img src="images/013ad85b6a58.webp" alt="Samurai Master" loading="lazy"><div class="npc-card-body"><h4>Samurai Master（侍マスター）</h4><div class="npc-location">バス停 #15 - カメユーマーケット内</div><p>剣道スタイルのクエストを提供するNPC。</p></div></div>
+            <div class="npc-card"><img src="images/fb0edeef247d.webp" alt="Karate Sensei" loading="lazy"><div class="npc-card-body"><h4>Karate Sensei（空手師範）</h4><div class="npc-location">バス停 #3 - 東方仗助の左側</div><p>空手スタイルのクエストを提供するNPC。</p></div></div>
+            <div class="npc-card"><img src="images/4c13ee60007c.webp" alt="Boxing Coach" loading="lazy"><div class="npc-card-body"><h4>Boxing Coach（ボクシングコーチ）</h4><div class="npc-location">バス停 #2 - ジム2階（承太郎のいる場所）</div><p>ボクシングスタイルのクエストを提供するNPC。</p></div></div>
+            <div class="npc-card"><img src="images/8f86a129bc26.webp" alt="Determination" loading="lazy"><div class="npc-card-body"><h4>Determination NPC（ディターミネーション）</h4><div class="npc-location">バス停 #14 - ビーチ奥の岩場</div><p>ディターミネーション能力を習得するNPC。Arch Mageで強化可能。</p></div></div>
+            <div class="npc-card"><img src="images/cf286a69a32a.webp" alt="Merchant" loading="lazy"><div class="npc-card-body"><h4>Merchant NPC（商人NPC）</h4><div class="npc-location">各エリアに出現</div><p>フィールドに出現する行商人。</p></div></div>
+            <div class="npc-card"><img src="images/f8671ab9d37e.webp" alt="Mafia Boss" loading="lazy"><div class="npc-card-body"><h4>Mafia Boss（マフィアボス）</h4><div class="npc-location">杜王町内</div><p>ギャング関連のNPC。</p></div></div>
+            <div class="npc-card"><img src="images/6aab7898e1c5.webp" alt="Bruford" loading="lazy"><div class="npc-card-body"><h4>Bruford（ブラフォード）</h4><div class="npc-location">杜王町内</div><p>クエスト「The Heroes Blade」を提供。Night Vampire 50体撃破 + ワールドイベント1回完了。</p></div></div>
+            <div class="npc-card"><img src="images/837f151d1c02.webp" alt="Miyamoto" loading="lazy"><div class="npc-card-body"><h4>Miyamoto（ミヤモト）</h4><div class="npc-location">杜王町内</div><p>武器関連のNPC。</p></div></div>
+        </div>
+
+        <p class="sub-label">Side Quest Givers（サイドクエスト提供NPC）</p>
+        <div class="npc-grid">
+            <div class="npc-card"><img src="images/0c785ebf939e.webp" alt="Gardner Gwen" loading="lazy"><div class="npc-card-body"><h4>Gardner Gwen（ガーデナー・グウェン）</h4><div class="npc-location">杜王町内</div><p>「Garden of Secrets」クエスト（9ステップ）。報酬: XP（100〜10,000）、ロカカカ、Legendary Chest。</p></div></div>
+            <div class="npc-card"><img src="images/f40f37ddf98c.webp" alt="Polnareff" loading="lazy"><div class="npc-card-body"><h4>Jean Pierre Polnareff（ジャン・ピエール・ポルナレフ）</h4><div class="npc-location">杜王町内</div><p>サイドクエストを提供するNPC。</p></div></div>
+            <div class="npc-card"><img src="images/4775293dfd22.webp" alt="Speedwagon Researcher" loading="lazy"><div class="npc-card-body"><h4>Speedwagon Researcher（SPW財団研究員）</h4><div class="npc-location">杜王町内</div><p>サイドクエストを提供するNPC。</p></div></div>
+            <div class="npc-card"><img src="images/c8930bf7f0ec.webp" alt="Shozuki" loading="lazy"><div class="npc-card-body"><h4>Shozuki（ショウズキ）</h4><div class="npc-location">杜王町内</div><p>「The Fool」クエスト: Raid Muhammad AvdolをBランク以上で5回クリア → The Fool獲得。報酬: 1k XP + The Fool。</p></div></div>
+            <div class="npc-card"><img src="images/6e4d04679c4d.webp" alt="Kaiser" loading="lazy"><div class="npc-card-body"><h4>Kaiser（カイザー）</h4><div class="npc-location">杜王町内</div><p>サイドクエストを提供するNPC。</p></div></div>
+            <div class="npc-card"><img src="images/676263353bff.webp" alt="Geordie Greep" loading="lazy"><div class="npc-card-body"><h4>Geordie Greep（ジョーディー・グリープ）</h4><div class="npc-location">杜王町内</div><p>「The New Sound」クエスト: Dr. Bosconovitch撃破、Okuyasu PRIME撃破、Raid AvdolをSSSランク3回。報酬: 5k XP + The Magician Perk。</p></div></div>
+            <div class="npc-card"><img src="images/11818b559685.webp" alt="Shadowy Figure" loading="lazy"><div class="npc-card-body"><h4>Shadowy Figure（影の人物）</h4><div class="npc-location">杜王町内</div><p>謎のサイドクエストNPC。</p></div></div>
+            <div class="npc-card"><img src="images/bf137ff3646a.webp" alt="Kakyoin" loading="lazy"><div class="npc-card-body"><h4>Kakyoin（花京院典明）</h4><div class="npc-location">杜王町内</div><p>サイドクエストを提供するNPC。</p></div></div>
+            <div class="npc-card"><img src="images/13af8c707484.webp" alt="Rose" loading="lazy"><div class="npc-card-body"><h4>Rose（ローズ）</h4><div class="npc-location">杜王町内</div><p>サイドクエストを提供するNPC。</p></div></div>
+            <div class="npc-card"><img src="images/cf2ec44a0df6.webp" alt="Zuleima" loading="lazy"><div class="npc-card-body"><h4>Zuleima（ズレイマ）</h4><div class="npc-location">杜王町内</div><p>「The Plank Skateboard」クエスト: 1v1/PvPミッションボードで5勝。報酬: Plank Skateboard x1。</p></div></div>
+            <div class="npc-card"><img src="images/76512c809b26.webp" alt="Yuto Horigome" loading="lazy"><div class="npc-card-body"><h4>Yuto Horigome（堀米雄斗）</h4><div class="npc-location">杜王町内</div><p>「Fede LNG, XX」クエスト: Gold Coin 5枚を渡す。報酬: Skateboard x1 + 5k XP。</p></div></div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="footer-inner">
+        <p style="margin-bottom:.5rem; font-weight:700; font-size:1.3rem;">Bizarre Lineage 攻略ガイド</p>
+        <p style="margin-bottom:.5rem; font-size:.95rem;">作成者: <strong style="color:#b89aff;">LUNA670</strong></p>
+        <p style="margin-bottom:1rem;">
+            <a href="https://www.roblox.com/games/14890802310/Bizarre-Lineage" target="_blank">ゲームページ</a> ・
+            <a href="https://discord.gg/bizarrelineage" target="_blank">公式Discord</a> ・
+            <a href="https://www.roblox.com/communities/33161040/Bizarre-Collective" target="_blank">グループ</a> ・
+            <a href="https://discord.gg/YpDSv6cF3Q" target="_blank">LUNA670のDiscord鯖</a>
+        </p>
+        <p>このサイトはファンメイドの非公式攻略ガイドです。<br>元データ: <a href="https://trello.com/b/wtzgwqIf" target="_blank">公式Trelloボード</a></p>
+    </div>
+</footer>
+
+<script>
+    function switchTab(tab) {
+        document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+        document.getElementById('tab-' + tab).classList.add('active');
+        event.target.classList.add('active');
+    }
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-link');
+    window.addEventListener('scroll', () => {
+        let current = '';
+        sections.forEach(s => { if (scrollY >= s.offsetTop - 100) current = s.id; });
+        navLinks.forEach(l => { l.classList.toggle('active', l.getAttribute('href') === '#' + current); });
+    });
+    navLinks.forEach(l => l.addEventListener('click', e => {
+        e.preventDefault();
+        document.querySelector(l.getAttribute('href'))?.scrollIntoView({ behavior:'smooth', block:'start' });
+    }));
+</script>
+
+</body>
+</html>
