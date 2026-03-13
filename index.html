@@ -55,6 +55,11 @@
         .section-divider { border:none; height:1px; background:linear-gradient(90deg,transparent,var(--border),transparent); }
         .sub-label { font-size:1.1rem; margin-bottom:1rem; color:#b89aff; font-weight:600; }
 
+        /* Code Copy */
+        .code-copy-btn { background:rgba(108,60,224,.15); border:1px solid rgba(108,60,224,.3); border-radius:10px; padding:.7rem 1rem; color:#b89aff; font-size:.95rem; font-weight:600; font-family:'Noto Sans JP',monospace; cursor:pointer; transition:all .3s; text-align:center; }
+        .code-copy-btn:hover { background:rgba(108,60,224,.3); transform:translateY(-2px); box-shadow:0 4px 15px rgba(108,60,224,.3); }
+        .code-copy-btn.copied { background:rgba(77,255,136,.15); border-color:rgba(77,255,136,.3); color:var(--uncommon); }
+
         /* Cards */
         .card-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:1.2rem; }
         .card { background:var(--bg-card); border:1px solid var(--border); border-radius:14px; padding:1.5rem; transition:all .3s; }
@@ -243,6 +248,7 @@
 <nav class="nav-sticky">
     <button class="nav-arrow nav-arrow-left" onclick="document.querySelector('.nav-inner').scrollBy({left:-200,behavior:'smooth'})" aria-label="左へスクロール">&#9664;</button>
     <div class="nav-inner">
+        <a href="#codes" class="nav-link">コード</a>
         <a href="#updates" class="nav-link">アプデ情報</a>
         <a href="#basics" class="nav-link">基本情報</a>
         <a href="#regions" class="nav-link">エリア</a>
@@ -265,6 +271,22 @@
 </nav>
 
 <main class="container">
+
+    <!-- ===== コード ===== -->
+    <section id="codes">
+        <div class="section-header">
+            <h2>コード一覧</h2>
+            <p>グループに参加してチャットにてコードを打つ — クリックでコピー</p>
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:.8rem;">
+            <button class="code-copy-btn" onclick="copyCode(this)">!code 30kLikes</button>
+            <button class="code-copy-btn" onclick="copyCode(this)">!code 100kLikes</button>
+            <button class="code-copy-btn" onclick="copyCode(this)">!code shutdownoops</button>
+            <button class="code-copy-btn" onclick="copyCode(this)">!code 1week</button>
+        </div>
+    </section>
+
+    <hr class="section-divider">
 
     <!-- ===== アップデート情報 ===== -->
     <section id="updates">
@@ -299,14 +321,6 @@
                 <li style="color:var(--text-dim); font-size:.92rem; line-height:2; padding-left:1.2rem; position:relative;"><span style="position:absolute; left:0; color:var(--accent);">&#9670;</span>襲撃時のうなり声の赤みを軽減しました</li>
             </ul>
 
-            <p class="sub-label">コード打ち方</p>
-            <p style="color:var(--text-dim); font-size:.92rem; margin-bottom:1rem;">グループに参加してチャットにてコードを打つ</p>
-            <div style="display:flex; flex-wrap:wrap; gap:.6rem;">
-                <code style="background:rgba(108,60,224,.15); border:1px solid rgba(108,60,224,.3); border-radius:8px; padding:.5rem 1rem; color:#b89aff; font-size:.95rem; font-weight:600;">!code 30kLikes</code>
-                <code style="background:rgba(108,60,224,.15); border:1px solid rgba(108,60,224,.3); border-radius:8px; padding:.5rem 1rem; color:#b89aff; font-size:.95rem; font-weight:600;">!code 100kLikes</code>
-                <code style="background:rgba(108,60,224,.15); border:1px solid rgba(108,60,224,.3); border-radius:8px; padding:.5rem 1rem; color:#b89aff; font-size:.95rem; font-weight:600;">!code shutdownoops</code>
-                <code style="background:rgba(108,60,224,.15); border:1px solid rgba(108,60,224,.3); border-radius:8px; padding:.5rem 1rem; color:#b89aff; font-size:.95rem; font-weight:600;">!code 1week</code>
-            </div>
         </div>
     </section>
 
@@ -1104,7 +1118,7 @@
                 <tr><td>Stone Mask（石仮面）</td><td><span class="rarity-badge rarity-rare">レア</span></td><td>使用してヴァンパイアに変化。</td></tr>
                 <tr><td>Lucky Arrow（ラッキーアロー）</td><td><span class="rarity-badge rarity-legendary">伝説級</span></td><td>ランダムなスキンが確定付与。</td></tr>
                 <tr><td>DIO's Diary（DIOの日記）</td><td><span class="rarity-badge rarity-mythical">神話級</span></td><td>プッチクエスト（C-Moon進化）に必要。</td></tr>
-                <tr><td>DIO's Bone（DIOの骨）</td><td><span class="rarity-badge rarity-mythical">神話級</span></td><td>進化クエスト用素材。</td></tr>
+                <tr><td>DIO's Bone（DIOの骨）</td><td><span class="rarity-badge rarity-mythical">神話級</span></td><td>進化クエスト用素材。チェストドロップ or ショップから購入で入手可能。</td></tr>
                 <tr><td>Red Stone of Aja（エイジャの赤石）</td><td><span class="rarity-badge rarity-secret">Robux</span></td><td>伝説スキン確率2倍、コンジュレーション2倍、ラッキーアロー出現率+1%。</td></tr>
             </tbody>
         </table>
@@ -1615,11 +1629,20 @@
             <a href="https://discord.gg/YpDSv6cF3Q" target="_blank">LUNA670のDiscord鯖</a>
         </p>
         <p>このサイトはファンメイドの非公式攻略ガイドです。<br>元データ: <a href="https://trello.com/b/wtzgwqIf" target="_blank">公式Trelloボード</a></p>
-        <p style="margin-top:.8rem; font-size:.8rem; color:var(--text-dim);">Ver. 1.9.0 ｜ 最終更新: 2026.03.10</p>
+        <p style="margin-top:.8rem; font-size:.8rem; color:var(--text-dim);">Ver. 1.9.1 ｜ 最終更新: 2026.03.13</p>
     </div>
 </footer>
 
 <script>
+    function copyCode(btn) {
+        navigator.clipboard.writeText(btn.textContent).then(() => {
+            const orig = btn.textContent;
+            btn.textContent = 'Copied!';
+            btn.classList.add('copied');
+            setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 1500);
+        });
+    }
+
     function switchTab(tab) {
         document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
         document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
