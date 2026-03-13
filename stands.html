@@ -62,17 +62,20 @@
             <p>レアリティ別のスタンドと技構成（スタンドの矢を使用して入手）</p>
         </div>
 
-        <div class="tab-buttons">
-            <button class="tab-btn active" onclick="switchTab('mythical')">神話級</button>
-            <button class="tab-btn" onclick="switchTab('legendary')">伝説級</button>
-            <button class="tab-btn" onclick="switchTab('rare')">レア</button>
-            <button class="tab-btn" onclick="switchTab('uncommon')">アンコモン</button>
-            <button class="tab-btn" onclick="switchTab('common')">コモン</button>
+        <div class="search-filter-bar">
+            <input type="text" class="search-input" id="stand-search" placeholder="スタンド名・技名・パークで検索..." oninput="filterStands()">
+            <div class="filter-buttons">
+                <button class="filter-btn active" onclick="setStandFilter('all',this)">すべて</button>
+                <button class="filter-btn" onclick="setStandFilter('mythical',this)">神話級</button>
+                <button class="filter-btn" onclick="setStandFilter('legendary',this)">伝説級</button>
+                <button class="filter-btn" onclick="setStandFilter('rare',this)">レア</button>
+                <button class="filter-btn" onclick="setStandFilter('uncommon',this)">アンコモン</button>
+                <button class="filter-btn" onclick="setStandFilter('common',this)">コモン</button>
+            </div>
         </div>
 
-        <div id="tab-mythical" class="tab-content active">
-            <div class="stand-grid">
-                <div class="stand-card mythical-border">
+        <div class="stand-grid" id="stand-grid">
+                <div class="stand-card mythical-border" data-rarity="mythical">
                     <img src="images/4cbc5568842e.png" alt="ホワイトスネイク" class="stand-card-img" loading="lazy">
                     <div class="stand-card-header"><h3>ホワイトスネイク</h3><span class="rarity-badge rarity-mythical">神話級</span></div>
                     <div class="stand-card-body">
@@ -88,12 +91,8 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
 
-        <div id="tab-legendary" class="tab-content">
-            <div class="stand-grid">
-                <div class="stand-card legendary-border">
+                <div class="stand-card legendary-border" data-rarity="legendary">
                     <img src="images/48867f3e0b73.png" alt="ザ・ワールド" class="stand-card-img" loading="lazy">
                     <div class="stand-card-header"><h3>ザ・ワールド</h3><span class="rarity-badge rarity-legendary">伝説級</span></div>
                     <div class="stand-card-body">
@@ -109,7 +108,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="stand-card legendary-border">
+                <div class="stand-card legendary-border" data-rarity="legendary">
                     <img src="images/60b623fef5f4.png" alt="スタープラチナ" class="stand-card-img" loading="lazy">
                     <div class="stand-card-header"><h3>スタープラチナ</h3><span class="rarity-badge rarity-legendary">伝説級</span></div>
                     <div class="stand-card-body">
@@ -125,7 +124,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="stand-card legendary-border">
+                <div class="stand-card legendary-border" data-rarity="legendary">
                     <img src="images/29d2b8277b82.png" alt="キング・クリムゾン" class="stand-card-img" loading="lazy">
                     <div class="stand-card-header"><h3>キング・クリムゾン</h3><span class="rarity-badge rarity-legendary">伝説級</span></div>
                     <div class="stand-card-body">
@@ -141,7 +140,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="stand-card legendary-border">
+                <div class="stand-card legendary-border" data-rarity="legendary">
                     <img src="images/d755e2681c74.png" alt="ザ・ワールド HV" class="stand-card-img" loading="lazy">
                     <div class="stand-card-header"><h3>ザ・ワールド: ハイボルテージ</h3><span class="rarity-badge rarity-legendary">伝説級</span></div>
                     <div class="stand-card-body">
@@ -157,12 +156,8 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
 
-        <div id="tab-rare" class="tab-content">
-            <div class="stand-grid">
-                <div class="stand-card rare-border">
+                <div class="stand-card rare-border" data-rarity="rare">
                     <img src="images/4fb83ffca562.png" alt="アヌビス神" class="stand-card-img" loading="lazy">
                     <div class="stand-card-header"><h3>アヌビス神</h3><span class="rarity-badge rarity-rare">レア</span></div>
                     <div class="stand-card-body">
@@ -178,7 +173,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="stand-card rare-border">
+                <div class="stand-card rare-border" data-rarity="rare">
                     <img src="images/9026443f6605.png" alt="キラークイーン" class="stand-card-img" loading="lazy">
                     <div class="stand-card-header"><h3>キラークイーン</h3><span class="rarity-badge rarity-rare">レア</span></div>
                     <div class="stand-card-body">
@@ -194,7 +189,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="stand-card rare-border">
+                <div class="stand-card rare-border" data-rarity="rare">
                     <img src="images/1901f4bd70ee.png" alt="ストーン・フリー" class="stand-card-img" loading="lazy">
                     <div class="stand-card-header"><h3>ストーン・フリー</h3><span class="rarity-badge rarity-rare">レア</span></div>
                     <div class="stand-card-body">
@@ -210,7 +205,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="stand-card rare-border">
+                <div class="stand-card rare-border" data-rarity="rare">
                     <img src="images/df49483dd9fd.png" alt="ウェザー・リポート" class="stand-card-img" loading="lazy">
                     <div class="stand-card-header"><h3>ウェザー・リポート</h3><span class="rarity-badge rarity-rare">レア</span></div>
                     <div class="stand-card-body">
@@ -226,12 +221,8 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
 
-        <div id="tab-uncommon" class="tab-content">
-            <div class="stand-grid">
-                <div class="stand-card uncommon-border">
+                <div class="stand-card uncommon-border" data-rarity="uncommon">
                     <img src="images/fde00b82cd47.png" alt="マジシャンズレッド" class="stand-card-img" loading="lazy">
                     <div class="stand-card-header"><h3>マジシャンズレッド</h3><span class="rarity-badge rarity-uncommon">アンコモン</span></div>
                     <div class="stand-card-body">
@@ -247,7 +238,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="stand-card uncommon-border">
+                <div class="stand-card uncommon-border" data-rarity="uncommon">
                     <img src="images/02571fb4446b.png" alt="ザ・ハンド" class="stand-card-img" loading="lazy">
                     <div class="stand-card-header"><h3>ザ・ハンド</h3><span class="rarity-badge rarity-uncommon">アンコモン</span></div>
                     <div class="stand-card-body">
@@ -263,7 +254,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="stand-card uncommon-border">
+                <div class="stand-card uncommon-border" data-rarity="uncommon">
                     <img src="images/5f581e396885.png" alt="クレイジー・ダイヤモンド" class="stand-card-img" loading="lazy">
                     <div class="stand-card-header"><h3>クレイジー・ダイヤモンド</h3><span class="rarity-badge rarity-uncommon">アンコモン</span></div>
                     <div class="stand-card-body">
@@ -279,7 +270,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="stand-card uncommon-border">
+                <div class="stand-card uncommon-border" data-rarity="uncommon">
                     <img src="images/b039d8b5b48e.png" alt="ゴールド・エクスペリエンス" class="stand-card-img" loading="lazy">
                     <div class="stand-card-header"><h3>ゴールド・エクスペリエンス</h3><span class="rarity-badge rarity-uncommon">アンコモン</span></div>
                     <div class="stand-card-body">
@@ -295,7 +286,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="stand-card uncommon-border">
+                <div class="stand-card uncommon-border" data-rarity="uncommon">
                     <img src="images/49c821b0dbf6.png" alt="パープル・ヘイズ" class="stand-card-img" loading="lazy">
                     <div class="stand-card-header"><h3>パープル・ヘイズ</h3><span class="rarity-badge rarity-uncommon">アンコモン</span></div>
                     <div class="stand-card-body">
@@ -311,12 +302,8 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
 
-        <div id="tab-common" class="tab-content">
-            <div class="stand-grid">
-                <div class="stand-card">
+                <div class="stand-card" data-rarity="common">
                     <img src="images/c749bab0730e.png" alt="RHCP" class="stand-card-img" loading="lazy">
                     <div class="stand-card-header"><h3>レッド・ホット・チリ・ペッパー</h3><span class="rarity-badge rarity-common">コモン</span></div>
                     <div class="stand-card-body">
@@ -332,8 +319,8 @@
                         </div>
                     </div>
                 </div>
-            </div>
         </div>
+        <div class="search-no-results" id="stand-no-results">検索結果が見つかりませんでした</div>
     </section>
 
     <hr class="section-divider">
@@ -384,16 +371,31 @@
             <a href="https://discord.gg/YpDSv6cF3Q" target="_blank">LUNA670のDiscord鯖</a>
         </p>
         <p>このサイトはファンメイドの非公式攻略ガイドです。<br>元データ: <a href="https://trello.com/b/wtzgwqIf" target="_blank">公式Trelloボード</a></p>
-        <p style="margin-top:.8rem; font-size:.8rem; color:var(--text-dim);">最終更新: 2026.03.13</p>
+        <p style="margin-top:.8rem; font-size:.8rem; color:var(--text-dim);">最終更新: 2026.03.14</p>
     </div>
 </footer>
 
 <script>
-    function switchTab(tab) {
-        document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-        document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-        document.getElementById('tab-' + tab).classList.add('active');
-        event.target.classList.add('active');
+    let currentRarity = 'all';
+    function setStandFilter(rarity, btn) {
+        currentRarity = rarity;
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        filterStands();
+    }
+    function filterStands() {
+        const query = document.getElementById('stand-search').value.toLowerCase();
+        const cards = document.querySelectorAll('#stand-grid .stand-card');
+        let visible = 0;
+        cards.forEach(card => {
+            const rarity = card.dataset.rarity || '';
+            const text = card.textContent.toLowerCase();
+            const matchRarity = currentRarity === 'all' || rarity === currentRarity;
+            const matchText = !query || text.includes(query);
+            if (matchRarity && matchText) { card.classList.remove('search-hidden'); visible++; }
+            else { card.classList.add('search-hidden'); }
+        });
+        document.getElementById('stand-no-results').style.display = visible === 0 ? 'block' : 'none';
     }
 </script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-JEYRF0CQYB"></script>

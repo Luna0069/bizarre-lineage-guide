@@ -28,7 +28,7 @@
         <p>スタンド・エリア・進行・アイテムなど、ゲームのすべてを網羅した日本語攻略ガイド</p>
         <div style="display:flex; gap:1.5rem; justify-content:center; flex-wrap:wrap; margin-bottom:1.5rem;">
             <div style="background:rgba(255,255,255,.07); border:1px solid var(--border); border-radius:8px; padding:.4rem 1rem; font-size:.85rem;">
-                <span style="color:var(--text-dim);">最終更新</span> <strong style="color:#ff6b35;">2026.03.13</strong>
+                <span style="color:var(--text-dim);">最終更新</span> <strong style="color:#ff6b35;">2026.03.14</strong>
             </div>
         </div>
         <div class="hero-links">
@@ -66,6 +66,17 @@
 </nav>
 
 <main class="container">
+
+    <div class="search-filter-bar">
+        <input type="text" class="search-input" id="home-search" placeholder="コード・アプデ情報・基本情報で検索..." oninput="filterHome()">
+        <div class="filter-buttons">
+            <button class="filter-btn active" onclick="setHomeFilter('all',this)">すべて</button>
+            <button class="filter-btn" onclick="setHomeFilter('codes',this)">コード</button>
+            <button class="filter-btn" onclick="setHomeFilter('updates',this)">アプデ情報</button>
+            <button class="filter-btn" onclick="setHomeFilter('leaks',this)">リーク</button>
+            <button class="filter-btn" onclick="setHomeFilter('basics',this)">基本情報</button>
+        </div>
+    </div>
 
     <!-- ===== コード ===== -->
     <section id="codes">
@@ -210,7 +221,7 @@
             <a href="https://discord.gg/YpDSv6cF3Q" target="_blank">LUNA670のDiscord鯖</a>
         </p>
         <p>このサイトはファンメイドの非公式攻略ガイドです。<br>元データ: <a href="https://trello.com/b/wtzgwqIf" target="_blank">公式Trelloボード</a></p>
-        <p style="margin-top:.8rem; font-size:.8rem; color:var(--text-dim);">最終更新: 2026.03.13</p>
+        <p style="margin-top:.8rem; font-size:.8rem; color:var(--text-dim);">最終更新: 2026.03.14</p>
     </div>
 </footer>
 
@@ -234,6 +245,35 @@
         e.preventDefault();
         document.querySelector(l.getAttribute('href'))?.scrollIntoView({ behavior:'smooth', block:'start' });
     }));
+
+    let currentHomeFilter = 'all';
+    function setHomeFilter(filter, btn) {
+        currentHomeFilter = filter;
+        document.querySelectorAll('.search-filter-bar .filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        filterHome();
+    }
+    function filterHome() {
+        const query = document.getElementById('home-search').value.toLowerCase();
+        const sectionIds = ['codes','updates','leaks','basics'];
+        const dividers = document.querySelectorAll('.section-divider');
+        sectionIds.forEach(id => {
+            const section = document.getElementById(id);
+            if (!section) return;
+            const show = currentHomeFilter === 'all' || currentHomeFilter === id;
+            if (!show) { section.classList.add('search-hidden'); return; }
+            if (query) {
+                const match = section.textContent.toLowerCase().includes(query);
+                section.classList.toggle('search-hidden', !match);
+            } else {
+                section.classList.remove('search-hidden');
+            }
+        });
+        dividers.forEach(d => {
+            const next = d.nextElementSibling;
+            d.classList.toggle('search-hidden', !next || next.classList.contains('search-hidden'));
+        });
+    }
 </script>
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-JEYRF0CQYB"></script>

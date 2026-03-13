@@ -56,6 +56,17 @@
 
 <main class="container">
 
+    <div class="search-filter-bar">
+        <input type="text" class="search-input" id="mech-search" placeholder="名前・効果・説明で検索..." oninput="filterMechanics()">
+        <div class="filter-buttons">
+            <button class="filter-btn active" onclick="setMechFilter('all',this)">すべて</button>
+            <button class="filter-btn" onclick="setMechFilter('mechanics',this)">ゲーム仕様</button>
+            <button class="filter-btn" onclick="setMechFilter('traits',this)">トレイト</button>
+            <button class="filter-btn" onclick="setMechFilter('skins',this)">スキン</button>
+            <button class="filter-btn" onclick="setMechFilter('accessories',this)">アクセサリー</button>
+        </div>
+    </div>
+
     <section id="mechanics">
         <div class="section-header">
             <h2>ゲーム仕様</h2>
@@ -423,9 +434,75 @@
             <a href="https://discord.gg/YpDSv6cF3Q" target="_blank">LUNA670のDiscord鯖</a>
         </p>
         <p>このサイトはファンメイドの非公式攻略ガイドです。<br>元データ: <a href="https://trello.com/b/wtzgwqIf" target="_blank">公式Trelloボード</a></p>
-        <p style="margin-top:.8rem; font-size:.8rem; color:var(--text-dim);">最終更新: 2026.03.13</p>
+        <p style="margin-top:.8rem; font-size:.8rem; color:var(--text-dim);">最終更新: 2026.03.14</p>
     </div>
 </footer>
+
+<script>
+    let currentMechFilter = 'all';
+    function setMechFilter(filter, btn) {
+        currentMechFilter = filter;
+        document.querySelectorAll('.search-filter-bar .filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        filterMechanics();
+    }
+    function filterMechanics() {
+        const query = document.getElementById('mech-search').value.toLowerCase();
+        const sectionIds = ['mechanics','traits','skins','accessories'];
+        const dividers = document.querySelectorAll('.section-divider');
+
+        sectionIds.forEach(id => {
+            const section = document.getElementById(id);
+            if (!section) return;
+            const show = currentMechFilter === 'all' || currentMechFilter === id;
+            if (!show) { section.classList.add('search-hidden'); return; }
+            section.classList.remove('search-hidden');
+
+            if (query) {
+                if (id === 'skins') {
+                    section.querySelectorAll('.skin-stand-section').forEach(el => {
+                        el.classList.toggle('search-hidden', !el.textContent.toLowerCase().includes(query));
+                    });
+                } else if (id === 'traits') {
+                    section.querySelectorAll('.trait-grid').forEach(grid => {
+                        let vis = 0;
+                        grid.querySelectorAll('.trait-card').forEach(c => {
+                            const m = c.textContent.toLowerCase().includes(query);
+                            c.classList.toggle('search-hidden', !m);
+                            if (m) vis++;
+                        });
+                        const label = grid.previousElementSibling;
+                        grid.classList.toggle('search-hidden', vis === 0);
+                        if (label && label.classList.contains('sub-label')) label.classList.toggle('search-hidden', vis === 0);
+                    });
+                } else if (id === 'accessories') {
+                    section.querySelectorAll('.acc-grid').forEach(grid => {
+                        let vis = 0;
+                        grid.querySelectorAll('.acc-card').forEach(c => {
+                            const m = c.textContent.toLowerCase().includes(query);
+                            c.classList.toggle('search-hidden', !m);
+                            if (m) vis++;
+                        });
+                        const label = grid.previousElementSibling;
+                        grid.classList.toggle('search-hidden', vis === 0);
+                        if (label && label.classList.contains('sub-label')) label.classList.toggle('search-hidden', vis === 0);
+                    });
+                } else {
+                    section.querySelectorAll('.card').forEach(c => {
+                        c.classList.toggle('search-hidden', !c.textContent.toLowerCase().includes(query));
+                    });
+                }
+            } else {
+                section.querySelectorAll('.search-hidden').forEach(el => el.classList.remove('search-hidden'));
+            }
+        });
+
+        dividers.forEach(d => {
+            const next = d.nextElementSibling;
+            d.classList.toggle('search-hidden', !next || next.classList.contains('search-hidden'));
+        });
+    }
+</script>
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-JEYRF0CQYB"></script>
 <script>

@@ -56,6 +56,10 @@
 
 <main class="container">
 
+    <div class="search-filter-bar">
+        <input type="text" class="search-input" id="prog-search" placeholder="進行ステップ・進化条件で検索..." oninput="filterProgression()">
+    </div>
+
     <section id="progression">
         <div class="section-header">
             <h2>攻略の進め方</h2>
@@ -141,6 +145,28 @@
 
 </main>
 
+<script>
+    function filterProgression() {
+        const query = document.getElementById('prog-search').value.toLowerCase();
+        if (!query) {
+            document.querySelectorAll('.search-hidden').forEach(el => el.classList.remove('search-hidden'));
+            return;
+        }
+        // Filter progress steps
+        document.querySelectorAll('.progress-steps .step').forEach(s => {
+            s.classList.toggle('search-hidden', !s.textContent.toLowerCase().includes(query));
+        });
+        // Filter cards
+        document.querySelectorAll('.card-grid .card').forEach(c => {
+            c.classList.toggle('search-hidden', !c.textContent.toLowerCase().includes(query));
+        });
+        // Filter stand cards
+        document.querySelectorAll('.stand-grid .stand-card').forEach(c => {
+            c.classList.toggle('search-hidden', !c.textContent.toLowerCase().includes(query));
+        });
+    }
+</script>
+
 <footer>
     <div class="footer-inner">
         <p style="margin-bottom:.5rem; font-weight:700; font-size:1.3rem;">Bizarre Lineage 攻略ガイド</p>
@@ -152,7 +178,7 @@
             <a href="https://discord.gg/YpDSv6cF3Q" target="_blank">LUNA670のDiscord鯖</a>
         </p>
         <p>このサイトはファンメイドの非公式攻略ガイドです。<br>元データ: <a href="https://trello.com/b/wtzgwqIf" target="_blank">公式Trelloボード</a></p>
-        <p style="margin-top:.8rem; font-size:.8rem; color:var(--text-dim);">最終更新: 2026.03.13</p>
+        <p style="margin-top:.8rem; font-size:.8rem; color:var(--text-dim);">最終更新: 2026.03.14</p>
     </div>
 </footer>
 

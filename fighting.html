@@ -56,6 +56,16 @@
 
 <main class="container">
 
+    <div class="search-filter-bar">
+        <input type="text" class="search-input" id="fight-search" placeholder="スタイル名・技名・説明で検索..." oninput="filterFighting()">
+        <div class="filter-buttons">
+            <button class="filter-btn active" onclick="setFightFilter('all',this)">すべて</button>
+            <button class="filter-btn" onclick="setFightFilter('fighting',this)">格闘スタイル</button>
+            <button class="filter-btn" onclick="setFightFilter('sub-abilities',this)">サブ能力</button>
+            <button class="filter-btn" onclick="setFightFilter('personalities',this)">パーソナリティ</button>
+        </div>
+    </div>
+
     <section id="fighting">
         <div class="section-header">
             <h2>格闘スタイル</h2>
@@ -270,9 +280,75 @@
             <a href="https://discord.gg/YpDSv6cF3Q" target="_blank">LUNA670のDiscord鯖</a>
         </p>
         <p>このサイトはファンメイドの非公式攻略ガイドです。<br>元データ: <a href="https://trello.com/b/wtzgwqIf" target="_blank">公式Trelloボード</a></p>
-        <p style="margin-top:.8rem; font-size:.8rem; color:var(--text-dim);">最終更新: 2026.03.13</p>
+        <p style="margin-top:.8rem; font-size:.8rem; color:var(--text-dim);">最終更新: 2026.03.14</p>
     </div>
 </footer>
+
+<script>
+    let currentFightFilter = 'all';
+    function setFightFilter(filter, btn) {
+        currentFightFilter = filter;
+        document.querySelectorAll('.search-filter-bar .filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        filterFighting();
+    }
+    function filterFighting() {
+        const query = document.getElementById('fight-search').value.toLowerCase();
+        const sections = { fighting: document.getElementById('fighting'), 'sub-abilities': document.getElementById('sub-abilities'), personalities: document.getElementById('personalities') };
+        const dividers = document.querySelectorAll('.section-divider');
+        let totalVisible = 0;
+
+        Object.entries(sections).forEach(([key, section]) => {
+            if (!section) return;
+            const showSection = currentFightFilter === 'all' || currentFightFilter === key;
+            if (!showSection) { section.classList.add('search-hidden'); return; }
+            section.classList.remove('search-hidden');
+
+            // Filter cards within visible sections
+            let sectionVisible = 0;
+            if (key === 'fighting') {
+                section.querySelectorAll('.style-card').forEach(card => {
+                    const match = !query || card.textContent.toLowerCase().includes(query);
+                    card.classList.toggle('search-hidden', !match);
+                    if (match) sectionVisible++;
+                });
+            } else if (key === 'sub-abilities') {
+                section.querySelectorAll('.card-grid .card').forEach(card => {
+                    const match = !query || card.textContent.toLowerCase().includes(query);
+                    card.classList.toggle('search-hidden', !match);
+                    if (match) sectionVisible++;
+                });
+            } else if (key === 'personalities') {
+                section.querySelectorAll('.personality-card').forEach(card => {
+                    const match = !query || card.textContent.toLowerCase().includes(query);
+                    card.classList.toggle('search-hidden', !match);
+                    if (match) sectionVisible++;
+                });
+                // Hide empty sub-labels and grids
+                section.querySelectorAll('.personality-grid').forEach(grid => {
+                    const visCards = grid.querySelectorAll('.personality-card:not(.search-hidden)');
+                    const label = grid.previousElementSibling;
+                    if (visCards.length === 0) {
+                        grid.classList.add('search-hidden');
+                        if (label && label.classList.contains('sub-label')) label.classList.add('search-hidden');
+                    } else {
+                        grid.classList.remove('search-hidden');
+                        if (label && label.classList.contains('sub-label')) label.classList.remove('search-hidden');
+                    }
+                });
+            }
+            if (!query) sectionVisible = 1; // no text filter = section visible
+            if (sectionVisible === 0) section.classList.add('search-hidden');
+            totalVisible += sectionVisible;
+        });
+
+        // Show/hide dividers
+        dividers.forEach(d => {
+            const next = d.nextElementSibling;
+            d.classList.toggle('search-hidden', !next || next.classList.contains('search-hidden'));
+        });
+    }
+</script>
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-JEYRF0CQYB"></script>
 <script>

@@ -56,6 +56,10 @@
 
 <main class="container">
 
+    <div class="search-filter-bar">
+        <input type="text" class="search-input" id="area-search" placeholder="エリア名・NPC名・説明で検索..." oninput="filterAreas()">
+    </div>
+
     <section id="regions">
         <div class="section-header">
             <h2>エリアガイド</h2>
@@ -152,9 +156,24 @@
                 <div><span class="npc-tag">Determination NPC</span></div>
             </div>
         </div>
+        <div class="search-no-results" id="area-no-results">検索結果が見つかりませんでした</div>
     </section>
 
 </main>
+
+<script>
+    function filterAreas() {
+        const query = document.getElementById('area-search').value.toLowerCase();
+        const cards = document.querySelectorAll('.area-grid .area-card');
+        let visible = 0;
+        cards.forEach(card => {
+            const match = !query || card.textContent.toLowerCase().includes(query);
+            card.classList.toggle('search-hidden', !match);
+            if (match) visible++;
+        });
+        document.getElementById('area-no-results').style.display = (query && visible === 0) ? 'block' : 'none';
+    }
+</script>
 
 <footer>
     <div class="footer-inner">
@@ -167,7 +186,7 @@
             <a href="https://discord.gg/YpDSv6cF3Q" target="_blank">LUNA670のDiscord鯖</a>
         </p>
         <p>このサイトはファンメイドの非公式攻略ガイドです。<br>元データ: <a href="https://trello.com/b/wtzgwqIf" target="_blank">公式Trelloボード</a></p>
-        <p style="margin-top:.8rem; font-size:.8rem; color:var(--text-dim);">最終更新: 2026.03.13</p>
+        <p style="margin-top:.8rem; font-size:.8rem; color:var(--text-dim);">最終更新: 2026.03.14</p>
     </div>
 </footer>
 
