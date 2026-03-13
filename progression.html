@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>攻略の進め方・スタンド進化 | Bizarre Lineage 攻略Wiki</title>
+    <meta name="description" content="Bizarre Lineageの攻略進行ガイドとスタンド進化方法。チュートリアルからプレステージまでの進め方、C-Moon・メイド・イン・ヘブンの進化条件。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+    <div class="site-header-inner">
+        <a href="index.html" class="site-logo">Bizarre Lineage 完全攻略</a>
+        <span class="site-header-badge">ROBLOX 攻略ガイド</span>
+    </div>
+</header>
+
+<nav class="nav-sticky">
+    <button class="nav-arrow nav-arrow-left" onclick="document.querySelector('.nav-inner').scrollBy({left:-200,behavior:'smooth'})" aria-label="左へスクロール">&#9664;</button>
+    <div class="nav-inner">
+        <a href="index.html" class="nav-link">コード</a>
+        <a href="index.html#updates" class="nav-link">アプデ情報</a>
+        <a href="index.html#basics" class="nav-link">基本情報</a>
+        <a href="areas.html" class="nav-link">エリア</a>
+        <a href="stands.html" class="nav-link">スタンド</a>
+        <a href="stands.html#tierlist" class="nav-link">ティアリスト</a>
+        <a href="fighting.html#personalities" class="nav-link">パーソナリティ</a>
+        <a href="progression.html" class="nav-link active">進行</a>
+        <a href="fighting.html" class="nav-link">格闘スタイル</a>
+        <a href="fighting.html#sub-abilities" class="nav-link">サブ能力</a>
+        <a href="#evolutions" class="nav-link">進化</a>
+        <a href="items.html" class="nav-link">アイテム</a>
+        <a href="mechanics.html" class="nav-link">ゲーム仕様</a>
+        <a href="mechanics.html#traits" class="nav-link">トレイト</a>
+        <a href="mechanics.html#skins" class="nav-link">スキン</a>
+        <a href="mechanics.html#accessories" class="nav-link">アクセサリー</a>
+        <a href="npcs.html" class="nav-link">NPC</a>
+        <a href="npcs.html#comments" class="nav-link">コメント</a>
+    </div>
+    <button class="nav-arrow nav-arrow-right" onclick="document.querySelector('.nav-inner').scrollBy({left:200,behavior:'smooth'})" aria-label="右へスクロール">&#9654;</button>
+</nav>
+
+<main class="container">
+
+    <section id="progression">
+        <div class="section-header">
+            <h2>攻略の進め方</h2>
+            <p>ゲームの進行ステップとシステム解説</p>
+        </div>
+
+        <div class="progress-steps" style="margin-bottom:2rem;">
+            <div class="step"><div class="step-num">1</div><div class="step-content"><h4>チュートリアルをクリア</h4><p>杜王グランドホテルの受付NPCに話しかけてチュートリアルを開始。基本操作を学ぼう。</p></div></div>
+            <div class="step"><div class="step-num">2</div><div class="step-content"><h4>スタンドを入手する</h4><p>「スタンドの矢」を自分に使ってスタンドを解放。矢は地面やチェストから入手可能。</p></div></div>
+            <div class="step"><div class="step-num">3</div><div class="step-content"><h4>スタンド能力を解放する</h4><p>ミッション達成、NPC討伐、ランクマッチ、PVP勝利、ジムのマット修行で能力をアンロック。</p></div></div>
+            <div class="step"><div class="step-num">4</div><div class="step-content"><h4>サブ能力を習得する</h4><p>トレーナーから波紋・サイボーグ・スピンを習得。石仮面でヴァンパイアにもなれる。</p></div></div>
+            <div class="step"><div class="step-num">5</div><div class="step-content"><h4>格闘スタイルを習得する</h4><p>剣道・ボクシング・空手のトレーナーから格闘スタイルをアンロック。</p></div></div>
+            <div class="step"><div class="step-num">6</div><div class="step-content"><h4>プレステージする</h4><p><strong>条件：レベル50 + 10,000キャッシュ。</strong>病院のアーチメイジNPCに話しかけて実行。5つのプレステージシャード獲得、スタンドストレージ+1（最大4枠）、プレステージショップ解放。</p></div></div>
+        </div>
+
+        <div class="card-grid">
+            <div class="card">
+                <img src="images/09999fe243c5.png" alt="ミッションボード" class="card-img" loading="lazy">
+                <h3>ミッションボード</h3>
+                <p>PVEとPVPのクエストが用意されている。配達任務や戦闘任務でEXPと報酬を獲得。</p>
+            </div>
+            <div class="card">
+                <img src="images/8be8679755aa.png" alt="インナーワールド" class="card-img" loading="lazy">
+                <h3>インナーワールド（精神世界）</h3>
+                <p>ジムのマットでアクセス。自分のクローンと戦う。</p>
+                <ul>
+                    <li>「Yes」 — クローンと戦闘（パワーポイント獲得）</li>
+                    <li>「限界を超えたい」 — 覚醒版と戦闘（Lv50必須）</li>
+                </ul>
+            </div>
+            <div class="card">
+                <img src="images/ce600a248879.png" alt="プレステージ" class="card-img" loading="lazy">
+                <h3>プレステージ</h3>
+                <p><strong>必要条件：レベル50 + 10,000キャッシュ</strong>。病院のアーチメイジNPCで実行。プレステージシャード5個獲得、限定ショップ解放。</p>
+            </div>
+        </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <section id="evolutions">
+        <div class="section-header">
+            <h2>スタンド進化</h2>
+            <p>特定の条件を満たすことで進化するスタンド</p>
+        </div>
+        <div class="stand-grid">
+            <div class="stand-card mythical-border">
+                <img src="images/a817fbe3f267.png" alt="C-Moon" class="stand-card-img" loading="lazy">
+                <div class="stand-card-header"><h3>C-Moon</h3><span class="rarity-badge rarity-mythical">進化</span></div>
+                <div class="stand-card-body">
+                    <p style="color:var(--text-dim); font-size:.88rem; margin-bottom:.8rem;">条件：プレステージ1以上 + プッチ（バス停 #18）+ DIOの日記</p>
+                    <div class="move-list">
+                        <span class="move-tag">連打攻撃</span><span class="move-tag special">重力反転</span><span class="move-tag">岩石連打</span>
+                        <span class="move-tag">重力粉砕</span><span class="move-tag">重力バリア</span><span class="move-tag">貫通打撃</span>
+                    </div>
+                    <div class="perk-section">
+                        <div class="perk-section-title">PERKS</div>
+                        <div class="perk-item"><h5>Gravitational Force（重力場）</h5><p>ブロック時に攻撃者を3秒間スロー（CD 5秒）。</p></div>
+                        <div class="perk-item"><h5>Martial Artist（武術家）</h5><p>格闘技攻撃のダメージ+10%。</p></div>
+                        <div class="perk-item"><h5>No Escape（逃げ場なし）</h5><p>ガードブレイク時に相手の回避を3秒間封印（CD 10秒）。</p></div>
+                    </div>
+                </div>
+            </div>
+            <div class="stand-card mythical-border">
+                <img src="mih.png" alt="メイド・イン・ヘブン" class="stand-card-img" loading="lazy">
+                <div class="stand-card-header"><h3>メイド・イン・ヘブン</h3><span class="rarity-badge rarity-mythical">最終進化</span></div>
+                <div class="stand-card-body">
+                    <p style="color:var(--text-dim); font-size:.88rem; margin-bottom:.8rem;">条件：C-Moonからの進化クエストをクリア</p>
+                    <div class="move-list">
+                        <span class="move-tag">連打攻撃</span><span class="move-tag special">無限追跡</span><span class="move-tag">天国の怒り</span>
+                        <span class="move-tag">ナイフの嵐</span><span class="move-tag special">光速</span><span class="move-tag special">加速</span>
+                    </div>
+                    <div class="perk-section">
+                        <div class="perk-section-title">PERKS</div>
+                        <div class="perk-item"><h5>Rapid Flow（高速の流れ）</h5><p>ダッシュ開始時に短時間の速度ブースト（CD 5秒）。</p></div>
+                        <div class="perk-item"><h5>Accelerated Instinct（加速本能）</h5><p>回避フレームが2倍に増加。</p></div>
+                        <div class="perk-item"><h5>Inevitability（不可避）</h5><p>貫通力+5%。速度ブースト中はさらに増加。</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    <div class="footer-inner">
+        <p style="margin-bottom:.5rem; font-weight:700; font-size:1.3rem;">Bizarre Lineage 攻略ガイド</p>
+        <p style="margin-bottom:.5rem; font-size:.95rem;">作成者: <strong style="color:#b89aff;">LUNA670</strong></p>
+        <p style="margin-bottom:1rem;">
+            <a href="https://www.roblox.com/games/14890802310/Bizarre-Lineage" target="_blank">ゲームページ</a> ・
+            <a href="https://discord.gg/bizarrelineage" target="_blank">公式Discord</a> ・
+            <a href="https://www.roblox.com/communities/33161040/Bizarre-Collective" target="_blank">グループ</a> ・
+            <a href="https://discord.gg/YpDSv6cF3Q" target="_blank">LUNA670のDiscord鯖</a>
+        </p>
+        <p>このサイトはファンメイドの非公式攻略ガイドです。<br>元データ: <a href="https://trello.com/b/wtzgwqIf" target="_blank">公式Trelloボード</a></p>
+        <p style="margin-top:.8rem; font-size:.8rem; color:var(--text-dim);">最終更新: 2026.03.13</p>
+    </div>
+</footer>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JEYRF0CQYB"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-JEYRF0CQYB');
+</script>
+</body>
+</html>

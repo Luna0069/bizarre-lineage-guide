@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ゲーム仕様・トレイト・スキン・アクセサリー | Bizarre Lineage 攻略Wiki</title>
+    <meta name="description" content="Bizarre Lineageのゲーム仕様、トレイト、スタンドスキン、アクセサリー一覧。ワールドイベント、ギャング、レイド、ダークデターミネーション解説。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+    <div class="site-header-inner">
+        <a href="index.html" class="site-logo">Bizarre Lineage 完全攻略</a>
+        <span class="site-header-badge">ROBLOX 攻略ガイド</span>
+    </div>
+</header>
+
+<nav class="nav-sticky">
+    <button class="nav-arrow nav-arrow-left" onclick="document.querySelector('.nav-inner').scrollBy({left:-200,behavior:'smooth'})" aria-label="左へスクロール">&#9664;</button>
+    <div class="nav-inner">
+        <a href="index.html" class="nav-link">コード</a>
+        <a href="index.html#updates" class="nav-link">アプデ情報</a>
+        <a href="index.html#basics" class="nav-link">基本情報</a>
+        <a href="areas.html" class="nav-link">エリア</a>
+        <a href="stands.html" class="nav-link">スタンド</a>
+        <a href="stands.html#tierlist" class="nav-link">ティアリスト</a>
+        <a href="fighting.html#personalities" class="nav-link">パーソナリティ</a>
+        <a href="progression.html" class="nav-link">進行</a>
+        <a href="fighting.html" class="nav-link">格闘スタイル</a>
+        <a href="fighting.html#sub-abilities" class="nav-link">サブ能力</a>
+        <a href="progression.html#evolutions" class="nav-link">進化</a>
+        <a href="items.html" class="nav-link">アイテム</a>
+        <a href="mechanics.html" class="nav-link active">ゲーム仕様</a>
+        <a href="#traits" class="nav-link">トレイト</a>
+        <a href="#skins" class="nav-link">スキン</a>
+        <a href="#accessories" class="nav-link">アクセサリー</a>
+        <a href="npcs.html" class="nav-link">NPC</a>
+        <a href="npcs.html#comments" class="nav-link">コメント</a>
+    </div>
+    <button class="nav-arrow nav-arrow-right" onclick="document.querySelector('.nav-inner').scrollBy({left:200,behavior:'smooth'})" aria-label="右へスクロール">&#9654;</button>
+</nav>
+
+<main class="container">
+
+    <section id="mechanics">
+        <div class="section-header">
+            <h2>ゲーム仕様</h2>
+            <p>ワールドイベント、ギャング、レイド、ダークデターミネーション</p>
+        </div>
+
+        <div class="card-grid">
+            <div class="card">
+                <img src="images/b3b64c34195e.png" alt="ワールドイベント" class="card-img" loading="lazy">
+                <h3>ワールドイベント（20分CD）</h3>
+                <ul><li>Graveyard Uprising — サバイバルウェーブモード</li><li>Deathmatch — チーム対抗PVP（2ライフ制）</li></ul>
+            </div>
+            <div class="card">
+                <img src="images/c6b49f2c37c5.png" alt="ギャング" class="card-img" loading="lazy">
+                <h3>ギャング / クラン</h3>
+                <p>名声 = オーバーワールドキル×5ポイント。ギャングコントラクターでコントラクト受注（3-5ギャングポイント+チェスト）。</p>
+                <ul><li>ギャングウォーズ — 大規模PVP</li><li>テリトリー — 占領で不労所得</li><li>ギャングショップ — 限定アイテム</li></ul>
+            </div>
+            <div class="card">
+                <h3>ギャングショップ商品</h3>
+                <ul><li>Stand Conjuration Essence（コンジュレーションエッセンス）</li><li>Stand Stat Essence（ステータスエッセンス）</li><li>Stand Personality Essence（性格エッセンス）</li><li>Lucky Arrow（ラッキーアロー）</li><li>Legendary Chest / Rare Chest（伝説 / レアチェスト）</li><li>DIO's Bone / DIO's Diary（DIOの骨 / 日記）</li><li>Hammer（ハンマー）</li></ul>
+            </div>
+            <div class="card">
+                <img src="images/d14d078fd0f9.png" alt="レイド" class="card-img" loading="lazy">
+                <h3>レイド（8人協力）</h3>
+                <p>クリアでレイドショップトークン獲得。トークンで限定アイテムやトレイトを購入。</p>
+                <ul><li>承太郎レイド</li><li>アヴドゥルレイド</li><li>吉良レイド</li><li>DIOレイド</li></ul>
+            </div>
+        </div>
+
+        <div style="margin-top:2rem;">
+            <h3 class="sub-label">ダークデターミネーション</h3>
+            <div class="card">
+                <img src="images/f39b58b55f89.png" alt="DD" class="card-img" loading="lazy">
+                <p>バス停 #14のNPCでアンロック。HP60%以下で発動可能。発動中はパッシブバフ、効果切れ後にデバフ発生。</p>
+                <p style="margin-top:.8rem; font-weight:600; color:var(--text);">アンロック条件（全7つクリア必須）：</p>
+                <ul>
+                    <li>Bloodlustパーク装備で吉良を撃破</li>
+                    <li>HP90%以上で1v1勝利</li>
+                    <li>ギャングウォーズ勝利</li>
+                    <li>HP5%以下でThe Self（自分）を撃破</li>
+                    <li>ギャングメンバー5人を倒す</li>
+                    <li>1v1を3連勝</li>
+                    <li>レベル40以上のプレイヤーを10人キル</li>
+                </ul>
+                <div class="dd-tiers">
+                    <div class="dd-tier"><div class="tier-num">Tier 1</div><p>ダメージ +5%</p></div>
+                    <div class="dd-tier"><div class="tier-num">Tier 2</div><p>防御力 +5%</p></div>
+                    <div class="dd-tier"><div class="tier-num">Tier 3</div><p>25HP回復（数秒間）</p></div>
+                    <div class="dd-tier"><div class="tier-num">Tier 4</div><p>HP%が低い敵にライフスティール</p></div>
+                    <div class="dd-tier"><div class="tier-num">Tier 5</div><p>持続15→20秒、デバフ無し、青ネーム</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <section id="traits">
+        <div class="section-header">
+            <h2>トレイト（特殊パーク）</h2>
+            <p>レイド・クエスト・ギャングなどで獲得できる特殊効果</p>
+        </div>
+
+        <img src="images/92b41ebbff50.png" alt="トレイト" style="width:100%; border-radius:12px; margin-bottom:2rem; max-height:300px; object-fit:cover;" loading="lazy">
+
+        <h3 class="sub-label">レイド報酬トレイト</h3>
+        <div class="trait-grid" style="margin-bottom:2rem;">
+            <div class="trait-card"><h4>True Warrior（真の戦士） <span class="trait-source">承太郎レイド</span></h4><p>全回復効果-50%。防御力+10%。ラグドール時に防御力+15%を10秒間獲得。</p></div>
+            <div class="trait-card"><h4>King of Flames（炎の王） <span class="trait-source">アヴドゥルレイド</span></h4><p>スタンド能力が火傷（Burn）を付与するようになる。</p></div>
+            <div class="trait-card"><h4>Serial Killer（シリアルキラー） <span class="trait-source">吉良レイド</span></h4><p>HP40%以下の敵にダメージ+20%。</p></div>
+            <div class="trait-card"><h4>Emperor of Time（時の帝王） <span class="trait-source">DIOレイド</span></h4><p>時間系能力の効果時間+2秒。</p></div>
+            <div class="trait-card"><h4>The Godfather（ゴッドファーザー） <span class="trait-source">レイド</span></h4><p>スタンド能力にライフスティール付与（CD 5秒）。</p></div>
+        </div>
+
+        <h3 class="sub-label">ギャング系トレイト</h3>
+        <div class="trait-grid" style="margin-bottom:2rem;">
+            <div class="trait-card"><h4>Commanding Presence（指揮する存在） <span class="trait-source">ギャングウォーズ</span></h4><p>周囲のギャングメンバーがダメージ＆防御力+5%（最大30%まで重複）。</p></div>
+            <div class="trait-card"><h4>The Boss（ザ・ボス） <span class="trait-source">ギャングテリトリー</span></h4><p>ギャングメンバー1人につきお金獲得+4%（最大28%）。</p></div>
+        </div>
+
+        <h3 class="sub-label">戦闘・クエスト系トレイト</h3>
+        <div class="trait-grid" style="margin-bottom:2rem;">
+            <div class="trait-card"><h4>The Fever（ザ・フィーバー） <span class="trait-source">マネーストア</span></h4><p>プレイヤー撃破で相手ステータスの10%を20秒間奪取（CD 10秒）。</p></div>
+            <div class="trait-card"><h4>Grappler（グラップラー） <span class="trait-source">サイドクエスト</span></h4><p>掴み系の技のダメージ+15%。</p></div>
+            <div class="trait-card"><h4>Intimidation（威圧） <span class="trait-source">サイドクエスト</span></h4><p>敵を掴んだ後、7秒間被ダメージ+10%。</p></div>
+            <div class="trait-card"><h4>Journeyman（ジャーニーマン） <span class="trait-source">チュートリアル</span></h4><p>獲得経験値+5%。</p></div>
+            <div class="trait-card"><h4>Conjurer（コンジュラー） <span class="trait-source">サイドクエスト</span></h4><p>スタンドコンジュレーション獲得量が2倍。</p></div>
+        </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <section id="skins">
+        <div class="section-header">
+            <h2>Stand Skins（スタンドスキン）</h2>
+            <p>スタンドの外見を変更するスキン一覧。Stand Skin Essence（スキンエッセンス）を使ってアンロック。</p>
+        </div>
+        <img src="images/73e0c36cb2a4.png" alt="Skins" style="width:100%; max-height:200px; object-fit:cover; border-radius:14px; margin-bottom:2rem;" loading="lazy">
+
+        <div class="skin-stand-section">
+            <div class="skin-stand-title">Star Platinum（スタープラチナ）</div>
+            <div class="skin-grid">
+                <div class="skin-card"><img src="images/c725f033720b.webp" alt="Holiday" loading="lazy"><div class="skin-card-name">Holiday（ホリデー）</div></div>
+                <div class="skin-card"><img src="images/7fb04f6f1edf.webp" alt="Greyscale" loading="lazy"><div class="skin-card-name">Greyscale（グレースケール）</div></div>
+                <div class="skin-card"><img src="images/b76f320d079b.webp" alt="Deimos" loading="lazy"><div class="skin-card-name">Deimos（デイモス）</div></div>
+                <div class="skin-card"><img src="images/dfbe98981574.webp" alt="Galaxy Garou" loading="lazy"><div class="skin-card-name">Galaxy Garou（ギャラクシーガロウ）</div></div>
+                <div class="skin-card"><img src="images/2fb009ebcbb6.webp" alt="Kawaii" loading="lazy"><div class="skin-card-name">Kawaii（カワイイ）</div></div>
+            </div>
+        </div>
+
+        <div class="skin-stand-section">
+            <div class="skin-stand-title">Stone Free（ストーンフリー）</div>
+            <div class="skin-grid">
+                <div class="skin-card"><img src="images/bbd8528c945b.webp" alt="Turquoise" loading="lazy"><div class="skin-card-name">Turquoise（ターコイズ）</div></div>
+                <div class="skin-card"><img src="images/a19bae86f1ec.webp" alt="Grayscale" loading="lazy"><div class="skin-card-name">Grayscale（グレースケール）</div></div>
+                <div class="skin-card"><img src="images/e8a6d47d3aa3.webp" alt="Makima" loading="lazy"><div class="skin-card-name">Makima（マキマ）</div></div>
+                <div class="skin-card"><img src="images/e4c5844fe87b.webp" alt="Ultimate Makima" loading="lazy"><div class="skin-card-name">Ultimate Makima（究極マキマ）</div></div>
+            </div>
+        </div>
+
+        <div class="skin-stand-section">
+            <div class="skin-stand-title">Whitesnake（ホワイトスネイク）</div>
+            <div class="skin-grid">
+                <div class="skin-card"><img src="images/0efbf0727412.webp" alt="Grayscale" loading="lazy"><div class="skin-card-name">Grayscale（グレースケール）</div></div>
+                <div class="skin-card"><img src="images/39a18de1c6fc.webp" alt="Velvet" loading="lazy"><div class="skin-card-name">Velvet（ベルベット）</div></div>
+                <div class="skin-card"><img src="images/f8593b9cb9c2.webp" alt="Ryuk" loading="lazy"><div class="skin-card-name">Ryuk（リューク）</div></div>
+            </div>
+        </div>
+
+        <div class="skin-stand-section">
+            <div class="skin-stand-title">The World（ザ・ワールド）</div>
+            <div class="skin-grid">
+                <div class="skin-card"><img src="images/a7048742c55e.webp" alt="Goku" loading="lazy"><div class="skin-card-name">Goku（悟空）</div></div>
+                <div class="skin-card"><img src="images/7180ff946e2f.webp" alt="Grayscale" loading="lazy"><div class="skin-card-name">Grayscale（グレースケール）</div></div>
+                <div class="skin-card"><img src="images/fc603884e35d.webp" alt="Deimos" loading="lazy"><div class="skin-card-name">Deimos（デイモス）</div></div>
+                <div class="skin-card"><img src="images/196ef89c1af7.webp" alt="Dark" loading="lazy"><div class="skin-card-name">Dark（ダーク）</div></div>
+                <div class="skin-card"><img src="images/05b8cdc66857.webp" alt="Kawaii" loading="lazy"><div class="skin-card-name">Kawaii（カワイイ）</div></div>
+            </div>
+        </div>
+
+        <div class="skin-stand-section">
+            <div class="skin-stand-title">C-Moon（Cムーン）</div>
+            <div class="skin-grid">
+                <div class="skin-card"><img src="images/790ee6d813e9.webp" alt="Grayscale" loading="lazy"><div class="skin-card-name">Grayscale（グレースケール）</div></div>
+                <div class="skin-card"><img src="images/33add1a9b97c.webp" alt="Blue" loading="lazy"><div class="skin-card-name">Blue（ブルー）</div></div>
+                <div class="skin-card"><img src="images/1cfd72d6b295.webp" alt="Deimos" loading="lazy"><div class="skin-card-name">Deimos（デイモス）</div></div>
+                <div class="skin-card"><img src="images/c114e4765fbf.webp" alt="Momo" loading="lazy"><div class="skin-card-name">Momo（モモ）</div></div>
+            </div>
+        </div>
+
+        <div class="skin-stand-section">
+            <div class="skin-stand-title">Made in Heaven（メイド・イン・ヘブン）</div>
+            <div class="skin-grid">
+                <div class="skin-card"><img src="images/e9feb7d011ad.webp" alt="High Contrast" loading="lazy"><div class="skin-card-name">High Contrast（ハイコントラスト）</div></div>
+                <div class="skin-card"><img src="images/49926db8b2f2.webp" alt="Greyscale" loading="lazy"><div class="skin-card-name">Greyscale（グレースケール）</div></div>
+            </div>
+        </div>
+
+        <div class="skin-stand-section">
+            <div class="skin-stand-title">Crazy Diamond（クレイジー・ダイヤモンド）</div>
+            <div class="skin-grid">
+                <div class="skin-card"><img src="images/76d92dac0020.webp" alt="Grayscale" loading="lazy"><div class="skin-card-name">Grayscale（グレースケール）</div></div>
+                <div class="skin-card"><img src="images/2fd8431c156c.webp" alt="Reverso" loading="lazy"><div class="skin-card-name">Reverso（リバーソ）</div></div>
+                <div class="skin-card"><img src="images/b7adcb8f5afd.webp" alt="Luffy" loading="lazy"><div class="skin-card-name">Luffy（ルフィ）</div></div>
+            </div>
+        </div>
+
+        <div class="skin-stand-section">
+            <div class="skin-stand-title">Killer Queen（キラークイーン）</div>
+            <div class="skin-grid">
+                <div class="skin-card"><img src="images/63a52128640f.webp" alt="Grayscale" loading="lazy"><div class="skin-card-name">Grayscale（グレースケール）</div></div>
+                <div class="skin-card"><img src="images/8b73734c168e.webp" alt="Tan" loading="lazy"><div class="skin-card-name">Tan（タン）</div></div>
+                <div class="skin-card"><img src="images/eacc87a156d5.webp" alt="One Who Laughs" loading="lazy"><div class="skin-card-name">One Who Laughs（笑う者）</div></div>
+                <div class="skin-card"><img src="images/fe33ba47d00b.webp" alt="Bomb Devil" loading="lazy"><div class="skin-card-name">Bomb Devil（ボムデビル）</div></div>
+            </div>
+        </div>
+
+        <div class="skin-stand-section">
+            <div class="skin-stand-title">King Crimson（キング・クリムゾン）</div>
+            <div class="skin-grid">
+                <div class="skin-card"><img src="images/783ffb75da42.webp" alt="Blue" loading="lazy"><div class="skin-card-name">Blue（ブルー）</div></div>
+                <div class="skin-card"><img src="images/80994f28e6c1.webp" alt="Deimos" loading="lazy"><div class="skin-card-name">Deimos（デイモス）</div></div>
+                <div class="skin-card"><img src="images/a4caf5289056.webp" alt="Kawaii" loading="lazy"><div class="skin-card-name">Kawaii（カワイイ）</div></div>
+                <div class="skin-card"><img src="images/9fb9db696208.webp" alt="Igris" loading="lazy"><div class="skin-card-name">Igris（イグリス）</div></div>
+            </div>
+        </div>
+
+        <div class="skin-stand-section">
+            <div class="skin-stand-title">Purple Haze（パープル・ヘイズ）</div>
+            <div class="skin-grid">
+                <div class="skin-card"><img src="images/f86db8fc6ea4.webp" alt="Poison" loading="lazy"><div class="skin-card-name">Poison（ポイズン）</div></div>
+                <div class="skin-card"><img src="images/a7f72327dccf.webp" alt="Grayscale" loading="lazy"><div class="skin-card-name">Grayscale（グレースケール）</div></div>
+            </div>
+        </div>
+
+        <div class="skin-stand-section">
+            <div class="skin-stand-title">Red Hot Chili Pepper（レッド・ホット・チリ・ペッパー）</div>
+            <div class="skin-grid">
+                <div class="skin-card"><img src="images/8381b183851b.webp" alt="Purple" loading="lazy"><div class="skin-card-name">Purple（パープル）</div></div>
+                <div class="skin-card"><img src="images/42aa41c43acb.webp" alt="Grayscale" loading="lazy"><div class="skin-card-name">Grayscale（グレースケール）</div></div>
+                <div class="skin-card"><img src="images/76cd8fa0cde3.webp" alt="Yoruichi" loading="lazy"><div class="skin-card-name">Yoruichi（夜一）</div></div>
+            </div>
+        </div>
+
+        <div class="skin-stand-section">
+            <div class="skin-stand-title">The Hand（ザ・ハンド）</div>
+            <div class="skin-grid">
+                <div class="skin-card"><img src="images/73e7ecb0868c.webp" alt="Purple" loading="lazy"><div class="skin-card-name">Purple（パープル）</div></div>
+                <div class="skin-card"><img src="images/dbb415e5259f.webp" alt="Grayscale" loading="lazy"><div class="skin-card-name">Grayscale（グレースケール）</div></div>
+            </div>
+        </div>
+
+        <div class="skin-stand-section">
+            <div class="skin-stand-title">The World High Voltage（ザ・ワールド・ハイヴォルテージ）</div>
+            <div class="skin-grid">
+                <div class="skin-card"><img src="images/8581f9da2b84.webp" alt="Grayscale" loading="lazy"><div class="skin-card-name">Grayscale（グレースケール）</div></div>
+                <div class="skin-card"><img src="images/5c91bdf76c7d.webp" alt="Lima" loading="lazy"><div class="skin-card-name">Lima（ライマ）</div></div>
+                <div class="skin-card"><img src="images/924b20832d69.webp" alt="Violence" loading="lazy"><div class="skin-card-name">Violence（バイオレンス）</div></div>
+                <div class="skin-card"><img src="images/76b143a53676.webp" alt="Prestige" loading="lazy"><div class="skin-card-name">Prestige（プレステージ）</div></div>
+            </div>
+        </div>
+
+        <div class="skin-stand-section">
+            <div class="skin-stand-title">Weather Report（ウェザー・リポート）</div>
+            <div class="skin-grid">
+                <div class="skin-card"><img src="images/2854123227eb.webp" alt="Grayscale" loading="lazy"><div class="skin-card-name">Grayscale（グレースケール）</div></div>
+                <div class="skin-card"><img src="images/2b1089dec12c.webp" alt="Pinky" loading="lazy"><div class="skin-card-name">Pinky（ピンキー）</div></div>
+                <div class="skin-card"><img src="images/c8d7ff414a82.webp" alt="Nami" loading="lazy"><div class="skin-card-name">Nami（ナミ）</div></div>
+                <div class="skin-card"><img src="images/010c9437b98c.webp" alt="Esdeath" loading="lazy"><div class="skin-card-name">Esdeath（エスデス）</div></div>
+            </div>
+        </div>
+
+        <div class="skin-stand-section">
+            <div class="skin-stand-title">Magician's Red（マジシャンズレッド）</div>
+            <div class="skin-grid">
+                <div class="skin-card"><img src="images/1d6ff1149847.webp" alt="Orange" loading="lazy"><div class="skin-card-name">Orange（オレンジ）</div></div>
+                <div class="skin-card"><img src="images/a800c334350b.webp" alt="Grayscale" loading="lazy"><div class="skin-card-name">Grayscale（グレースケール）</div></div>
+                <div class="skin-card"><img src="images/683d6dd189fb.webp" alt="King" loading="lazy"><div class="skin-card-name">King（キング）</div></div>
+            </div>
+        </div>
+
+        <div class="skin-stand-section">
+            <div class="skin-stand-title">Golden Experience（ゴールド・エクスペリエンス）</div>
+            <div class="skin-grid">
+                <div class="skin-card"><img src="images/f0efeefeee7f.webp" alt="Grayscale" loading="lazy"><div class="skin-card-name">Grayscale（グレースケール）</div></div>
+                <div class="skin-card"><img src="images/3c89992149ad.webp" alt="Green" loading="lazy"><div class="skin-card-name">Green（グリーン）</div></div>
+            </div>
+        </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <section id="accessories">
+        <div class="section-header">
+            <h2>Accessories（アクセサリー）</h2>
+            <p>装備可能なアクセサリー。レアリティが高いほどステータス倍率が上がる。Mythical: 3x / Legendary: 2.5x / Rare: 2x / Uncommon: 1.5x / Common: 1x</p>
+        </div>
+        <img src="images/12a5b18ade88.png" alt="Accessory Stats" style="width:100%; max-height:200px; object-fit:cover; border-radius:14px; margin-bottom:1rem;" loading="lazy">
+        <div class="card" style="margin-bottom:2rem;">
+            <h3>Accessory Stats Guide（アクセサリーステータスガイド）</h3>
+            <ul>
+                <li>Head（頭）— Health + Health Regeneration</li>
+                <li>Face（顔）— Power + Power Regeneration</li>
+                <li>Neck（首）— Health + Penetration</li>
+                <li>Back（背中）— Health + Power Regeneration</li>
+                <li>Body（体）— Health + Defense</li>
+                <li>Arms（腕）— Penetration + Health Regeneration</li>
+                <li>Legs（脚）— Health + Power</li>
+            </ul>
+            <p style="margin-top:.5rem;">ボーナスステータス: Health, Defense, Penetration, Power, PvE Damage, Power Regen, Health Regen</p>
+        </div>
+
+        <p class="sub-label">Mythical（神話級）</p>
+        <div class="acc-grid" style="margin-bottom:2rem;">
+            <div class="acc-card mythical-border"><img src="images/5754cdf85b65.png" alt="Prime Jotaro's Hat" loading="lazy"><div class="acc-card-body"><h4>Prime Jotaro's Hat（プライム承太郎の帽子）<span class="rarity-badge rarity-mythical" style="margin-left:.5rem;">神話級</span></h4><p>Defense: 3.5%, Health: 9, Power: 6, Health Regen: 6%</p></div></div>
+            <div class="acc-card mythical-border"><img src="images/32288e3839a4.png" alt="Prime Jotaro's Coat" loading="lazy"><div class="acc-card-body"><h4>Prime Jotaro's Coat（プライム承太郎のコート）<span class="rarity-badge rarity-mythical" style="margin-left:.5rem;">神話級</span></h4><p>Defense: 9%, Health: 9, Power: 6, PvE Damage: 5%</p></div></div>
+            <div class="acc-card mythical-border"><img src="images/296390785105.png" alt="Crucifix Pendant" loading="lazy"><div class="acc-card-body"><h4>Crucifix Pendant（十字架ペンダント）<span class="rarity-badge rarity-mythical" style="margin-left:.5rem;">神話級</span></h4><p>Defense: 3%, Health: 6, Penetration: 13.5%, PvE Damage: 5%</p></div></div>
+            <div class="acc-card mythical-border"><img src="images/22735d8d82df.png" alt="The Bosses Watch" loading="lazy"><div class="acc-card-body"><h4>The Bosses Watch（ボスの時計）<span class="rarity-badge rarity-mythical" style="margin-left:.5rem;">神話級</span></h4><p>ボスからのドロップ。</p></div></div>
+            <div class="acc-card mythical-border"><img src="images/white-fur-hat.png" alt="White Fur Hat" loading="lazy"><div class="acc-card-body"><h4>White Fur Hat（ホワイトファーハット）<span class="rarity-badge rarity-mythical" style="margin-left:.5rem;">神話級</span></h4><p>雷系攻撃が1/5の確率でサンダーストライクを発生させる。入手: Legendary Chest</p></div></div>
+        </div>
+
+        <p class="sub-label">Legendary（伝説級）</p>
+        <div class="acc-grid" style="margin-bottom:2rem;">
+            <div class="acc-card legendary-border"><img src="images/85d8c21ed69d.png" alt="Jotaro's Hat" loading="lazy"><div class="acc-card-body"><h4>Jotaro's Hat（承太郎の帽子）<span class="rarity-badge rarity-legendary" style="margin-left:.5rem;">伝説級</span></h4></div></div>
+            <div class="acc-card legendary-border"><img src="images/58e36076d147.png" alt="Jotaro's Coat" loading="lazy"><div class="acc-card-body"><h4>Jotaro's Coat（承太郎のコート）<span class="rarity-badge rarity-legendary" style="margin-left:.5rem;">伝説級</span></h4></div></div>
+            <div class="acc-card legendary-border"><img src="images/82c79548db1d.png" alt="Strawberry Tie" loading="lazy"><div class="acc-card-body"><h4>Strawberry Tie（ストロベリータイ）<span class="rarity-badge rarity-legendary" style="margin-left:.5rem;">伝説級</span></h4></div></div>
+            <div class="acc-card legendary-border"><img src="images/18923660d2ab.png" alt="Roundabout Cape" loading="lazy"><div class="acc-card-body"><h4>Roundabout Cape（ラウンドアバウトケープ）<span class="rarity-badge rarity-legendary" style="margin-left:.5rem;">伝説級</span></h4></div></div>
+            <div class="acc-card legendary-border"><img src="images/2bb22341191f.png" alt="Sailor Hat" loading="lazy"><div class="acc-card-body"><h4>Sailor Hat（セーラーハット）<span class="rarity-badge rarity-legendary" style="margin-left:.5rem;">伝説級</span></h4></div></div>
+            <div class="acc-card legendary-border"><img src="images/d484835394ee.png" alt="White Overcoat" loading="lazy"><div class="acc-card-body"><h4>White Overcoat（白オーバーコート）<span class="rarity-badge rarity-legendary" style="margin-left:.5rem;">伝説級</span></h4></div></div>
+            <div class="acc-card legendary-border"><img src="images/f1741a6b2bd6.png" alt="Black Overcoat" loading="lazy"><div class="acc-card-body"><h4>Black Overcoat（黒オーバーコート）<span class="rarity-badge rarity-legendary" style="margin-left:.5rem;">伝説級</span></h4></div></div>
+            <div class="acc-card legendary-border"><img src="images/24302301e3b4.png" alt="Crimson Overcoat" loading="lazy"><div class="acc-card-body"><h4>Crimson Overcoat（クリムゾンオーバーコート）<span class="rarity-badge rarity-legendary" style="margin-left:.5rem;">伝説級</span></h4></div></div>
+            <div class="acc-card legendary-border"><img src="images/27002ebacaec.png" alt="Safari Hat" loading="lazy"><div class="acc-card-body"><h4>Safari Hat（サファリハット）<span class="rarity-badge rarity-legendary" style="margin-left:.5rem;">伝説級</span></h4><p>スピンダメージ+20%</p></div></div>
+            <div class="acc-card legendary-border"><img src="images/3c99e6ceac23.png" alt="American Flag Cape" loading="lazy"><div class="acc-card-body"><h4>American Flag Cape（アメリカ国旗ケープ）<span class="rarity-badge rarity-legendary" style="margin-left:.5rem;">伝説級</span></h4></div></div>
+            <div class="acc-card legendary-border"><img src="images/ba8b7c02f467.png" alt="Heart Headband" loading="lazy"><div class="acc-card-body"><h4>Heart Headband（ハートヘッドバンド）<span class="rarity-badge rarity-legendary" style="margin-left:.5rem;">伝説級</span></h4></div></div>
+        </div>
+
+        <p class="sub-label">Rare（レア）</p>
+        <div class="acc-grid" style="margin-bottom:2rem;">
+            <div class="acc-card rare-border"><img src="images/247d8ac16c06.png" alt="Dark Cowl" loading="lazy"><div class="acc-card-body"><h4>Dark Cowl（ダークカウル）<span class="rarity-badge rarity-rare" style="margin-left:.5rem;">レア</span></h4></div></div>
+            <div class="acc-card rare-border"><img src="images/4fd81980e27d.png" alt="Full Bandage Mask" loading="lazy"><div class="acc-card-body"><h4>Full Bandage Mask（フルバンデージマスク）<span class="rarity-badge rarity-rare" style="margin-left:.5rem;">レア</span></h4><p>Health: 2, Power: 10, Power Regen: 12%, Health Regen: 5%</p></div></div>
+            <div class="acc-card rare-border"><img src="images/da95a19902ae.png" alt="Fighter Hand Wraps" loading="lazy"><div class="acc-card-body"><h4>Fighter Hand Wraps（ファイターハンドラップ）<span class="rarity-badge rarity-rare" style="margin-left:.5rem;">レア</span></h4><p>格闘技攻撃 貫通+7%。Health: 4, Power: 2, Penetration: 8%</p></div></div>
+            <div class="acc-card rare-border"><img src="images/4dabcfd9d26f.png" alt="Cultist Hood" loading="lazy"><div class="acc-card-body"><h4>Cultist Hood（カルティストフード）<span class="rarity-badge rarity-rare" style="margin-left:.5rem;">レア</span></h4></div></div>
+            <div class="acc-card rare-border"><img src="images/9e9c480568a1.png" alt="Cultist Howl" loading="lazy"><div class="acc-card-body"><h4>Cultist Howl（カルティストハウル）<span class="rarity-badge rarity-rare" style="margin-left:.5rem;">レア</span></h4><p>ライフスティール+5%。Health: 4, Defense: 2.5%, PvE: 5%</p></div></div>
+            <div class="acc-card rare-border"><img src="images/a13b2e1e8bee.png" alt="Fancy White Scarf" loading="lazy"><div class="acc-card-body"><h4>Fancy White Scarf（ファンシーホワイトスカーフ）<span class="rarity-badge rarity-rare" style="margin-left:.5rem;">レア</span></h4><p>Penetration: 8%, Health: 4, PvE: 5%, Defense: 2%</p></div></div>
+            <div class="acc-card rare-border"><img src="images/45e2dc3b3bcc.png" alt="Oni Beads" loading="lazy"><div class="acc-card-body"><h4>Oni Beads（鬼のビーズ）<span class="rarity-badge rarity-rare" style="margin-left:.5rem;">レア</span></h4><p>Health: 4, Power: 10, PvE: 6%, Penetration: 1.5%</p></div></div>
+            <div class="acc-card rare-border"><img src="images/3ad08f60c17e.png" alt="Pink Choker" loading="lazy"><div class="acc-card-body"><h4>Pink Choker（ピンクチョーカー）<span class="rarity-badge rarity-rare" style="margin-left:.5rem;">レア</span></h4><p>Penetration: 10%, Health: 5, Power: 3, PvE: 5%, Defense: 2.5%</p></div></div>
+            <div class="acc-card rare-border"><img src="images/75f83756b25f.png" alt="White Ripped Jacket" loading="lazy"><div class="acc-card-body"><h4>White Ripped Jacket（白リップドジャケット）<span class="rarity-badge rarity-rare" style="margin-left:.5rem;">レア</span></h4></div></div>
+            <div class="acc-card rare-border"><img src="images/973fc86ba972.png" alt="Black Ripped Jacket" loading="lazy"><div class="acc-card-body"><h4>Black Ripped Jacket（黒リップドジャケット）<span class="rarity-badge rarity-rare" style="margin-left:.5rem;">レア</span></h4></div></div>
+            <div class="acc-card rare-border"><img src="images/400c81f2973b.png" alt="Crimson Ripped Jacket" loading="lazy"><div class="acc-card-body"><h4>Crimson Ripped Jacket（クリムゾンリップドジャケット）<span class="rarity-badge rarity-rare" style="margin-left:.5rem;">レア</span></h4></div></div>
+            <div class="acc-card rare-border"><img src="images/bd6d2378a09f.png" alt="Green Ripped Jacket" loading="lazy"><div class="acc-card-body"><h4>Green Ripped Jacket（緑リップドジャケット）<span class="rarity-badge rarity-rare" style="margin-left:.5rem;">レア</span></h4></div></div>
+            <div class="acc-card rare-border"><img src="images/f1079ccb96f7.png" alt="Ruby Earrings" loading="lazy"><div class="acc-card-body"><h4>Ruby Earrings（ルビーイヤリング）<span class="rarity-badge rarity-rare" style="margin-left:.5rem;">レア</span></h4></div></div>
+            <div class="acc-card rare-border"><img src="images/859eab0abb55.png" alt="Ushanka" loading="lazy"><div class="acc-card-body"><h4>Ushanka（ウシャンカ）<span class="rarity-badge rarity-rare" style="margin-left:.5rem;">レア</span></h4></div></div>
+            <div class="acc-card rare-border"><img src="images/c69f15cb4307.png" alt="Straw Hat" loading="lazy"><div class="acc-card-body"><h4>Straw Hat（麦わら帽子）<span class="rarity-badge rarity-rare" style="margin-left:.5rem;">レア</span></h4></div></div>
+            <div class="acc-card rare-border"><img src="images/808309aa5367.png" alt="Chef's Hat" loading="lazy"><div class="acc-card-body"><h4>Chef's Hat（シェフハット）<span class="rarity-badge rarity-rare" style="margin-left:.5rem;">レア</span></h4></div></div>
+            <div class="acc-card rare-border"><img src="images/4797d9bc91b8.png" alt="Black Belt" loading="lazy"><div class="acc-card-body"><h4>Black Belt（黒帯）<span class="rarity-badge rarity-rare" style="margin-left:.5rem;">レア</span></h4></div></div>
+        </div>
+
+        <p class="sub-label">Uncommon（アンコモン）</p>
+        <div class="acc-grid" style="margin-bottom:2rem;">
+            <div class="acc-card uncommon-border"><img src="images/1c7770bdfc5b.png" alt="Biker Chain" loading="lazy"><div class="acc-card-body"><h4>Biker Chain（バイカーチェーン）<span class="rarity-badge rarity-uncommon" style="margin-left:.5rem;">アンコモン</span></h4><p>Health: 3, Power: 7.5, Defense: 0.5%, PvE: 5%</p></div></div>
+            <div class="acc-card uncommon-border"><img src="images/1e419d87b758.png" alt="Head Goggles" loading="lazy"><div class="acc-card-body"><h4>Head Goggles（ヘッドゴーグル）<span class="rarity-badge rarity-uncommon" style="margin-left:.5rem;">アンコモン</span></h4></div></div>
+            <div class="acc-card uncommon-border"><img src="images/f42953bd2fce.png" alt="Face Goggles" loading="lazy"><div class="acc-card-body"><h4>Face Goggles（フェイスゴーグル）<span class="rarity-badge rarity-uncommon" style="margin-left:.5rem;">アンコモン</span></h4></div></div>
+            <div class="acc-card uncommon-border"><img src="images/6a6a90c789d1.png" alt="Baseball Cap" loading="lazy"><div class="acc-card-body"><h4>Baseball Cap（ベースボールキャップ）<span class="rarity-badge rarity-uncommon" style="margin-left:.5rem;">アンコモン</span></h4></div></div>
+            <div class="acc-card uncommon-border"><img src="images/499b19d6cf90.png" alt="Red Topcoat" loading="lazy"><div class="acc-card-body"><h4>Red Topcoat（レッドトップコート）<span class="rarity-badge rarity-uncommon" style="margin-left:.5rem;">アンコモン</span></h4></div></div>
+            <div class="acc-card uncommon-border"><img src="images/e195a14b7107.png" alt="Grey Topcoat" loading="lazy"><div class="acc-card-body"><h4>Grey Topcoat（グレートップコート）<span class="rarity-badge rarity-uncommon" style="margin-left:.5rem;">アンコモン</span></h4></div></div>
+            <div class="acc-card uncommon-border"><img src="images/50672640de23.png" alt="White Topcoat" loading="lazy"><div class="acc-card-body"><h4>White Topcoat（ホワイトトップコート）<span class="rarity-badge rarity-uncommon" style="margin-left:.5rem;">アンコモン</span></h4></div></div>
+            <div class="acc-card uncommon-border"><img src="images/2e2aec6e5ae6.png" alt="Bandage Mask" loading="lazy"><div class="acc-card-body"><h4>Bandage Mask（バンデージマスク）<span class="rarity-badge rarity-uncommon" style="margin-left:.5rem;">アンコモン</span></h4></div></div>
+            <div class="acc-card uncommon-border"><img src="images/1c35b546802b.png" alt="Gold Crown" loading="lazy"><div class="acc-card-body"><h4>Gold Crown（ゴールドクラウン）<span class="rarity-badge rarity-uncommon" style="margin-left:.5rem;">アンコモン</span></h4></div></div>
+            <div class="acc-card uncommon-border"><img src="images/68640734d0a0.png" alt="Brown Belt" loading="lazy"><div class="acc-card-body"><h4>Brown Belt（ブラウンベルト）<span class="rarity-badge rarity-uncommon" style="margin-left:.5rem;">アンコモン</span></h4></div></div>
+        </div>
+
+        <p class="sub-label">Common（コモン）</p>
+        <div class="acc-grid">
+            <div class="acc-card"><img src="images/84bcaa0fe73a.png" alt="Mask" loading="lazy"><div class="acc-card-body"><h4>Mask（マスク）<span class="rarity-badge rarity-common" style="margin-left:.5rem;">コモン</span></h4></div></div>
+            <div class="acc-card"><img src="images/c67efed8501b.png" alt="Shades" loading="lazy"><div class="acc-card-body"><h4>Shades（シェード）<span class="rarity-badge rarity-common" style="margin-left:.5rem;">コモン</span></h4></div></div>
+            <div class="acc-card"><img src="images/bf1092e3d2c0.png" alt="Arm Wraps" loading="lazy"><div class="acc-card-body"><h4>Arm Wraps（アームラップ）<span class="rarity-badge rarity-common" style="margin-left:.5rem;">コモン</span></h4></div></div>
+            <div class="acc-card"><img src="images/d5b18abca3ae.png" alt="White Jacket" loading="lazy"><div class="acc-card-body"><h4>White Jacket（ホワイトジャケット）<span class="rarity-badge rarity-common" style="margin-left:.5rem;">コモン</span></h4></div></div>
+            <div class="acc-card"><img src="images/1d6c81135b95.png" alt="Black Jacket" loading="lazy"><div class="acc-card-body"><h4>Black Jacket（ブラックジャケット）<span class="rarity-badge rarity-common" style="margin-left:.5rem;">コモン</span></h4></div></div>
+            <div class="acc-card"><img src="images/ef4b12aaa1ea.png" alt="Grey Jacket" loading="lazy"><div class="acc-card-body"><h4>Grey Jacket（グレージャケット）<span class="rarity-badge rarity-common" style="margin-left:.5rem;">コモン</span></h4></div></div>
+            <div class="acc-card"><img src="images/a39c17d3cf74.png" alt="Eye Patch" loading="lazy"><div class="acc-card-body"><h4>Eye Patch（アイパッチ）<span class="rarity-badge rarity-common" style="margin-left:.5rem;">コモン</span></h4></div></div>
+            <div class="acc-card"><img src="images/9c485a4d07e4.png" alt="Balaclava" loading="lazy"><div class="acc-card-body"><h4>Balaclava（バラクラバ）<span class="rarity-badge rarity-common" style="margin-left:.5rem;">コモン</span></h4></div></div>
+            <div class="acc-card"><img src="images/cb3d8994f84d.png" alt="Simple Cape" loading="lazy"><div class="acc-card-body"><h4>Simple Cape（シンプルケープ）<span class="rarity-badge rarity-common" style="margin-left:.5rem;">コモン</span></h4></div></div>
+            <div class="acc-card"><img src="images/59b2444cf13e.png" alt="Plain White Scarf" loading="lazy"><div class="acc-card-body"><h4>Plain White Scarf（ホワイトスカーフ）<span class="rarity-badge rarity-common" style="margin-left:.5rem;">コモン</span></h4></div></div>
+            <div class="acc-card"><img src="images/b88bfee2b84c.png" alt="White Belt" loading="lazy"><div class="acc-card-body"><h4>White Belt（白帯）<span class="rarity-badge rarity-common" style="margin-left:.5rem;">コモン</span></h4></div></div>
+            <div class="acc-card"><img src="images/22828c3151fe.png" alt="Yellow Belt" loading="lazy"><div class="acc-card-body"><h4>Yellow Belt（黄帯）<span class="rarity-badge rarity-common" style="margin-left:.5rem;">コモン</span></h4></div></div>
+            <div class="acc-card"><img src="images/9ea3881d2119.png" alt="Orange Belt" loading="lazy"><div class="acc-card-body"><h4>Orange Belt（橙帯）<span class="rarity-badge rarity-common" style="margin-left:.5rem;">コモン</span></h4></div></div>
+            <div class="acc-card"><img src="images/742efc62f5bc.png" alt="Green Belt" loading="lazy"><div class="acc-card-body"><h4>Green Belt（緑帯）<span class="rarity-badge rarity-common" style="margin-left:.5rem;">コモン</span></h4></div></div>
+            <div class="acc-card"><img src="images/a7a631e11551.png" alt="Blue Belt" loading="lazy"><div class="acc-card-body"><h4>Blue Belt（青帯）<span class="rarity-badge rarity-common" style="margin-left:.5rem;">コモン</span></h4></div></div>
+            <div class="acc-card"><img src="images/adfa9b1336b5.png" alt="Purple Belt" loading="lazy"><div class="acc-card-body"><h4>Purple Belt（紫帯）<span class="rarity-badge rarity-common" style="margin-left:.5rem;">コモン</span></h4></div></div>
+            <div class="acc-card"><img src="images/7bdb3d781879.png" alt="Red Belt" loading="lazy"><div class="acc-card-body"><h4>Red Belt（赤帯）<span class="rarity-badge rarity-common" style="margin-left:.5rem;">コモン</span></h4></div></div>
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    <div class="footer-inner">
+        <p style="margin-bottom:.5rem; font-weight:700; font-size:1.3rem;">Bizarre Lineage 攻略ガイド</p>
+        <p style="margin-bottom:.5rem; font-size:.95rem;">作成者: <strong style="color:#b89aff;">LUNA670</strong></p>
+        <p style="margin-bottom:1rem;">
+            <a href="https://www.roblox.com/games/14890802310/Bizarre-Lineage" target="_blank">ゲームページ</a> ・
+            <a href="https://discord.gg/bizarrelineage" target="_blank">公式Discord</a> ・
+            <a href="https://www.roblox.com/communities/33161040/Bizarre-Collective" target="_blank">グループ</a> ・
+            <a href="https://discord.gg/YpDSv6cF3Q" target="_blank">LUNA670のDiscord鯖</a>
+        </p>
+        <p>このサイトはファンメイドの非公式攻略ガイドです。<br>元データ: <a href="https://trello.com/b/wtzgwqIf" target="_blank">公式Trelloボード</a></p>
+        <p style="margin-top:.8rem; font-size:.8rem; color:var(--text-dim);">最終更新: 2026.03.13</p>
+    </div>
+</footer>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JEYRF0CQYB"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-JEYRF0CQYB');
+</script>
+</body>
+</html>

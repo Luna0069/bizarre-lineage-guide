@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>格闘スタイル・サブ能力・パーソナリティ | Bizarre Lineage 攻略Wiki</title>
+    <meta name="description" content="Bizarre Lineageの格闘スタイル（剣道・ボクシング・空手）、サブ能力（ヴァンパイア・波紋・サイボーグ）、パーソナリティ一覧。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+    <div class="site-header-inner">
+        <a href="index.html" class="site-logo">Bizarre Lineage 完全攻略</a>
+        <span class="site-header-badge">ROBLOX 攻略ガイド</span>
+    </div>
+</header>
+
+<nav class="nav-sticky">
+    <button class="nav-arrow nav-arrow-left" onclick="document.querySelector('.nav-inner').scrollBy({left:-200,behavior:'smooth'})" aria-label="左へスクロール">&#9664;</button>
+    <div class="nav-inner">
+        <a href="index.html" class="nav-link">コード</a>
+        <a href="index.html#updates" class="nav-link">アプデ情報</a>
+        <a href="index.html#basics" class="nav-link">基本情報</a>
+        <a href="areas.html" class="nav-link">エリア</a>
+        <a href="stands.html" class="nav-link">スタンド</a>
+        <a href="stands.html#tierlist" class="nav-link">ティアリスト</a>
+        <a href="#personalities" class="nav-link">パーソナリティ</a>
+        <a href="progression.html" class="nav-link">進行</a>
+        <a href="fighting.html" class="nav-link active">格闘スタイル</a>
+        <a href="#sub-abilities" class="nav-link">サブ能力</a>
+        <a href="progression.html#evolutions" class="nav-link">進化</a>
+        <a href="items.html" class="nav-link">アイテム</a>
+        <a href="mechanics.html" class="nav-link">ゲーム仕様</a>
+        <a href="mechanics.html#traits" class="nav-link">トレイト</a>
+        <a href="mechanics.html#skins" class="nav-link">スキン</a>
+        <a href="mechanics.html#accessories" class="nav-link">アクセサリー</a>
+        <a href="npcs.html" class="nav-link">NPC</a>
+        <a href="npcs.html#comments" class="nav-link">コメント</a>
+    </div>
+    <button class="nav-arrow nav-arrow-right" onclick="document.querySelector('.nav-inner').scrollBy({left:200,behavior:'smooth'})" aria-label="右へスクロール">&#9654;</button>
+</nav>
+
+<main class="container">
+
+    <section id="fighting">
+        <div class="section-header">
+            <h2>格闘スタイル</h2>
+            <p>各トレーナーから習得できる戦闘スタイル</p>
+        </div>
+
+        <div class="style-card">
+            <h3>剣道</h3>
+            <div class="trainer">習得場所：侍マスター（バス停 #15 亀友マーケット）</div>
+            <div class="style-moves">
+                <div class="style-move"><h4>旋風（Whirlwind）</h4><p>ガードブレイク付き斬撃</p></div>
+                <div class="style-move"><h4>旋風・空中変型</h4><p>垂直方向の連続斬撃</p></div>
+                <div class="style-move"><h4>静寂の刃（Silent Edge）</h4><p>ダッシュ斬撃からの連続攻撃</p></div>
+                <div class="style-move"><h4>昇天嵐（Rising Tempest）</h4><p>踏み込みから上方ドラッグ3連斬撃</p></div>
+            </div>
+        </div>
+
+        <div class="style-card">
+            <img src="images/a1ab2a62d617.jpg" alt="ボクシング" class="style-card-img" loading="lazy">
+            <h3>ボクシング</h3>
+            <div class="trainer">習得場所：ボクシングコーチ（バス停 #2 ジム）</div>
+            <div class="style-moves">
+                <div class="style-move"><h4>ホワイトファング</h4><p>2連フック → アッパー → 右フック</p></div>
+                <div class="style-move"><h4>肝臓砕き（Liver Crusher）</h4><p>2連ボディーブロー</p></div>
+                <div class="style-move"><h4>デンプシーロール</h4><p>カウンター型の多段ヒット + 最終フック</p></div>
+            </div>
+        </div>
+
+        <div class="style-card">
+            <h3>空手</h3>
+            <div class="trainer">習得場所：空手師範（バス停 #15 病院付近）</div>
+            <div class="style-moves">
+                <div class="style-move"><h4>正拳連打（Seiken Barrage）</h4><p>ダッシュ連打からの双拳打ち</p></div>
+                <div class="style-move"><h4>六殺（Sixth Massacre）</h4><p>空中叩きつけ + 衝撃波</p></div>
+                <div class="style-move"><h4>竜巻（Tatsumaki）</h4><p>空中回転キック連打</p></div>
+            </div>
+        </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <section id="sub-abilities">
+        <div class="section-header">
+            <h2>サブ能力</h2>
+            <p>追加で習得できる特殊能力</p>
+        </div>
+        <div class="card-grid">
+            <div class="card"><h3>人間（デフォルト）</h3><p>初期状態。0.1秒ごとに0.02のHP自然回復。</p></div>
+            <div class="card" style="border-color:rgba(255,77,106,.3);">
+                <img src="images/8c548f56adef.png" alt="ヴァンパイア" class="card-img" loading="lazy">
+                <h3>ヴァンパイア</h3>
+                <p>石仮面使用で変化。赤メーター満タンでボーナス回復。パッシブ+0.02、ハイスピード+0.04。</p>
+                <ul><li>空裂眼刺驚</li><li>吸血の恐怖</li><li>凍結攻撃</li></ul>
+                <img src="images/f17723ada514.gif" alt="技" class="gif-preview" loading="lazy">
+            </div>
+            <div class="card" style="border-color:rgba(255,215,0,.3);">
+                <img src="images/9d8a9b73c68e.png" alt="波紋" class="card-img" loading="lazy">
+                <h3>波紋（ハモン）</h3>
+                <p>古代の幽霊クエスト（バス停 #13）で習得。ヴァンパイアに特効。</p>
+                <ul><li>山吹色の波紋疾走</li><li>仙道波紋疾走</li><li>緋色の波紋疾走</li></ul>
+                <img src="images/b1f19b6b051f.gif" alt="技" class="gif-preview" loading="lazy">
+            </div>
+            <div class="card" style="border-color:rgba(77,148,255,.3);">
+                <img src="images/a229bfd7bb12.png" alt="サイボーグ" class="card-img" loading="lazy">
+                <h3>サイボーグ</h3>
+                <p>シュトロハイムクエスト（バス停 #3）で習得。防御力+15%。ヴァンパイア特効。</p>
+                <ul><li>紫外線照射装置</li><li>マシンガン</li><li>ミサイルボレー</li></ul>
+                <img src="images/ea6e34cf2714.gif" alt="技" class="gif-preview" loading="lazy">
+            </div>
+        </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <section id="personalities">
+        <div class="section-header">
+            <h2>パーソナリティ（スタンド性格）</h2>
+            <p>スタンドにランダムで付与される性格。スタンド性格エッセンスでリロール可能。</p>
+        </div>
+
+        <h3 class="sub-label">神話級パーソナリティ</h3>
+        <div class="personality-grid" style="margin-bottom:1.5rem;">
+            <div class="personality-card" style="border-color:rgba(180,77,255,.3);">
+                <h4>Elegant（エレガント）<span class="rarity-badge rarity-mythical">神話級</span></h4>
+                <p>スタンドのクールダウンを10%短縮。攻撃命中で短時間の速度上昇。移動速度に応じてダメージが微増。</p>
+            </div>
+            <div class="personality-card" style="border-color:rgba(180,77,255,.3);">
+                <h4>Feral（フェラル）<span class="rarity-badge rarity-mythical">神話級</span></h4>
+                <p>ダメージ+10%、防御力-10%。攻撃特化型。</p>
+            </div>
+            <div class="personality-card" style="border-color:rgba(180,77,255,.3);">
+                <h4>Transcendent（トランセンデント）<span class="rarity-badge rarity-mythical">神話級</span></h4>
+                <p>ダメージ+7%、パワー回復+7%、防御力+7%。バランス型の最強性格。</p>
+            </div>
+        </div>
+
+        <h3 class="sub-label">伝説級パーソナリティ</h3>
+        <div class="personality-grid" style="margin-bottom:1.5rem;">
+            <div class="personality-card" style="border-color:rgba(255,149,0,.3);">
+                <h4>Methodical（メソディカル）<span class="rarity-badge rarity-legendary">伝説級</span></h4>
+                <p>パーフェクトブロック成功でパワー20%回復＋速度上昇。</p>
+            </div>
+            <div class="personality-card" style="border-color:rgba(255,149,0,.3);">
+                <h4>Dominant（ドミナント）<span class="rarity-badge rarity-legendary">伝説級</span></h4>
+                <p>自分を攻撃していない相手に対してダメージ+25%。</p>
+            </div>
+            <div class="personality-card" style="border-color:rgba(255,149,0,.3);">
+                <h4>Cursed（カースド）<span class="rarity-badge rarity-legendary">伝説級</span></h4>
+                <p>ダメージ+4%、パワー回復+4%、防御力+4%。</p>
+            </div>
+            <div class="personality-card" style="border-color:rgba(255,149,0,.3);">
+                <h4>Rhythmic（リズミック）<span class="rarity-badge rarity-legendary">伝説級</span></h4>
+                <p>パワー回復速度+35%。</p>
+            </div>
+            <div class="personality-card" style="border-color:rgba(255,149,0,.3);">
+                <h4>Artistic（アーティスティック）<span class="rarity-badge rarity-legendary">伝説級</span></h4>
+                <p>ガードブレイク成功で敵を5秒間「脆弱」状態にする（被ダメージ+20%）。</p>
+            </div>
+            <div class="personality-card" style="border-color:rgba(255,149,0,.3);">
+                <h4>Suffocating（サフォケーティング）<span class="rarity-badge rarity-legendary">伝説級</span></h4>
+                <p>持続ダメージ（DoT）効果が50%強化される。</p>
+            </div>
+        </div>
+
+        <h3 class="sub-label">レア パーソナリティ</h3>
+        <div class="personality-grid" style="margin-bottom:1.5rem;">
+            <div class="personality-card" style="border-color:rgba(77,148,255,.3);">
+                <h4>Determined（デターミンド）<span class="rarity-badge rarity-rare">レア</span></h4>
+                <p>HP70%以上の時、ダメージ+4%。</p>
+            </div>
+            <div class="personality-card" style="border-color:rgba(77,148,255,.3);">
+                <h4>Compassionate（コンパッショネイト）<span class="rarity-badge rarity-rare">レア</span></h4>
+                <p>回復効果が25%強化される。</p>
+            </div>
+            <div class="personality-card" style="border-color:rgba(77,148,255,.3);">
+                <h4>Furious（フューリアス）<span class="rarity-badge rarity-rare">レア</span></h4>
+                <p>HP30%以下の時、ダメージ+10%。逆転型。</p>
+            </div>
+            <div class="personality-card" style="border-color:rgba(77,148,255,.3);">
+                <h4>Slugger（スラッガー）<span class="rarity-badge rarity-rare">レア</span></h4>
+                <p>ガードブレイクスキルのダメージ+10%。</p>
+            </div>
+            <div class="personality-card" style="border-color:rgba(77,148,255,.3);">
+                <h4>Fearful（フィアフル）<span class="rarity-badge rarity-rare">レア</span></h4>
+                <p>ガードブレイクされた時、防御力+20%を2秒間獲得。</p>
+            </div>
+            <div class="personality-card" style="border-color:rgba(77,148,255,.3);">
+                <h4>Durable（デュラブル）<span class="rarity-badge rarity-rare">レア</span></h4>
+                <p>状態異常ダメージを100%軽減。</p>
+            </div>
+        </div>
+
+        <h3 class="sub-label">アンコモン パーソナリティ</h3>
+        <div class="personality-grid" style="margin-bottom:1.5rem;">
+            <div class="personality-card" style="border-color:rgba(77,255,136,.3);">
+                <h4>Curious（キュリアス）<span class="rarity-badge rarity-uncommon">アンコモン</span></h4>
+                <p>回避ゲージの獲得量+20%。</p>
+            </div>
+            <div class="personality-card" style="border-color:rgba(77,255,136,.3);">
+                <h4>Astute（アスチュート）<span class="rarity-badge rarity-uncommon">アンコモン</span></h4>
+                <p>ブロックされた攻撃のチップダメージ+10%。</p>
+            </div>
+            <div class="personality-card" style="border-color:rgba(77,255,136,.3);">
+                <h4>Predictive（プレディクティブ）<span class="rarity-badge rarity-uncommon">アンコモン</span></h4>
+                <p>カウンタースキルのダメージ+10%。</p>
+            </div>
+            <div class="personality-card" style="border-color:rgba(77,255,136,.3);">
+                <h4>Kind（カインド）<span class="rarity-badge rarity-uncommon">アンコモン</span></h4>
+                <p>回復効果+10%。</p>
+            </div>
+        </div>
+
+        <h3 class="sub-label">コモン パーソナリティ</h3>
+        <div class="personality-grid">
+            <div class="personality-card">
+                <h4>Erratic（エラティック）<span class="rarity-badge rarity-common">コモン</span></h4>
+                <p>回避成功でパワー5%回復。</p>
+            </div>
+            <div class="personality-card">
+                <h4>Energetic（エナジェティック）<span class="rarity-badge rarity-common">コモン</span></h4>
+                <p>パワー回復速度+10%。</p>
+            </div>
+            <div class="personality-card">
+                <h4>Cowardly（カワードリー）<span class="rarity-badge rarity-common">コモン</span></h4>
+                <p>低HP時にスロー効果の影響を軽減。</p>
+            </div>
+            <div class="personality-card">
+                <h4>Happy（ハッピー）<span class="rarity-badge rarity-common">コモン</span></h4>
+                <p>HP回復速度+5%。</p>
+            </div>
+            <div class="personality-card">
+                <h4>Firm（ファーム）<span class="rarity-badge rarity-common">コモン</span></h4>
+                <p>ブロック中に攻撃を受けるとパワー獲得。</p>
+            </div>
+            <div class="personality-card">
+                <h4>Arrogant（アロガント）<span class="rarity-badge rarity-common">コモン</span></h4>
+                <p>HP最大時にダメージ+5%。</p>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    <div class="footer-inner">
+        <p style="margin-bottom:.5rem; font-weight:700; font-size:1.3rem;">Bizarre Lineage 攻略ガイド</p>
+        <p style="margin-bottom:.5rem; font-size:.95rem;">作成者: <strong style="color:#b89aff;">LUNA670</strong></p>
+        <p style="margin-bottom:1rem;">
+            <a href="https://www.roblox.com/games/14890802310/Bizarre-Lineage" target="_blank">ゲームページ</a> ・
+            <a href="https://discord.gg/bizarrelineage" target="_blank">公式Discord</a> ・
+            <a href="https://www.roblox.com/communities/33161040/Bizarre-Collective" target="_blank">グループ</a> ・
+            <a href="https://discord.gg/YpDSv6cF3Q" target="_blank">LUNA670のDiscord鯖</a>
+        </p>
+        <p>このサイトはファンメイドの非公式攻略ガイドです。<br>元データ: <a href="https://trello.com/b/wtzgwqIf" target="_blank">公式Trelloボード</a></p>
+        <p style="margin-top:.8rem; font-size:.8rem; color:var(--text-dim);">最終更新: 2026.03.13</p>
+    </div>
+</footer>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JEYRF0CQYB"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-JEYRF0CQYB');
+</script>
+</body>
+</html>

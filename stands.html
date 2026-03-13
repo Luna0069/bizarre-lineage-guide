@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>スタンド一覧・ティアリスト | Bizarre Lineage 攻略Wiki</title>
+    <meta name="description" content="Bizarre Lineageのスタンド一覧とティアリスト。神話級・伝説級・レア・アンコモン・コモン全スタンドの技構成とPERKS。PvE・Boss・PvPティアリスト。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+    <div class="site-header-inner">
+        <a href="index.html" class="site-logo">Bizarre Lineage 完全攻略</a>
+        <span class="site-header-badge">ROBLOX 攻略ガイド</span>
+    </div>
+</header>
+
+<nav class="nav-sticky">
+    <button class="nav-arrow nav-arrow-left" onclick="document.querySelector('.nav-inner').scrollBy({left:-200,behavior:'smooth'})" aria-label="左へスクロール">&#9664;</button>
+    <div class="nav-inner">
+        <a href="index.html" class="nav-link">コード</a>
+        <a href="index.html#updates" class="nav-link">アプデ情報</a>
+        <a href="index.html#basics" class="nav-link">基本情報</a>
+        <a href="areas.html" class="nav-link">エリア</a>
+        <a href="stands.html" class="nav-link active">スタンド</a>
+        <a href="#tierlist" class="nav-link">ティアリスト</a>
+        <a href="fighting.html#personalities" class="nav-link">パーソナリティ</a>
+        <a href="progression.html" class="nav-link">進行</a>
+        <a href="fighting.html" class="nav-link">格闘スタイル</a>
+        <a href="fighting.html#sub-abilities" class="nav-link">サブ能力</a>
+        <a href="progression.html#evolutions" class="nav-link">進化</a>
+        <a href="items.html" class="nav-link">アイテム</a>
+        <a href="mechanics.html" class="nav-link">ゲーム仕様</a>
+        <a href="mechanics.html#traits" class="nav-link">トレイト</a>
+        <a href="mechanics.html#skins" class="nav-link">スキン</a>
+        <a href="mechanics.html#accessories" class="nav-link">アクセサリー</a>
+        <a href="npcs.html" class="nav-link">NPC</a>
+        <a href="npcs.html#comments" class="nav-link">コメント</a>
+    </div>
+    <button class="nav-arrow nav-arrow-right" onclick="document.querySelector('.nav-inner').scrollBy({left:200,behavior:'smooth'})" aria-label="右へスクロール">&#9654;</button>
+</nav>
+
+<main class="container">
+
+    <section id="stands">
+        <div class="section-header">
+            <h2>スタンド一覧</h2>
+            <p>レアリティ別のスタンドと技構成（スタンドの矢を使用して入手）</p>
+        </div>
+
+        <div class="tab-buttons">
+            <button class="tab-btn active" onclick="switchTab('mythical')">神話級</button>
+            <button class="tab-btn" onclick="switchTab('legendary')">伝説級</button>
+            <button class="tab-btn" onclick="switchTab('rare')">レア</button>
+            <button class="tab-btn" onclick="switchTab('uncommon')">アンコモン</button>
+            <button class="tab-btn" onclick="switchTab('common')">コモン</button>
+        </div>
+
+        <div id="tab-mythical" class="tab-content active">
+            <div class="stand-grid">
+                <div class="stand-card mythical-border">
+                    <img src="images/4cbc5568842e.png" alt="ホワイトスネイク" class="stand-card-img" loading="lazy">
+                    <div class="stand-card-header"><h3>ホワイトスネイク</h3><span class="rarity-badge rarity-mythical">神話級</span></div>
+                    <div class="stand-card-body">
+                        <div class="move-list">
+                            <span class="move-tag">連打攻撃</span><span class="move-tag">足払い</span><span class="move-tag">リボルバー</span>
+                            <span class="move-tag">ディスク投げ</span><span class="move-tag">酸の破裂</span><span class="move-tag special">ディスク抽出</span>
+                        </div>
+                        <div class="perk-section">
+                            <div class="perk-section-title">PERKS</div>
+                            <div class="perk-item"><h5>Null Memory（記憶消去）</h5><p>相手の最初の攻撃のダメージを25%軽減。</p></div>
+                            <div class="perk-item"><h5>Synthetic Focus（合成集中）</h5><p>パワー最大時、防御力+20%。</p></div>
+                            <div class="perk-item"><h5>Autocrat（独裁者）</h5><p>ラグドールから復帰後、防御力+50%を1.25秒間獲得。</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-legendary" class="tab-content">
+            <div class="stand-grid">
+                <div class="stand-card legendary-border">
+                    <img src="images/48867f3e0b73.png" alt="ザ・ワールド" class="stand-card-img" loading="lazy">
+                    <div class="stand-card-header"><h3>ザ・ワールド</h3><span class="rarity-badge rarity-legendary">伝説級</span></div>
+                    <div class="stand-card-body">
+                        <div class="move-list">
+                            <span class="move-tag">連打攻撃</span><span class="move-tag">ハードファイト</span><span class="move-tag">包囲</span>
+                            <span class="move-tag">ナイフ</span><span class="move-tag special">時間停止</span><span class="move-tag">キックボレー</span><span class="move-tag special">覚醒</span>
+                        </div>
+                        <div class="perk-section">
+                            <div class="perk-section-title">PERKS</div>
+                            <div class="perk-item"><h5>King of Time（時の王）</h5><p>時間停止中のダメージが10%増加。</p></div>
+                            <div class="perk-item"><h5>Theatrical（演劇的）</h5><p>飛び道具のダメージ+10%。</p></div>
+                            <div class="perk-item"><h5>Play with Your Food（獲物で遊ぶ）</h5><p>HP80%以上の時、超過1%ごとにダメージ+1%。</p></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="stand-card legendary-border">
+                    <img src="images/60b623fef5f4.png" alt="スタープラチナ" class="stand-card-img" loading="lazy">
+                    <div class="stand-card-header"><h3>スタープラチナ</h3><span class="rarity-badge rarity-legendary">伝説級</span></div>
+                    <div class="stand-card-body">
+                        <div class="move-list">
+                            <span class="move-tag">連打攻撃</span><span class="move-tag">スターフィンガー</span><span class="move-tag">吸い込み</span>
+                            <span class="move-tag">スカルクラッシャー</span><span class="move-tag">ハープーン</span><span class="move-tag special">時間停止</span><span class="move-tag special">覚醒</span>
+                        </div>
+                        <div class="perk-section">
+                            <div class="perk-section-title">PERKS</div>
+                            <div class="perk-item"><h5>Unyielding Force（不屈の力）</h5><p>素早く3ヒットでダメージ+5%を6秒間獲得（CD 20秒）。</p></div>
+                            <div class="perk-item"><h5>Fists of Fury（怒りの拳）</h5><p>ガードブレイク成功で相手をラグドール（CD 10秒）。</p></div>
+                            <div class="perk-item"><h5>Absolute Destruction（絶対破壊）</h5><p>壁に叩きつけた相手のガードを破壊（CD 15秒）。</p></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="stand-card legendary-border">
+                    <img src="images/29d2b8277b82.png" alt="キング・クリムゾン" class="stand-card-img" loading="lazy">
+                    <div class="stand-card-header"><h3>キング・クリムゾン</h3><span class="rarity-badge rarity-legendary">伝説級</span></div>
+                    <div class="stand-card-body">
+                        <div class="move-list">
+                            <span class="move-tag">連打攻撃</span><span class="move-tag">チョップ</span><span class="move-tag">串刺し</span>
+                            <span class="move-tag special">時間消去</span><span class="move-tag special">エピタフ</span><span class="move-tag">眼球えぐり</span>
+                        </div>
+                        <div class="perk-section">
+                            <div class="perk-section-title">PERKS</div>
+                            <div class="perk-item"><h5>Hidden Impact（隠された衝撃）</h5><p>回避後3秒以内にブロックすると防御力+15%。</p></div>
+                            <div class="perk-item"><h5>Forecasted Pain（予見された痛み）</h5><p>HP50%以下の敵のガードブレイク時のヒットスタン+25%。</p></div>
+                            <div class="perk-item"><h5>Two Steps Ahead（二歩先）</h5><p>回避→ブロックで防御力+15%を10秒間獲得。</p></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="stand-card legendary-border">
+                    <img src="images/d755e2681c74.png" alt="ザ・ワールド HV" class="stand-card-img" loading="lazy">
+                    <div class="stand-card-header"><h3>ザ・ワールド: ハイボルテージ</h3><span class="rarity-badge rarity-legendary">伝説級</span></div>
+                    <div class="stand-card-body">
+                        <div class="move-list">
+                            <span class="move-tag">連打攻撃</span><span class="move-tag">スピンキック</span><span class="move-tag">リボルバー連打</span>
+                            <span class="move-tag">ナイフ</span><span class="move-tag special">時間停止</span><span class="move-tag">煙幕弾</span>
+                        </div>
+                        <div class="perk-section">
+                            <div class="perk-section-title">PERKS</div>
+                            <div class="perk-item"><h5>Shockflow（衝撃の流れ）</h5><p>パワー10%減少ごとにダメージ+1%。</p></div>
+                            <div class="perk-item"><h5>Static Override（静電オーバーライド）</h5><p>パワー25%以下で移動速度上昇を7秒間獲得。</p></div>
+                            <div class="perk-item"><h5>Shock Conduit（衝撃伝導）</h5><p>パーフェクトブロック後6秒以内のガードブレイクでパワー回復ブースト。</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-rare" class="tab-content">
+            <div class="stand-grid">
+                <div class="stand-card rare-border">
+                    <img src="images/4fb83ffca562.png" alt="アヌビス神" class="stand-card-img" loading="lazy">
+                    <div class="stand-card-header"><h3>アヌビス神</h3><span class="rarity-badge rarity-rare">レア</span></div>
+                    <div class="stand-card-body">
+                        <div class="move-list">
+                            <span class="move-tag">連打攻撃</span><span class="move-tag">引き裂き</span><span class="move-tag">ダイスアウト</span>
+                            <span class="move-tag special">呪われた断絶</span><span class="move-tag">閃光斬り</span>
+                        </div>
+                        <div class="perk-section">
+                            <div class="perk-section-title">PERKS</div>
+                            <div class="perk-item"><h5>Sheathe（鞘）</h5><p>カウンター攻撃のダメージ+10%。</p></div>
+                            <div class="perk-item"><h5>The Blade（刃）</h5><p>斬撃ダメージ+10%。</p></div>
+                            <div class="perk-item"><h5>Flow State（フロー状態）</h5><p>HP50%以下でHP10%とパワーを即時回復。</p></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="stand-card rare-border">
+                    <img src="images/9026443f6605.png" alt="キラークイーン" class="stand-card-img" loading="lazy">
+                    <div class="stand-card-header"><h3>キラークイーン</h3><span class="rarity-badge rarity-rare">レア</span></div>
+                    <div class="stand-card-body">
+                        <div class="move-list">
+                            <span class="move-tag">連打攻撃</span><span class="move-tag">第一の爆弾</span><span class="move-tag special">シアーハートアタック</span>
+                            <span class="move-tag">ストレイキャット</span><span class="move-tag">爆弾バウンス</span><span class="move-tag">鍛錬</span>
+                        </div>
+                        <div class="perk-section">
+                            <div class="perk-section-title">PERKS</div>
+                            <div class="perk-item"><h5>Detonate（起爆）</h5><p>ガードブレイク時に炎状態を付与（CD 20秒）。</p></div>
+                            <div class="perk-item"><h5>Heart Attack（心臓発作）</h5><p>ダメージを3秒間に分散。ダメージ-15%だが貫通力+45%。</p></div>
+                            <div class="perk-item"><h5>No Witnesses（目撃者なし）</h5><p>敵を撃破するとダメージ+15%を10秒間獲得。</p></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="stand-card rare-border">
+                    <img src="images/1901f4bd70ee.png" alt="ストーン・フリー" class="stand-card-img" loading="lazy">
+                    <div class="stand-card-header"><h3>ストーン・フリー</h3><span class="rarity-badge rarity-rare">レア</span></div>
+                    <div class="stand-card-body">
+                        <div class="move-list">
+                            <span class="move-tag">連打攻撃</span><span class="move-tag">スティングパンチ</span><span class="move-tag">ドロップキック</span>
+                            <span class="move-tag">糸の罠</span><span class="move-tag">螺旋の糸</span><span class="move-tag">糸の包帯</span>
+                        </div>
+                        <div class="perk-section">
+                            <div class="perk-section-title">PERKS</div>
+                            <div class="perk-item"><h5>Line Tension（糸の張力）</h5><p>通常攻撃以外の3回目の攻撃ごとに追加の確定ダメージ。</p></div>
+                            <div class="perk-item"><h5>Resourceful（機転）</h5><p>全体ダメージ+5%。</p></div>
+                            <div class="perk-item"><h5>Resilient（強靭）</h5><p>自分よりHP5%以上多い相手にダメージ+5%。</p></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="stand-card rare-border">
+                    <img src="images/df49483dd9fd.png" alt="ウェザー・リポート" class="stand-card-img" loading="lazy">
+                    <div class="stand-card-header"><h3>ウェザー・リポート</h3><span class="rarity-badge rarity-rare">レア</span></div>
+                    <div class="stand-card-body">
+                        <div class="move-list">
+                            <span class="move-tag">連打攻撃</span><span class="move-tag">暴風突撃</span><span class="move-tag">帯電跳躍</span>
+                            <span class="move-tag">カエルの豪雨</span><span class="move-tag special">ヘビー・ウェザー</span><span class="move-tag">氷の爆発</span>
+                        </div>
+                        <div class="perk-section">
+                            <div class="perk-section-title">PERKS</div>
+                            <div class="perk-item"><h5>Elementalist（属性使い）</h5><p>天候系攻撃のダメージ+10%。</p></div>
+                            <div class="perk-item"><h5>Thunderous（雷鳴）</h5><p>雷系攻撃のダメージ+10%。</p></div>
+                            <div class="perk-item"><h5>Oppression（圧制）</h5><p>ノックバック攻撃のダメージ+10%。</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-uncommon" class="tab-content">
+            <div class="stand-grid">
+                <div class="stand-card uncommon-border">
+                    <img src="images/fde00b82cd47.png" alt="マジシャンズレッド" class="stand-card-img" loading="lazy">
+                    <div class="stand-card-header"><h3>マジシャンズレッド</h3><span class="rarity-badge rarity-uncommon">アンコモン</span></div>
+                    <div class="stand-card-body">
+                        <div class="move-list">
+                            <span class="move-tag">連打攻撃</span><span class="move-tag">炎のパンチ</span><span class="move-tag">火炎放射</span>
+                            <span class="move-tag">生命探知</span><span class="move-tag special">クロスファイヤーハリケーン</span><span class="move-tag">点火バースト</span>
+                        </div>
+                        <div class="perk-section">
+                            <div class="perk-section-title">PERKS</div>
+                            <div class="perk-item"><h5>Ignition Boost（点火ブースト）</h5><p>燃焼中の相手へのダメージ+10%。</p></div>
+                            <div class="perk-item"><h5>Scorchstep（焦熱歩）</h5><p>回避で自分と相手の両方に炎状態を付与（CD 7秒）。</p></div>
+                            <div class="perk-item"><h5>Kindled Resolve（燃える意志）</h5><p>自分が炎状態で攻撃を受けると相手も炎状態に。</p></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="stand-card uncommon-border">
+                    <img src="images/02571fb4446b.png" alt="ザ・ハンド" class="stand-card-img" loading="lazy">
+                    <div class="stand-card-header"><h3>ザ・ハンド</h3><span class="rarity-badge rarity-uncommon">アンコモン</span></div>
+                    <div class="stand-card-body">
+                        <div class="move-list">
+                            <span class="move-tag">連打攻撃</span><span class="move-tag">左フック</span><span class="move-tag">削り払い</span>
+                            <span class="move-tag">削り引き寄せ</span><span class="move-tag">削り発射</span>
+                        </div>
+                        <div class="perk-section">
+                            <div class="perk-section-title">PERKS</div>
+                            <div class="perk-item"><h5>Erasure（消去）</h5><p>HP5%以下の敵を即座に処刑。</p></div>
+                            <div class="perk-item"><h5>Impatient（短気）</h5><p>HP50%以下でパワー回復速度+50%。</p></div>
+                            <div class="perk-item"><h5>Reckless（無謀）</h5><p>ガードブレイクされると次の攻撃のダメージ+25%。</p></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="stand-card uncommon-border">
+                    <img src="images/5f581e396885.png" alt="クレイジー・ダイヤモンド" class="stand-card-img" loading="lazy">
+                    <div class="stand-card-header"><h3>クレイジー・ダイヤモンド</h3><span class="rarity-badge rarity-uncommon">アンコモン</span></div>
+                    <div class="stand-card-body">
+                        <div class="move-list">
+                            <span class="move-tag">連打攻撃</span><span class="move-tag">ヘビーパンチ</span><span class="move-tag">ベアリングショット</span>
+                            <span class="move-tag special">回復モード</span><span class="move-tag">壁破壊</span><span class="move-tag">粉砕</span><span class="move-tag special">怒りモード</span>
+                        </div>
+                        <div class="perk-section">
+                            <div class="perk-section-title">PERKS</div>
+                            <div class="perk-item"><h5>Healing Blow（癒しの一撃）</h5><p>次の回復能力の回復量+40%（CD 15秒）。</p></div>
+                            <div class="perk-item"><h5>Good Friend（良き友人）</h5><p>味方への回復効果+10%。</p></div>
+                            <div class="perk-item"><h5>Brute Force（腕力）</h5><p>連打攻撃のダメージ+20%。</p></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="stand-card uncommon-border">
+                    <img src="images/b039d8b5b48e.png" alt="ゴールド・エクスペリエンス" class="stand-card-img" loading="lazy">
+                    <div class="stand-card-header"><h3>ゴールド・エクスペリエンス</h3><span class="rarity-badge rarity-uncommon">アンコモン</span></div>
+                    <div class="stand-card-body">
+                        <div class="move-list">
+                            <span class="move-tag">連打攻撃</span><span class="move-tag">魂の一撃</span><span class="move-tag special">修復</span>
+                            <span class="move-tag">根の攻撃</span><span class="move-tag">過剰成長</span><span class="move-tag">カエル</span>
+                        </div>
+                        <div class="perk-section">
+                            <div class="perk-section-title">PERKS</div>
+                            <div class="perk-item"><h5>Nature's Armor（自然の鎧）</h5><p>状態異常を受けると防御力+25%を10秒間獲得。</p></div>
+                            <div class="perk-item"><h5>Vital Instinct（生命の本能）</h5><p>HP30%以下で攻撃命中時にパワー+5%。</p></div>
+                            <div class="perk-item"><h5>Life Pulse（生命の脈動）</h5><p>回復時に状態異常を解除。</p></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="stand-card uncommon-border">
+                    <img src="images/49c821b0dbf6.png" alt="パープル・ヘイズ" class="stand-card-img" loading="lazy">
+                    <div class="stand-card-header"><h3>パープル・ヘイズ</h3><span class="rarity-badge rarity-uncommon">アンコモン</span></div>
+                    <div class="stand-card-body">
+                        <div class="move-list">
+                            <span class="move-tag">連打攻撃</span><span class="move-tag">カプセルパンチ</span><span class="move-tag">怒りの一撃</span>
+                            <span class="move-tag special">感染乱舞</span><span class="move-tag">感染カプセル</span><span class="move-tag">カプセル破壊</span><span class="move-tag">暴走</span>
+                        </div>
+                        <div class="perk-section">
+                            <div class="perk-section-title">PERKS</div>
+                            <div class="perk-item"><h5>Corrupted Instinct（腐敗した本能）</h5><p>自分よりHPが低い敵にダメージ+5%。</p></div>
+                            <div class="perk-item"><h5>Frenzied State（狂乱状態）</h5><p>ダメージ+20%、被ダメージ+40%。ハイリスク・ハイリターン。</p></div>
+                            <div class="perk-item"><h5>Unpredictable（予測不能）</h5><p>ランダムでダメージ+25%、貫通力+25%、ライフスティール獲得。</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-common" class="tab-content">
+            <div class="stand-grid">
+                <div class="stand-card">
+                    <img src="images/c749bab0730e.png" alt="RHCP" class="stand-card-img" loading="lazy">
+                    <div class="stand-card-header"><h3>レッド・ホット・チリ・ペッパー</h3><span class="rarity-badge rarity-common">コモン</span></div>
+                    <div class="stand-card-body">
+                        <div class="move-list">
+                            <span class="move-tag">連打攻撃</span><span class="move-tag special">雷神</span><span class="move-tag">フラッシュ</span>
+                            <span class="move-tag">小指斬り</span><span class="move-tag">電撃サージ</span>
+                        </div>
+                        <div class="perk-section">
+                            <div class="perk-section-title">PERKS</div>
+                            <div class="perk-item"><h5>Charge Conduction（充電伝導）</h5><p>ブロック中にパワー回復速度+50%。</p></div>
+                            <div class="perk-item"><h5>Amped Up（過充電）</h5><p>パワー最大時、攻撃ダメージ+5%。</p></div>
+                            <div class="perk-item"><h5>Blackout（停電）</h5><p>ガードブレイク時に相手のパワーを10%吸収。</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <hr class="section-divider">
+
+    <section id="tierlist">
+        <div class="section-header">
+            <h2>ティアリスト</h2>
+            <p>スタンドの強さランキング（PvE・Boss・PvP）</p>
+        </div>
+
+        <div style="background:rgba(255,107,53,.08); border:1px solid rgba(255,107,53,.3); border-radius:12px; padding:1rem 1.3rem; margin-bottom:2rem; max-width:800px;">
+            <p style="color:var(--accent); font-weight:700; font-size:.95rem; margin-bottom:.3rem;">&#9888; 注意</p>
+            <p style="color:var(--text-dim); font-size:.9rem;">このティアリストはLUNA670の個人的な判断に基づいています。プレイスタイルやアップデートにより評価は変わる可能性があるため、参考程度にご覧ください。</p>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:2rem; max-width:900px;">
+            <div class="card">
+                <h3 style="margin-bottom:1rem; display:flex; align-items:center; gap:.5rem;">
+                    <span style="color:var(--uncommon); font-size:1.3rem;">&#9876;</span> PvE ティアリスト
+                </h3>
+                <img src="images/tierlist-pve.png" alt="PvEティアリスト" style="width:100%; border-radius:10px; border:1px solid var(--border);" loading="lazy">
+            </div>
+            <div class="card">
+                <h3 style="margin-bottom:1rem; display:flex; align-items:center; gap:.5rem;">
+                    <span style="color:var(--legendary); font-size:1.3rem;">&#128128;</span> Boss ティアリスト
+                </h3>
+                <img src="images/tierlist-boss.png" alt="Bossティアリスト" style="width:100%; border-radius:10px; border:1px solid var(--border);" loading="lazy">
+            </div>
+            <div class="card">
+                <h3 style="margin-bottom:1rem; display:flex; align-items:center; gap:.5rem;">
+                    <span style="color:var(--secret); font-size:1.3rem;">&#9876;</span> PvP ティアリスト
+                </h3>
+                <img src="images/tierlist-pvp.png" alt="PvPティアリスト" style="width:100%; border-radius:10px; border:1px solid var(--border);" loading="lazy">
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    <div class="footer-inner">
+        <p style="margin-bottom:.5rem; font-weight:700; font-size:1.3rem;">Bizarre Lineage 攻略ガイド</p>
+        <p style="margin-bottom:.5rem; font-size:.95rem;">作成者: <strong style="color:#b89aff;">LUNA670</strong></p>
+        <p style="margin-bottom:1rem;">
+            <a href="https://www.roblox.com/games/14890802310/Bizarre-Lineage" target="_blank">ゲームページ</a> ・
+            <a href="https://discord.gg/bizarrelineage" target="_blank">公式Discord</a> ・
+            <a href="https://www.roblox.com/communities/33161040/Bizarre-Collective" target="_blank">グループ</a> ・
+            <a href="https://discord.gg/YpDSv6cF3Q" target="_blank">LUNA670のDiscord鯖</a>
+        </p>
+        <p>このサイトはファンメイドの非公式攻略ガイドです。<br>元データ: <a href="https://trello.com/b/wtzgwqIf" target="_blank">公式Trelloボード</a></p>
+        <p style="margin-top:.8rem; font-size:.8rem; color:var(--text-dim);">最終更新: 2026.03.13</p>
+    </div>
+</footer>
+
+<script>
+    function switchTab(tab) {
+        document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+        document.getElementById('tab-' + tab).classList.add('active');
+        event.target.classList.add('active');
+    }
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JEYRF0CQYB"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-JEYRF0CQYB');
+</script>
+</body>
+</html>
