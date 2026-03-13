@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://bizarre-lineage-guide.com/sitemap.xml
