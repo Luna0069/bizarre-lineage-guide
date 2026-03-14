@@ -216,3 +216,15 @@ footer { background:rgba(0,0,0,.3); border-top:1px solid var(--border); padding:
     section { padding:2.5rem 0; }
 }
 @media(max-width:480px) { .keybind-grid { grid-template-columns:1fr; } .hero-links { flex-direction:column; align-items:center; } }
+
+/* Quest Steps (横スクロール) */
+.quest-steps-scroll { display:flex; align-items:center; gap:.6rem; overflow-x:auto; padding:.5rem 0 .8rem; scrollbar-width:thin; scrollbar-color:var(--primary) transparent; -webkit-overflow-scrolling:touch; }
+.quest-steps-scroll::-webkit-scrollbar { height:4px; }
+.quest-steps-scroll::-webkit-scrollbar-track { background:transparent; }
+.quest-steps-scroll::-webkit-scrollbar-thumb { background:var(--primary); border-radius:4px; }
+.quest-step-card { flex:0 0 180px; background:rgba(108,60,224,.08); border:1px solid rgba(108,60,224,.2); border-radius:12px; padding:.8rem; position:relative; transition:all .3s; }
+.quest-step-card:hover { background:rgba(108,60,224,.15); border-color:rgba(108,60,224,.4); transform:translateY(-2px); }
+.quest-step-num { display:inline-flex; align-items:center; justify-content:center; width:24px; height:24px; background:linear-gradient(135deg,var(--primary),var(--primary-dark)); border-radius:8px; font-size:.8rem; font-weight:700; margin-bottom:.5rem; }
+.quest-step-card h5 { font-size:.85rem; font-weight:700; margin-bottom:.3rem; color:var(--text); }
+.quest-step-card p { font-size:.78rem; color:var(--text-dim); line-height:1.5; }
+.quest-step-arrow { flex-shrink:0; color:rgba(108,60,224,.5); font-size:.9rem; }
