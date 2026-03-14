@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=no">
+    <meta name="google-site-verification" content="OjzLDpk0ZIFm3S5Yfvn5ToalkK1sx17Od5MJH7kZYPw">
+    <title>インタラクティブマップ | Bizarre Lineage 攻略Wiki</title>
+    <meta name="description" content="Bizarre Lineageのインタラクティブマップ。NPC、ボス、バス停、衣装の場所をマップ上で確認。">
+    <meta property="og:title" content="インタラクティブマップ | Bizarre Lineage 攻略Wiki">
+    <meta property="og:description" content="Bizarre Lineageのインタラクティブマップ。NPC、ボス、バス停、衣装の場所をマップ上で確認。">
+    <meta property="og:url" content="https://bizarre-lineage-guide.com/map.html">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Bizarre Lineage 攻略Wiki">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://bizarre-lineage-guide.com/map.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7690063812675714" crossorigin="anonymous"></script>
+    <style>
+        .map-page-wrapper { max-width:100%; margin:0 auto; }
+        .map-outer { position:relative; width:100%; border-radius:16px; overflow:hidden; border:1px solid var(--border); background:#0a0a1a; }
+        .map-container { width:2560px; height:1442px; position:relative; overflow:hidden; }
+        #map { width:100%; height:100%; position:relative; transform-origin:0 0; cursor:grab; transition:transform .1s ease-out; user-select:none; -webkit-user-select:none; }
+        #map:active { cursor:grabbing; }
+        .map-bg { position:absolute; top:0; left:0; width:100%; height:100%; object-fit:fill; pointer-events:none; }
+
+        /* Filter Panel */
+        .filter-panel { position:absolute; top:0; left:0; width:250px; height:100%; background:rgba(10,10,26,.92); backdrop-filter:blur(10px); border-right:1px solid var(--border); padding:16px; z-index:50; transition:transform .3s ease; display:flex; flex-direction:column; overflow:hidden; }
+        .filter-panel.collapsed { transform:translateX(-100%); }
+        .filter-toggle { position:absolute; right:-36px; top:50%; transform:translateY(-50%); width:36px; height:72px; background:rgba(10,10,26,.9); border:1px solid var(--border); border-left:none; border-radius:0 10px 10px 0; color:#b89aff; display:flex; align-items:center; justify-content:center; font-size:1.2rem; cursor:pointer; transition:.2s; z-index:10; }
+        .filter-toggle:hover { background:rgba(108,60,224,.3); color:#fff; }
+        .filter-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+        .filter-header h3 { color:#b89aff; font-size:1rem; }
+        .quick-btns { display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-bottom:8px; }
+        .quick-btn { background:rgba(108,60,224,.15); border:1px solid rgba(108,60,224,.3); padding:6px; border-radius:6px; color:#b89aff; cursor:pointer; font-size:.78rem; font-family:inherit; transition:.2s; }
+        .quick-btn:hover { background:rgba(108,60,224,.3); color:#fff; }
+        .search-box { position:relative; margin-bottom:8px; }
+        .search-box input { width:100%; padding:8px 10px; background:rgba(255,255,255,.05); border:1px solid var(--border); border-radius:6px; color:var(--text); font-size:.85rem; font-family:inherit; outline:none; }
+        .search-box input:focus { border-color:#b89aff; }
+        #filter-list { flex:1; overflow-y:auto; scrollbar-width:thin; scrollbar-color:var(--primary) transparent; }
+        #filter-list::-webkit-scrollbar { width:6px; }
+        #filter-list::-webkit-scrollbar-track { background:transparent; }
+        #filter-list::-webkit-scrollbar-thumb { background:var(--primary); border-radius:4px; }
+        .fg-header { display:flex; align-items:center; justify-content:space-between; margin:8px 0 6px; padding-bottom:4px; border-bottom:1px solid var(--border); color:#b89aff; font-weight:600; font-size:.85rem; }
+        .fg-toggle { cursor:pointer; flex:1; display:flex; align-items:center; gap:4px; }
+        .fg-switch { width:36px; height:16px; background:#2a2a4a; border-radius:10px; position:relative; cursor:pointer; transition:.2s; }
+        .fg-switch.on { background:var(--primary); }
+        .fg-switch .slider { width:12px; height:12px; background:#fff; border-radius:50%; position:absolute; top:2px; left:2px; transition:left .2s; }
+        .fg-switch.on .slider { left:22px; }
+        .fg-content { transition:max-height .3s, opacity .3s; overflow:hidden; }
+        .fg-content.collapsed { max-height:0; opacity:0; }
+        .fc-item { font-size:.8rem; display:flex; align-items:center; justify-content:space-between; background:rgba(255,255,255,.03); padding:6px 10px; margin-bottom:4px; border-radius:6px; cursor:pointer; transition:.2s; opacity:.4; border:1px solid transparent; }
+        .fc-item.active { opacity:1; }
+        .fc-item:hover { background:rgba(108,60,224,.1); border-color:rgba(108,60,224,.3); }
+        .fc-left { display:flex; align-items:center; gap:8px; }
+        .fc-dot { width:10px; height:10px; border-radius:3px; }
+        .fc-count { color:var(--text-dim); font-size:.75rem; }
+        .filter-hidden { display:none !important; }
+
+        /* Map Controls */
+        .map-controls { position:absolute; bottom:16px; right:16px; display:flex; flex-direction:column; gap:6px; z-index:50; }
+        .ctrl-btn { width:40px; height:40px; background:rgba(10,10,26,.9); border:1px solid var(--border); border-radius:10px; color:var(--text); cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:1.1rem; transition:.2s; font-family:inherit; }
+        .ctrl-btn:hover { background:rgba(108,60,224,.3); border-color:rgba(108,60,224,.5); color:#fff; }
+
+        /* Markers */
+        .map-marker { position:absolute; transform:translate(-50%,-50%); cursor:pointer; transition:.15s; z-index:10; display:flex; align-items:center; justify-content:center; user-select:none; -webkit-user-select:none; }
+        .map-marker:hover { transform:translate(-50%,-50%) scale(1.2); filter:drop-shadow(0 0 6px currentColor); }
+        .map-marker.completed { opacity:.35; }
+        .map-marker.map-element-hidden { opacity:0 !important; pointer-events:none !important; }
+        .map-marker.search-mismatch { opacity:.15 !important; pointer-events:none; }
+        .marker-dot { border-radius:50%; border:2px solid #fff; box-shadow:0 2px 8px rgba(0,0,0,.4); }
+
+        /* Tooltip */
+        .map-tooltip { position:fixed; background:rgba(10,10,26,.95); border:2px solid #b89aff; border-radius:14px; padding:16px; max-width:360px; max-height:40vh; overflow-y:auto; z-index:200; display:none; box-shadow:0 16px 40px rgba(0,0,0,.7); color:var(--text); line-height:1.6; min-width:260px; scrollbar-width:thin; scrollbar-color:var(--primary) transparent; }
+        .map-tooltip::-webkit-scrollbar { width:6px; }
+        .map-tooltip::-webkit-scrollbar-thumb { background:var(--primary); border-radius:4px; }
+        .map-tooltip h3 { color:#b89aff; margin-bottom:8px; border-bottom:1px solid var(--border); padding-bottom:6px; font-size:1rem; }
+        .map-tooltip p { color:var(--text-dim); font-size:.88rem; }
+        .map-tooltip .tt-close { position:absolute; top:8px; right:14px; background:none; border:none; color:var(--text-dim); font-size:1.6rem; cursor:pointer; transition:.2s; }
+        .map-tooltip .tt-close:hover { color:#b89aff; }
+        .map-tooltip .tt-cat { font-size:.72rem; color:var(--text-dim); margin-top:8px; }
+        .tt-check { margin:12px 0 6px; display:flex; align-items:center; gap:8px; background:rgba(108,60,224,.1); padding:8px 12px; border-radius:8px; border:1px solid transparent; transition:.2s; }
+        .tt-check:hover { border-color:rgba(108,60,224,.3); }
+        .tt-check input { width:16px; height:16px; accent-color:var(--primary); }
+        .tt-check label { color:var(--text-dim); font-size:.85rem; }
+        @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+        @keyframes fadeOut { from{opacity:1} to{opacity:0} }
+        .map-tooltip.fade-in { animation:fadeIn .2s ease-out forwards; }
+        .map-tooltip.fade-out { animation:fadeOut .2s ease-out forwards; }
+
+        /* Hover tooltip */
+        .hover-tt { position:fixed; background:rgba(10,10,26,.9); border:1px solid #b89aff; border-radius:6px; padding:4px 10px; color:var(--text); font-size:.8rem; pointer-events:none; z-index:300; white-space:nowrap; display:none; box-shadow:0 4px 12px rgba(0,0,0,.5); }
+
+        /* Help text */
+        .map-help { position:absolute; bottom:16px; left:50%; transform:translateX(-50%); background:rgba(10,10,26,.8); border:1px solid var(--border); border-radius:8px; padding:4px 14px; font-size:.75rem; color:var(--text-dim); z-index:40; white-space:nowrap; pointer-events:none; }
+
+        @media (max-width:768px) {
+            .map-container { width:100vw; height:80vh; }
+            .filter-panel { width:220px; padding:12px; }
+            .map-tooltip { max-width:90vw; }
+            .map-help { font-size:.65rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="site-header">
+    <div class="site-header-inner">
+        <a href="index.html" class="site-logo">Bizarre Lineage 完全攻略</a>
+        <span class="site-header-badge">ROBLOX 攻略ガイド</span>
+    </div>
+</header>
+
+<nav class="nav-sticky">
+    <button class="nav-arrow nav-arrow-left" onclick="document.querySelector('.nav-inner').scrollBy({left:-200,behavior:'smooth'})" aria-label="左へスクロール">&#9664;</button>
+    <div class="nav-inner">
+        <a href="index.html" class="nav-link">コード</a>
+        <a href="index.html#updates" class="nav-link">アプデ情報</a>
+        <a href="index.html#leaks" class="nav-link">リーク</a>
+        <a href="index.html#basics" class="nav-link">基本情報</a>
+        <a href="areas.html" class="nav-link">エリア</a>
+        <a href="map.html" class="nav-link active">マップ</a>
+        <a href="stands.html" class="nav-link">スタンド</a>
+        <a href="stands.html#tierlist" class="nav-link">ティアリスト</a>
+        <a href="fighting.html#personalities" class="nav-link">パーソナリティ</a>
+        <a href="progression.html" class="nav-link">進行</a>
+        <a href="fighting.html" class="nav-link">格闘スタイル</a>
+        <a href="fighting.html#sub-abilities" class="nav-link">サブ能力</a>
+        <a href="progression.html#evolutions" class="nav-link">進化</a>
+        <a href="items.html" class="nav-link">アイテム</a>
+        <a href="mechanics.html" class="nav-link">ゲーム仕様</a>
+        <a href="mechanics.html#traits" class="nav-link">トレイト</a>
+        <a href="mechanics.html#skins" class="nav-link">スキン</a>
+        <a href="mechanics.html#accessories" class="nav-link">アクセサリー</a>
+        <a href="npcs.html" class="nav-link">NPC</a>
+        <a href="npcs.html#comments" class="nav-link">コメント</a>
+    </div>
+    <button class="nav-arrow nav-arrow-right" onclick="document.querySelector('.nav-inner').scrollBy({left:200,behavior:'smooth'})" aria-label="右へスクロール">&#9654;</button>
+</nav>
+
+<main style="padding:1.5rem;">
+    <div class="section-header" style="max-width:1200px; margin:0 auto 1rem;">
+        <h2>インタラクティブマップ</h2>
+        <p>NPC・ボス・バス停・衣装の場所をマップ上で確認 — ドラッグで移動、スクロールでズーム</p>
+    </div>
+
+    <div class="map-outer" id="mapOuter">
+        <!-- Filter Panel -->
+        <div class="filter-panel" id="filterPanel">
+            <div class="filter-toggle" onclick="toggleFilters()" id="filterToggleBtn">&#9654;</div>
+            <div class="filter-header">
+                <h3>フィルター</h3>
+            </div>
+            <div class="quick-btns">
+                <button class="quick-btn" onclick="showAll()">全て表示</button>
+                <button class="quick-btn" onclick="hideAll()">全て非表示</button>
+                <button class="quick-btn" onclick="markAllUncompleted()" style="grid-column:span 2;">完了マークをリセット</button>
+            </div>
+            <div class="search-box">
+                <input type="text" id="filter-search" placeholder="名前・カテゴリで検索..." oninput="searchElements()">
+            </div>
+            <div id="filter-list"></div>
+        </div>
+
+        <!-- Map -->
+        <div class="map-container">
+            <div id="map">
+                <img src="images/map-bg.png" class="map-bg" draggable="false">
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="map-controls">
+            <button class="ctrl-btn" onclick="zoomIn()" title="ズームイン">+</button>
+            <button class="ctrl-btn" onclick="zoomOut()" title="ズームアウト">−</button>
+            <button class="ctrl-btn" onclick="resetView()" title="リセット" style="font-size:.85rem;">↺</button>
+        </div>
+
+        <div class="map-help">ドラッグで移動 / スクロールでズーム</div>
+        <div class="hover-tt" id="hover-tt"></div>
+        <div class="map-tooltip" id="tooltip"></div>
+    </div>
+</main>
+
+<footer>
+    <div class="footer-inner">
+        <p style="margin-bottom:.5rem; font-weight:700; font-size:1.3rem;">Bizarre Lineage 攻略ガイド</p>
+        <p style="margin-bottom:.5rem; font-size:.95rem;">作成者: <strong style="color:#b89aff;">LUNA670</strong></p>
+        <p style="margin-bottom:1rem;">
+            <a href="https://www.roblox.com/games/14890802310/Bizarre-Lineage" target="_blank">ゲームページ</a> ・
+            <a href="https://discord.gg/bizarrelineage" target="_blank">公式Discord</a> ・
+            <a href="https://www.roblox.com/communities/33161040/Bizarre-Collective" target="_blank">グループ</a> ・
+            <a href="https://discord.gg/YpDSv6cF3Q" target="_blank">LUNA670のDiscord鯖</a>
+        </p>
+        <p>このサイトはファンメイドの非公式攻略ガイドです。<br>元データ: <a href="https://trello.com/b/wtzgwqIf" target="_blank">公式Trelloボード</a></p>
+        <p style="margin-top:.8rem; font-size:.8rem; color:var(--text-dim);">最終更新: 2026.03.14</p>
+    </div>
+</footer>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JEYRF0CQYB"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-JEYRF0CQYB');
+</script>
+
+<script>
+// ===== CATEGORY DEFINITIONS =====
+const categories = {
+    'Enemies': {
+        icon: '💀', label: '敵・ボス',
+        subs: {
+            'Bosses': { color:'#ff4d6a', label:'ボス', count:0 }
+        }
+    },
+    'Items': {
+        icon: '📦', label: 'アイテム',
+        subs: {
+            'Outfits': { color:'#4cc9f0', label:'衣装', count:0 }
+        }
+    },
+    'Locations': {
+        icon: '📍', label: 'ロケーション',
+        subs: {
+            'Bus Stops': { color:'#4dff88', label:'バス停', count:0 }
+        }
+    },
+    'NPCs': {
+        icon: '👤', label: 'NPC',
+        subs: {
+            'Shop NPCs': { color:'#ff9500', label:'ショップNPC', count:0 },
+            'Quest NPCs': { color:'#b89aff', label:'クエストNPC', count:0 },
+            'Miscellaneous NPCs': { color:'#4cc9f0', label:'その他NPC', count:0 },
+            'Gang Contractors': { color:'#ff6b35', label:'ギャング契約者', count:0 },
+            'Crafting NPCs': { color:'#4dff88', label:'クラフトNPC', count:0 },
+            'Raid NPCs': { color:'#ff4d6a', label:'レイドNPC', count:0 },
+            'Fighting Style NPCs': { color:'#b44dff', label:'格闘スタイルNPC', count:0 },
+            'Sub Ability NPCs': { color:'#ff9500', label:'サブ能力NPC', count:0 },
+            'Weapon NPCs': { color:'#999', label:'武器NPC', count:0 }
+        }
+    }
+};
+
+// ===== MAP ELEMENT DATA (from reference site) =====
+const mapElements = [{"id":1773409056166,"x":1132.68,"y":682.6,"name":"Outfits","desc":"ボクサー衣装 - $1,000","cat":"Outfits","group":"Items","color":"#4cc9f0"},{"id":1773409125594,"x":858.32,"y":697.78,"name":"Outfits","desc":"侍ユニフォーム - $1,000","cat":"Outfits","group":"Items","color":"#4cc9f0"},{"id":1773410563550,"x":1284.46,"y":787.33,"name":"Outfits","desc":"空手ユニフォーム - $1,000","cat":"Outfits","group":"Items","color":"#4cc9f0"},{"id":1773407375978,"x":602.0,"y":266.39,"name":"Outfits","desc":"カルト衣装 - $1,000","cat":"Outfits","group":"Items","color":"#4cc9f0"},{"id":1773407455835,"x":1226.61,"y":900.04,"name":"Outfits","desc":"学生服（男女） - $5","cat":"Outfits","group":"Items","color":"#4cc9f0"},{"id":1773407527486,"x":1114.11,"y":934.95,"name":"Outfits","desc":"多数の衣装ショップ（Jonathan, Josuke, DIOなど）","cat":"Outfits","group":"Items","color":"#4cc9f0"},{"id":1773407587570,"x":882.73,"y":625.68,"name":"Outfits","desc":"クラシックスーツ - $500 / ブラウンカジュアル - $1,000","cat":"Outfits","group":"Items","color":"#4cc9f0"},{"id":1773407805603,"x":1315.24,"y":259.1,"name":"Outfits","desc":"セーラー服 - $1,000","cat":"Outfits","group":"Items","color":"#4cc9f0"},{"id":1773408095618,"x":1404.39,"y":544.47,"name":"Outfits","desc":"セーラーボーイ - $1,000","cat":"Outfits","group":"Items","color":"#4cc9f0"},{"id":1773408347734,"x":1030.26,"y":819.21,"name":"Outfits","desc":"ギャングスター衣装 - $25","cat":"Outfits","group":"Items","color":"#4cc9f0"},{"id":1773408478192,"x":1812.48,"y":438.22,"name":"Outfits","desc":"マフィア衣装 - $1,000","cat":"Outfits","group":"Items","color":"#4cc9f0"},{"id":1773411088914,"x":1212.29,"y":1050.69,"name":"Outfits","desc":"警官・囚人衣装 - $1,000","cat":"Outfits","group":"Items","color":"#4cc9f0"},{"id":1772796112472,"x":1056.8,"y":856.02,"name":"Bus Stop 1（バス停1）","desc":"","cat":"Bus Stops","group":"Locations","color":"#4dff88"},{"id":1772797029731,"x":1083.81,"y":707.67,"name":"Bus Stop 2（バス停2）","desc":"ジム前","cat":"Bus Stops","group":"Locations","color":"#4dff88"},{"id":1772797051455,"x":1252.09,"y":827.56,"name":"Bus Stop 3（バス停3）","desc":"遺跡前","cat":"Bus Stops","group":"Locations","color":"#4dff88"},{"id":1772797126793,"x":802.38,"y":816.63,"name":"Bus Stop 4（バス停4）","desc":"","cat":"Bus Stops","group":"Locations","color":"#4dff88"},{"id":1772797156211,"x":956.96,"y":763.62,"name":"Bus Stop 5（バス停5）","desc":"花畑付近","cat":"Bus Stops","group":"Locations","color":"#4dff88"},{"id":1772797195737,"x":958.55,"y":699.11,"name":"Bus Stop 13（バス停13）","desc":"","cat":"Bus Stops","group":"Locations","color":"#4dff88"},{"id":1772797281635,"x":703.21,"y":736.56,"name":"Bus Stop 6（バス停6）","desc":"","cat":"Bus Stops","group":"Locations","color":"#4dff88"},{"id":1772797294096,"x":733.93,"y":679.3,"name":"Bus Stop 9（バス停9）","desc":"","cat":"Bus Stops","group":"Locations","color":"#4dff88"},{"id":1772797329811,"x":1060.32,"y":1022.27,"name":"Bus Stop 7（バス停7）","desc":"","cat":"Bus Stops","group":"Locations","color":"#4dff88"},{"id":1772797418844,"x":1234.04,"y":663.98,"name":"Bus Stop 8（バス停8）","desc":"","cat":"Bus Stops","group":"Locations","color":"#4dff88"},{"id":1772797491782,"x":1385.29,"y":796.44,"name":"Bus Stop 10（バス停10）","desc":"病院前","cat":"Bus Stops","group":"Locations","color":"#4dff88"},{"id":1772797585236,"x":1379.59,"y":706.03,"name":"Bus Stop 11（バス停11）","desc":"","cat":"Bus Stops","group":"Locations","color":"#4dff88"},{"id":1772797935561,"x":1478.53,"y":693.49,"name":"Bus Stop 12（バス停12）","desc":"","cat":"Bus Stops","group":"Locations","color":"#4dff88"},{"id":1772798138887,"x":1243.44,"y":398.37,"name":"Bus Stop 14（バス停14）","desc":"ビーチ","cat":"Bus Stops","group":"Locations","color":"#4dff88"},{"id":1772798234205,"x":894.75,"y":661.45,"name":"Bus Stop 15（バス停15）","desc":"亀友マーケット","cat":"Bus Stops","group":"Locations","color":"#4dff88"},{"id":1772798280197,"x":1813.55,"y":561.17,"name":"Bus Stop 16（バス停16）","desc":"","cat":"Bus Stops","group":"Locations","color":"#4dff88"},{"id":1772798468014,"x":1093.75,"y":366.93,"name":"Bus Stop 17（バス停17）","desc":"","cat":"Bus Stops","group":"Locations","color":"#4dff88"},{"id":1772798509904,"x":913.3,"y":322.74,"name":"Bus Stop 18（バス停18）","desc":"DIOの礼拝堂","cat":"Bus Stops","group":"Locations","color":"#4dff88"},{"id":1772798565932,"x":1057.86,"y":624.54,"name":"Bus Stop 19（バス停19）","desc":"","cat":"Bus Stops","group":"Locations","color":"#4dff88"},{"id":1772801196134,"x":1022.92,"y":878.35,"name":"Tonio Trussardi（トニオ）","desc":"料理関連のストーリーNPC","cat":"Quest NPCs","group":"NPCs","color":"#b89aff"},{"id":1772801259645,"x":1076.54,"y":950.13,"name":"Akihiko（アキヒコ）","desc":"ストーリー関連NPC","cat":"Quest NPCs","group":"NPCs","color":"#b89aff"},{"id":1772801261336,"x":1087.9,"y":909.52,"name":"Saitama（サイタマ / タイトル）","desc":"タイトルNPC","cat":"Miscellaneous NPCs","group":"NPCs","color":"#4cc9f0"},{"id":1772801325378,"x":1096.79,"y":876.51,"name":"Gang Contractor（ギャング契約者）","desc":"","cat":"Gang Contractors","group":"NPCs","color":"#ff6b35"},{"id":1772801717202,"x":1130.86,"y":862.16,"name":"Mr. Rengatei（レンガテイ）","desc":"ストーリー関連NPC","cat":"Quest NPCs","group":"NPCs","color":"#b89aff"},{"id":1772801719888,"x":1085.43,"y":841.67,"name":"Rose（ローズ）","desc":"サイドクエストNPC","cat":"Quest NPCs","group":"NPCs","color":"#b89aff"},{"id":1772801856788,"x":1105.35,"y":703.29,"name":"Jotaro Kujo（空条承太郎）","desc":"メインストーリーのキーNPC。ジムの2階","cat":"Quest NPCs","group":"NPCs","color":"#b89aff"},{"id":1772801892745,"x":1051.58,"y":683.05,"name":"Shozuki（ショウズキ）","desc":"The Foolクエスト","cat":"Quest NPCs","group":"NPCs","color":"#b89aff"},{"id":1772801947645,"x":1071.88,"y":774.13,"name":"Koichi Hirose（広瀬康一）","desc":"ストーリークエストNPC","cat":"Quest NPCs","group":"NPCs","color":"#b89aff"},{"id":1772801963473,"x":1032.37,"y":672.09,"name":"Dedequan（デデクアン）","desc":"ハンマークエスト","cat":"Quest NPCs","group":"NPCs","color":"#b89aff"},{"id":1772802011081,"x":1087.79,"y":768.22,"name":"Joseph Joestar（ジョセフ）","desc":"ストーリー関連NPC","cat":"Quest NPCs","group":"NPCs","color":"#b89aff"},{"id":1772802048113,"x":1190.38,"y":755.94,"name":"Shigechi（重ちー）","desc":"ストーリークエストNPC","cat":"Quest NPCs","group":"NPCs","color":"#b89aff"},{"id":1772802139878,"x":1255.31,"y":837.88,"name":"Aya Tsuji（辻彩）","desc":"ストーリー関連NPC","cat":"Quest NPCs","group":"NPCs","color":"#b89aff"},{"id":1772802210061,"x":1287.9,"y":760.84,"name":"Josuke Higashikata（東方仗助）","desc":"メインストーリーのキーNPC","cat":"Quest NPCs","group":"NPCs","color":"#b89aff"},{"id":1772802239341,"x":1301.23,"y":800.69,"name":"Stroheim（シュトロハイム / サイボーグ）","desc":"サイボーグの全技を習得できるNPC","cat":"Sub Ability NPCs","group":"NPCs","color":"#ff9500"},{"id":1772802289397,"x":811.85,"y":834.84,"name":"Okuyasu Nijimura（虹村億泰）","desc":"クエストNPC","cat":"Quest NPCs","group":"NPCs","color":"#b89aff"},{"id":1772802350033,"x":917.53,"y":854.2,"name":"Kaiser（カイザー）","desc":"サイドクエストNPC","cat":"Quest NPCs","group":"NPCs","color":"#b89aff"},{"id":1772802396798,"x":932.35,"y":737.32,"name":"Ancient Ghost（古代の幽霊 / 波紋）","desc":"波紋（Hamon）の全技を習得できるNPC","cat":"Sub Ability NPCs","group":"NPCs","color":"#ff9500"},{"id":1772802490264,"x":923.46,"y":737.7,"name":"Gardner Gwen（ガーデナー・グウェン）","desc":"Garden of Secretsクエスト","cat":"Quest NPCs","group":"NPCs","color":"#b89aff"},{"id":1772802516296,"x":976.3,"y":816.25,"name":"Lowly Thief（小泥棒）","desc":"ストーリークエストの敵NPC","cat":"Quest NPCs","group":"NPCs","color":"#b89aff"},{"id":1772802584663,"x":719.01,"y":725.17,"name":"Rohan Kishibe（岸辺露伴）","desc":"ストーリー関連NPC","cat":"Quest NPCs","group":"NPCs","color":"#b89aff"},{"id":1772802626411,"x":1329.38,"y":820.04,"name":"Geordie Greep（ジョーディー）","desc":"The New Soundクエスト","cat":"Quest NPCs","group":"NPCs","color":"#b89aff"},{"id":1772802701160,"x":1353.09,"y":657.63,"name":"Detective（探偵）","desc":"クエストNPC","cat":"Quest NPCs","group":"NPCs","color":"#b89aff"},{"id":1772802752132,"x":677.04,"y":470.55,"name":"Elder Vampire（エルダーヴァンパイア）","desc":"ヴァンパイアの全技を習得できるNPC","cat":"Sub Ability NPCs","group":"NPCs","color":"#ff9500"},{"id":1772802838308,"x":876.05,"y":215.92,"name":"Shadowy Figure（影の人物）","desc":"謎のサイドクエストNPC","cat":"Quest NPCs","group":"NPCs","color":"#b89aff"},{"id":1772802940936,"x":940.58,"y":329.31,"name":"Polnareff（ポルナレフ）","desc":"サイドクエストNPC","cat":"Quest NPCs","group":"NPCs","color":"#b89aff"},{"id":1772802993126,"x":639.19,"y":302.55,"name":"Cultist（カルト教団員）","desc":"","cat":"Miscellaneous NPCs","group":"NPCs","color":"#4cc9f0"},{"id":1772803017311,"x":581.95,"y":276.87,"name":"Gang Contractor（ギャング契約者）","desc":"","cat":"Gang Contractors","group":"NPCs","color":"#ff6b35"},{"id":1772803029245,"x":590.06,"y":315.79,"name":"Pucci（プッチ神父）","desc":"スタンド進化の中心NPC。Journey to Heavenクエスト","cat":"Miscellaneous NPCs","group":"NPCs","color":"#4cc9f0"},{"id":1772803053530,"x":568.79,"y":274.53,"name":"Cultist Leader（カルトリーダー）","desc":"","cat":"Miscellaneous NPCs","group":"NPCs","color":"#4cc9f0"},{"id":1772803059467,"x":619.0,"y":268.15,"name":"Gupta（グプタ）","desc":"クラフトNPC","cat":"Crafting NPCs","group":"NPCs","color":"#4dff88"},{"id":1772803218440,"x":1068.35,"y":458.02,"name":"Kakyoin（花京院典明）","desc":"サイドクエストNPC","cat":"Quest NPCs","group":"NPCs","color":"#b89aff"},{"id":1772803303929,"x":977.58,"y":363.44,"name":"Vampire（ヴァンパイア）","desc":"","cat":"Miscellaneous NPCs","group":"NPCs","color":"#4cc9f0"},{"id":1772803345024,"x":988.53,"y":349.57,"name":"Speedwagon Scientist（SPW科学者）","desc":"","cat":"Quest NPCs","group":"NPCs","color":"#b89aff"},{"id":1772803365871,"x":944.07,"y":270.34,"name":"Dr. Bosconovitch（ボス）","desc":"遺跡のボス","cat":"Bosses","group":"Enemies","color":"#ff4d6a"},{"id":1772803514426,"x":1017.78,"y":926.6,"name":"Rahaj（ラハジ）","desc":"ショップNPC","cat":"Shop NPCs","group":"NPCs","color":"#ff9500"},{"id":1772803664229,"x":1128.4,"y":892.83,"name":"Yoshikage Kira（吉良 / レイド）","desc":"レイドNPC","cat":"Raid NPCs","group":"NPCs","color":"#ff4d6a"},{"id":1772803703682,"x":1125.07,"y":932.94,"name":"Gupta（グプタ）","desc":"クラフトNPC","cat":"Crafting NPCs","group":"NPCs","color":"#4dff88"},{"id":1772803769599,"x":1051.36,"y":880.68,"name":"Reina（レイナ）","desc":"","cat":"Miscellaneous NPCs","group":"NPCs","color":"#4cc9f0"},{"id":1772803827423,"x":1122.96,"y":843.87,"name":"Masuyo（マスヨ）","desc":"","cat":"Miscellaneous NPCs","group":"NPCs","color":"#4cc9f0"},{"id":1772803855460,"x":1116.05,"y":662.11,"name":"Gym Owner（ジムオーナー）","desc":"","cat":"Miscellaneous NPCs","group":"NPCs","color":"#4cc9f0"},{"id":1772803909772,"x":1127.9,"y":648.82,"name":"Chumbo（チュンボ / レイド）","desc":"レイドNPC","cat":"Raid NPCs","group":"NPCs","color":"#ff4d6a"},{"id":1772803929511,"x":1125.93,"y":715.61,"name":"Yuto Horigome（堀米雄斗）","desc":"スケートボードクエスト","cat":"Miscellaneous NPCs","group":"NPCs","color":"#4cc9f0"},{"id":1772803981359,"x":1108.64,"y":691.33,"name":"Boxing Coach（ボクシングコーチ）","desc":"ボクシングスタイル習得","cat":"Fighting Style NPCs","group":"NPCs","color":"#b44dff"},{"id":1772804011909,"x":949.14,"y":675.39,"name":"Banker（銀行員）","desc":"","cat":"Miscellaneous NPCs","group":"NPCs","color":"#4cc9f0"},{"id":1772804226894,"x":1477.04,"y":828.69,"name":"Arch Mage（アーチメイジ）","desc":"プレステージ担当NPC","cat":"Miscellaneous NPCs","group":"NPCs","color":"#4cc9f0"},{"id":1772804276415,"x":1407.41,"y":813.9,"name":"Rahaj（ラハジ）","desc":"ショップNPC","cat":"Shop NPCs","group":"NPCs","color":"#ff9500"},{"id":1772804287384,"x":1437.04,"y":824.52,"name":"Gang Contractor（ギャング契約者）","desc":"","cat":"Gang Contractors","group":"NPCs","color":"#ff6b35"},{"id":1772804354044,"x":1051.36,"y":194.21,"name":"Bruford（ブラフォード）","desc":"武器NPC（Luck & Pluck）","cat":"Weapon NPCs","group":"NPCs","color":"#999"},{"id":1772804504248,"x":1322.06,"y":443.26,"name":"Muhammed Avdol（アヴドゥル / レイド）","desc":"レイドNPC","cat":"Raid NPCs","group":"NPCs","color":"#ff4d6a"},{"id":1772804621616,"x":998.39,"y":446.77,"name":"Speedwagon Researcher（SPW研究員）","desc":"サイドクエストNPC","cat":"Quest NPCs","group":"NPCs","color":"#b89aff"},{"id":1772804645707,"x":1028.4,"y":420.03,"name":"Gang Contractor（ギャング契約者）","desc":"","cat":"Gang Contractors","group":"NPCs","color":"#ff6b35"},{"id":1772804805426,"x":1356.22,"y":530.24,"name":"DETERMINATION（ディターミネーション）","desc":"EDICT習得NPC","cat":"Miscellaneous NPCs","group":"NPCs","color":"#4cc9f0"},{"id":1772804930347,"x":1305.9,"y":263.1,"name":"Yukako Yamagishi（山岸由花子）","desc":"クエストNPC","cat":"Quest NPCs","group":"NPCs","color":"#b89aff"},{"id":1772804991690,"x":1272.95,"y":779.82,"name":"Karate Sensei（空手師範）","desc":"空手スタイル習得","cat":"Fighting Style NPCs","group":"NPCs","color":"#b44dff"},{"id":1772805101301,"x":848.4,"y":719.79,"name":"Samurai Trainer（侍マスター / 剣道）","desc":"剣道スタイル習得","cat":"Fighting Style NPCs","group":"NPCs","color":"#b44dff"},{"id":1772805203792,"x":804.94,"y":747.11,"name":"Hayato（ハヤト）","desc":"","cat":"Miscellaneous NPCs","group":"NPCs","color":"#4cc9f0"},{"id":1772805253563,"x":845.83,"y":703.9,"name":"Gupta（グプタ）","desc":"クラフトNPC","cat":"Crafting NPCs","group":"NPCs","color":"#4dff88"},{"id":1772807329936,"x":1859.26,"y":475.4,"name":"Mafia Boss（マフィアボス）","desc":"武器NPC（ハンマー）","cat":"Weapon NPCs","group":"NPCs","color":"#999"},{"id":1772807350240,"x":1852.84,"y":449.6,"name":"Akira Otoishi（音石明 / ボス）","desc":"港のボス","cat":"Bosses","group":"Enemies","color":"#ff4d6a"},{"id":1772807481549,"x":1200.49,"y":693.6,"name":"Yoshikage Kira（吉良吉影 / ボス）","desc":"杜王駅のメインボス","cat":"Bosses","group":"Enemies","color":"#ff4d6a"},{"id":1772807500607,"x":1192.59,"y":717.51,"name":"Gang Contractor（ギャング契約者）","desc":"","cat":"Gang Contractors","group":"NPCs","color":"#ff6b35"},{"id":1772807551380,"x":1226.17,"y":820.73,"name":"Rahaj（ラハジ）","desc":"ショップNPC","cat":"Shop NPCs","group":"NPCs","color":"#ff9500"},{"id":1772807600587,"x":1285.43,"y":726.39,"name":"Miyamoto Musashi（宮本武蔵 / ボス）","desc":"ボス（大太刀ドロップ）","cat":"Bosses","group":"Enemies","color":"#ff4d6a"},{"id":1772808037080,"x":782.72,"y":619.23,"name":"Okuyasu PRIME（億泰PRIME / ボス）","desc":"強化ボス","cat":"Bosses","group":"Enemies","color":"#ff4d6a"},{"id":1772808353511,"x":919.89,"y":227.01,"name":"Zombie Stroheim（ゾンビシュトロハイム / ボス）","desc":"ボス","cat":"Bosses","group":"Enemies","color":"#ff4d6a"},{"id":1772808396573,"x":912.98,"y":442.16,"name":"Auguste Laurent（オーギュスト）","desc":"クエストNPC","cat":"Quest NPCs","group":"NPCs","color":"#b89aff"},{"id":1772811306020,"x":986.17,"y":650.42,"name":"Rahaj（ラハジ）","desc":"ショップNPC","cat":"Shop NPCs","group":"NPCs","color":"#ff9500"},{"id":1772811462653,"x":1020.18,"y":671.67,"name":"Gang Contractor（ギャング契約者）","desc":"","cat":"Gang Contractors","group":"NPCs","color":"#ff6b35"},{"id":1772812208243,"x":1804.94,"y":355.49,"name":"Gang Contractor（ギャング契約者）","desc":"","cat":"Gang Contractors","group":"NPCs","color":"#ff6b35"},{"id":1772812221602,"x":1788.64,"y":369.91,"name":"Gupta（グプタ）","desc":"クラフトNPC","cat":"Crafting NPCs","group":"NPCs","color":"#4dff88"},{"id":1772812627389,"x":938.77,"y":194.75,"name":"Dr. Bosconovitch（ボスコノヴィッチ）","desc":"遺跡にいるNPC","cat":"Miscellaneous NPCs","group":"NPCs","color":"#4cc9f0"},{"id":1772812931062,"x":612.12,"y":495.54,"name":"???（DIOレイド）","desc":"DIOレイド入口","cat":"Raid NPCs","group":"NPCs","color":"#ff4d6a"},{"id":1772813205937,"x":889.38,"y":614.06,"name":"Rahaj（ラハジ）","desc":"ショップNPC","cat":"Shop NPCs","group":"NPCs","color":"#ff9500"},{"id":1772813225023,"x":889.88,"y":603.44,"name":"Gupta（グプタ）","desc":"クラフトNPC","cat":"Crafting NPCs","group":"NPCs","color":"#4dff88"},{"id":1773405227972,"x":1235.06,"y":897.76,"name":"Rahaj（ラハジ）","desc":"ショップNPC","cat":"Shop NPCs","group":"NPCs","color":"#ff9500"},{"id":1773405280889,"x":1204.94,"y":903.07,"name":"Gupta（グプタ）","desc":"クラフトNPC","cat":"Crafting NPCs","group":"NPCs","color":"#4dff88"},{"id":1773405311271,"x":1208.4,"y":923.56,"name":"Reimi Sugimoto（杉本鈴美）","desc":"クエストNPC","cat":"Quest NPCs","group":"NPCs","color":"#b89aff"},{"id":1773405512737,"x":1293.83,"y":970.24,"name":"Toyohiro（トヨヒロ）","desc":"","cat":"Miscellaneous NPCs","group":"NPCs","color":"#4cc9f0"},{"id":1772803384259,"x":1042.99,"y":817.69,"name":"Rahaj（ラハジ）","desc":"ショップNPC","cat":"Shop NPCs","group":"NPCs","color":"#ff9500"}];
+
+const bgW = 2560, bgH = 1442;
+const minZoom = 0.3, maxZoom = 2.5;
+let zoom = 0.5, offsetX = 0, offsetY = 0, isDragging = false, dragStart = {};
+let completedMarkers = JSON.parse(localStorage.getItem('bl_map_completed') || '{}');
+let groupVisibility = {};
+
+// ===== BUILD FILTER PANEL =====
+function buildFilters() {
+    // Count
+    mapElements.forEach(el => {
+        for (const g in categories) {
+            if (categories[g].subs[el.cat]) {
+                categories[g].subs[el.cat].count++;
+                break;
+            }
+        }
+    });
+
+    const list = document.getElementById('filter-list');
+    let html = '';
+    for (const g in categories) {
+        const grp = categories[g];
+        const totalCount = Object.values(grp.subs).reduce((a, b) => a + b.count, 0);
+        html += `<div class="fg-header" data-group="${g}">
+            <div class="fg-toggle" onclick="toggleGroup('${g}')">${grp.icon} ${grp.label} <span style="color:var(--text-dim);font-size:.75rem;">(${totalCount})</span></div>
+            <div class="fg-switch on" onclick="event.stopPropagation();toggleGroupVis('${g}')"><span class="slider"></span></div>
+        </div><div class="fg-content" id="group-${g.replace(/\s+/g,'-')}">`;
+        for (const cat in grp.subs) {
+            const s = grp.subs[cat];
+            html += `<div class="fc-item active" data-category="${cat}" data-group="${g}" onclick="toggleCat('${cat}')">
+                <div class="fc-left"><span class="fc-dot" style="background:${s.color}"></span>${s.label}</div>
+                <span class="fc-count">(${s.count})</span>
+            </div>`;
+        }
+        html += '</div>';
+        groupVisibility[g] = true;
+    }
+    list.innerHTML = html;
+}
+
+// ===== CREATE MARKERS =====
+function createMarkers() {
+    const map = document.getElementById('map');
+    mapElements.forEach(el => {
+        const m = document.createElement('div');
+        m.className = 'map-marker';
+        if (completedMarkers[el.id]) m.classList.add('completed');
+        m.dataset.category = el.cat;
+        m.dataset.group = el.group;
+        m.dataset.name = el.name.toLowerCase();
+        m.dataset.id = el.id;
+        m.style.left = (el.x / bgW * 100) + '%';
+        m.style.top = (el.y / bgH * 100) + '%';
+        m.style.color = el.color;
+
+        const size = el.cat === 'Bosses' ? 16 : 12;
+        const dot = document.createElement('div');
+        dot.className = 'marker-dot';
+        dot.style.width = size + 'px';
+        dot.style.height = size + 'px';
+        dot.style.background = el.color;
+        m.appendChild(dot);
+
+        m.addEventListener('mouseenter', e => showHover(el.name, e.target));
+        m.addEventListener('mouseleave', hideHover);
+        m.addEventListener('click', e => { e.stopPropagation(); showTooltip(el, e.target); });
+
+        let touchStart = {x:0,y:0};
+        m.addEventListener('touchstart', e => { touchStart = {x:e.touches[0].clientX, y:e.touches[0].clientY}; });
+        m.addEventListener('touchend', e => {
+            const d = Math.hypot(e.changedTouches[0].clientX - touchStart.x, e.changedTouches[0].clientY - touchStart.y);
+            if (d < 8) { e.stopPropagation(); showTooltip(el, e.target); }
+        });
+
+        map.appendChild(m);
+    });
+}
+
+// ===== TOOLTIP =====
+function showTooltip(el, target) {
+    const t = document.getElementById('tooltip');
+    const completed = completedMarkers[el.id] || false;
+    t.innerHTML = `<button class="tt-close" onclick="closeTooltip()">&times;</button>
+        <h3>${el.name}</h3>
+        ${el.desc ? '<p>' + el.desc + '</p>' : ''}
+        <div class="tt-check"><input type="checkbox" id="chk-${el.id}" ${completed?'checked':''} onchange="toggleComplete(${el.id},this.checked)"><label>完了マーク</label></div>
+        <div class="tt-cat">カテゴリ: ${el.cat} · ${el.group}</div>`;
+    t.style.display = 'block';
+    t.classList.remove('fade-out');
+    t.classList.add('fade-in');
+
+    const isMobile = window.innerWidth <= 500;
+    if (isMobile) {
+        t.style.left = '5%'; t.style.width = '90%'; t.style.bottom = '20px'; t.style.top = 'auto'; t.style.transform = 'none';
+    } else {
+        const rect = target.getBoundingClientRect();
+        t.style.width = 'auto'; t.style.bottom = 'auto';
+        t.style.left = (rect.left + rect.width/2) + 'px';
+        t.style.top = (rect.top - 10) + 'px';
+        t.style.transform = 'translate(-50%, -100%)';
+        const tr = t.getBoundingClientRect();
+        if (tr.top < 10) { t.style.top = (rect.bottom + 10) + 'px'; t.style.transform = 'translate(-50%, 0)'; }
+        if (tr.left < 10) t.style.left = '10px';
+        if (tr.right > window.innerWidth - 10) t.style.left = (window.innerWidth - tr.width - 10) + 'px';
+    }
+    hideHover();
+}
+function closeTooltip() {
+    const t = document.getElementById('tooltip');
+    t.classList.add('fade-out'); t.classList.remove('fade-in');
+    setTimeout(() => { t.style.display = 'none'; t.classList.remove('fade-out'); }, 200);
+}
+function showHover(name, target) {
+    const h = document.getElementById('hover-tt');
+    h.textContent = name; h.style.display = 'block';
+    const r = target.getBoundingClientRect();
+    h.style.left = (r.left + r.width/2) + 'px';
+    h.style.top = (r.top - 8) + 'px';
+    h.style.transform = 'translate(-50%, -100%)';
+}
+function hideHover() { document.getElementById('hover-tt').style.display = 'none'; }
+function toggleComplete(id, checked) {
+    completedMarkers[id] = checked;
+    localStorage.setItem('bl_map_completed', JSON.stringify(completedMarkers));
+    const el = document.querySelector('[data-id="'+id+'"]');
+    if (el) el.classList.toggle('completed', checked);
+}
+
+// ===== FILTER LOGIC =====
+function toggleCat(cat) {
+    const els = document.querySelectorAll('.map-marker[data-category="'+cat+'"]');
+    const vis = !els[0]?.classList.contains('map-element-hidden');
+    els.forEach(e => e.classList.toggle('map-element-hidden', vis));
+    document.querySelectorAll('.fc-item[data-category="'+cat+'"]').forEach(i => i.classList.toggle('active', !vis));
+}
+function toggleGroupVis(group) {
+    const sw = document.querySelector('.fg-header[data-group="'+group+'"] .fg-switch');
+    const isOn = sw.classList.contains('on');
+    groupVisibility[group] = !isOn;
+    const els = document.querySelectorAll('.map-marker[data-group="'+group+'"]');
+    const items = document.querySelectorAll('.fc-item[data-group="'+group+'"]');
+    if (!isOn) { sw.classList.add('on'); els.forEach(e=>e.classList.remove('map-element-hidden')); items.forEach(i=>i.classList.add('active')); }
+    else { sw.classList.remove('on'); els.forEach(e=>e.classList.add('map-element-hidden')); items.forEach(i=>i.classList.remove('active')); }
+}
+function toggleGroup(group) { document.getElementById('group-'+group.replace(/\s+/g,'-')).classList.toggle('collapsed'); }
+function showAll() {
+    document.querySelectorAll('.map-marker').forEach(e=>e.classList.remove('map-element-hidden'));
+    document.querySelectorAll('.fc-item').forEach(i=>i.classList.add('active'));
+    document.querySelectorAll('.fg-switch').forEach(s=>s.classList.add('on'));
+    Object.keys(groupVisibility).forEach(g=>groupVisibility[g]=true);
+}
+function hideAll() {
+    document.querySelectorAll('.map-marker').forEach(e=>e.classList.add('map-element-hidden'));
+    document.querySelectorAll('.fc-item').forEach(i=>i.classList.remove('active'));
+    document.querySelectorAll('.fg-switch').forEach(s=>s.classList.remove('on'));
+    Object.keys(groupVisibility).forEach(g=>groupVisibility[g]=false);
+}
+function markAllUncompleted() {
+    completedMarkers = {};
+    localStorage.setItem('bl_map_completed', JSON.stringify(completedMarkers));
+    document.querySelectorAll('.map-marker').forEach(m=>m.classList.remove('completed'));
+}
+function searchElements() {
+    const term = document.getElementById('filter-search').value.toLowerCase().trim();
+    document.querySelectorAll('.map-marker').forEach(el => {
+        const match = !term || el.dataset.name.includes(term) || el.dataset.category.toLowerCase().includes(term);
+        el.classList.toggle('search-mismatch', !match && !!term);
+        el.classList.toggle('map-element-hidden', !match && !!term);
+    });
+}
+function toggleFilters() {
+    const p = document.getElementById('filterPanel');
+    const b = document.getElementById('filterToggleBtn');
+    p.classList.toggle('collapsed');
+    b.innerHTML = p.classList.contains('collapsed') ? '&#9664;' : '&#9654;';
+}
+
+// ===== PAN & ZOOM =====
+function setTransform() {
+    document.getElementById('map').style.transform = `scale(${zoom}) translate(${offsetX}px, ${offsetY}px)`;
+}
+function zoomAtPoint(newZ, cx, cy) {
+    const container = document.querySelector('.map-container');
+    const rect = container.getBoundingClientRect();
+    const sx = cx - rect.left, sy = cy - rect.top;
+    const mx = sx / zoom - offsetX, my = sy / zoom - offsetY;
+    newZ = Math.min(maxZoom, Math.max(minZoom, newZ));
+    offsetX = sx / newZ - mx; offsetY = sy / newZ - my;
+    zoom = newZ; setTransform();
+}
+function zoomIn() { zoomAtPoint(zoom * 1.15, window.innerWidth/2, window.innerHeight/2); }
+function zoomOut() { zoomAtPoint(zoom * 0.85, window.innerWidth/2, window.innerHeight/2); }
+function resetView() { zoom = 0.35; offsetX = 0; offsetY = 0; setTransform(); }
+
+function shouldPan(e) { return !e.target.closest('.filter-panel, .map-tooltip, .ctrl-btn'); }
+
+function setupControls() {
+    const map = document.getElementById('map');
+    document.addEventListener('mousedown', e => {
+        if (shouldPan(e)) { isDragging = true; dragStart = {mx:e.clientX, my:e.clientY, ox:offsetX, oy:offsetY}; map.style.cursor='grabbing'; e.preventDefault(); }
+    });
+    document.addEventListener('mousemove', e => {
+        if (!isDragging) return;
+        const f = zoom <= 1 ? 1 + 2*(1-zoom) : 1;
+        offsetX = dragStart.ox + (e.clientX - dragStart.mx) * f;
+        offsetY = dragStart.oy + (e.clientY - dragStart.my) * f;
+        setTransform();
+    });
+    document.addEventListener('mouseup', () => { isDragging = false; map.style.cursor='grab'; });
+    document.querySelector('.map-container').addEventListener('wheel', e => { e.preventDefault(); zoomAtPoint(zoom * (e.deltaY > 0 ? 0.9 : 1.1), e.clientX, e.clientY); }, {passive:false});
+
+    let touchDist = 0, startZoom = 1;
+    document.addEventListener('touchstart', e => {
+        if (e.touches.length === 2) { touchDist = Math.hypot(e.touches[0].clientX-e.touches[1].clientX, e.touches[0].clientY-e.touches[1].clientY); startZoom = zoom; }
+        else if (e.touches.length === 1 && shouldPan(e)) { isDragging = true; dragStart = {mx:e.touches[0].clientX, my:e.touches[0].clientY, ox:offsetX, oy:offsetY}; e.preventDefault(); }
+    }, {passive:false});
+    document.addEventListener('touchmove', e => {
+        if (e.touches.length === 2) { e.preventDefault(); const d = Math.hypot(e.touches[0].clientX-e.touches[1].clientX, e.touches[0].clientY-e.touches[1].clientY); zoomAtPoint(startZoom*d/touchDist, (e.touches[0].clientX+e.touches[1].clientX)/2, (e.touches[0].clientY+e.touches[1].clientY)/2); }
+        else if (e.touches.length === 1 && isDragging) { if (e.target.closest('.map-tooltip')) { isDragging=false; return; } e.preventDefault(); const f = zoom<=1?1+2*(1-zoom):1; offsetX = dragStart.ox + (e.touches[0].clientX-dragStart.mx)*f; offsetY = dragStart.oy + (e.touches[0].clientY-dragStart.my)*f; setTransform(); }
+    }, {passive:false});
+    document.addEventListener('touchend', () => { isDragging = false; });
+
+    document.addEventListener('click', e => {
+        if (document.getElementById('tooltip').style.display === 'block' && !e.target.closest('.map-tooltip') && !e.target.closest('.map-marker')) closeTooltip();
+    });
+}
+
+// ===== INIT =====
+window.onload = () => {
+    buildFilters();
+    createMarkers();
+    setupControls();
+    resetView();
+};
+</script>
+</body>
+</html>
