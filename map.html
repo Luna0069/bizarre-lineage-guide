@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="google-site-verification" content="OjzLDpk0ZIFm3S5Yfvn5ToalkK1sx17Od5MJH7kZYPw">
     <title>インタラクティブマップ | Bizarre Lineage 攻略Wiki</title>
     <meta name="description" content="Bizarre Lineageのインタラクティブマップ。NPC、ボス、バス停、衣装の場所をマップ上で確認。">
@@ -105,7 +105,8 @@
             .filter-below-map .search-box { margin-bottom:8px; }
             .filter-below-map .search-box input { width:100%; padding:8px 10px; background:rgba(255,255,255,.05); border:1px solid var(--border); border-radius:6px; color:var(--text); font-size:.85rem; font-family:inherit; outline:none; box-sizing:border-box; }
             .filter-below-map #filter-list-mobile { max-height:50vh; overflow-y:auto; scrollbar-width:thin; scrollbar-color:var(--primary) transparent; }
-            body { overflow-x:hidden; }
+            body { overflow-x:hidden; touch-action:pan-x pan-y; }
+            .map-scroll-wrapper { touch-action:pan-x; }
             .site-header, .nav-sticky, footer { width:100%; }
             .map-scroll-wrapper { overflow-x:auto; -webkit-overflow-scrolling:touch; }
             .map-outer { width:180vw; border-radius:8px; }
