@@ -56,24 +56,13 @@
 
 <main class="container">
 
-    <div class="search-filter-bar">
-        <input type="text" class="search-input" id="npc-search" placeholder="NPC名・場所・説明で検索..." oninput="filterNPCs()">
-        <div class="filter-buttons">
-            <button class="filter-btn active" onclick="setNPCFilter('all',this)">すべて</button>
-            <button class="filter-btn" onclick="setNPCFilter('main',this)">メインNPC</button>
-            <button class="filter-btn" onclick="setNPCFilter('important',this)">重要NPC</button>
-            <button class="filter-btn" onclick="setNPCFilter('sidequest',this)">サイドクエスト</button>
-            <button class="filter-btn" onclick="setNPCFilter('enemy',this)">敵NPC</button>
-        </div>
-    </div>
-
     <section id="npcs">
         <div class="section-header">
             <h2>NPCs（NPC一覧）</h2>
             <p>ゲーム内に登場するすべてのNPC。クエスト、ショップ、格闘スタイル、進化などに関わるキャラクター。</p>
         </div>
 
-        <p class="sub-label" data-category="main">Main NPCs（メインNPC / ストーリーライン）</p>
+        <p class="sub-label">Main NPCs（メインNPC / ストーリーライン）</p>
         <div class="npc-grid" style="margin-bottom:2rem;">
             <div class="npc-card"><img src="images/0c58aa226786.webp" alt="Jotaro Kujo" loading="lazy"><div class="npc-card-body"><h4>Jotaro Kujo（空条承太郎）</h4><div class="npc-location">Gym（ジム）- バス停 #2</div><p>メインストーリーのキーNPC。ジムの2階にいる。</p></div></div>
             <div class="npc-card"><img src="images/ffe2450c3e0e.webp" alt="Koichi Hirose" loading="lazy"><div class="npc-card-body"><h4>Koichi Hirose（広瀬康一）</h4><div class="npc-location">Morioh Station（杜王駅）</div><p>ストーリークエストを提供するNPC。</p></div></div>
@@ -90,7 +79,7 @@
             <div class="npc-card"><img src="images/6cfba62f383c.webp" alt="Aya" loading="lazy"><div class="npc-card-body"><h4>Aya Tsuji（辻彩）</h4><div class="npc-location">杜王町内</div><p>ストーリー関連NPC。</p></div></div>
         </div>
 
-        <p class="sub-label" data-category="important">Important NPCs（重要NPC / 機能NPC）</p>
+        <p class="sub-label">Important NPCs（重要NPC / 機能NPC）</p>
         <div class="npc-grid" style="margin-bottom:2rem;">
             <div class="npc-card"><img src="images/a2cc978541bd.webp" alt="Rahaj" loading="lazy"><div class="npc-card-body"><h4>Rahaj（ラハジ / ショップNPC）</h4><div class="npc-location">Store（ストア）</div><p>音楽トラック（50,000キャッシュ）、アクセサリー（1,000〜2,500キャッシュ）、各種エッセンスを販売。</p></div></div>
             <div class="npc-card"><img src="images/9d33e7316ade.webp" alt="Gupta" loading="lazy"><div class="npc-card-body"><h4>Gupta（グプタ / クラフトNPC）</h4><div class="npc-location">Store（ストア）付近</div><p>Legendary Chest、Rare Chest、Common Chest、Plank Skateboardをクラフト可能。</p></div></div>
@@ -109,7 +98,7 @@
             <div class="npc-card"><img src="images/837f151d1c02.webp" alt="Miyamoto" loading="lazy"><div class="npc-card-body"><h4>Miyamoto（ミヤモト）</h4><div class="npc-location">杜王町内</div><p>武器関連のNPC。</p></div></div>
         </div>
 
-        <p class="sub-label" data-category="sidequest">Side Quest Givers（サイドクエスト提供NPC）</p>
+        <p class="sub-label">Side Quest Givers（サイドクエスト提供NPC）</p>
         <div class="npc-grid">
             <div class="npc-card"><img src="images/0c785ebf939e.webp" alt="Gardner Gwen" loading="lazy"><div class="npc-card-body"><h4>Gardner Gwen（ガーデナー・グウェン）</h4><div class="npc-location">杜王町内</div><p>「Garden of Secrets」クエスト（9ステップ）。報酬: XP（100〜10,000）、ロカカカ、Legendary Chest。</p></div></div>
             <div class="npc-card"><img src="images/f40f37ddf98c.webp" alt="Polnareff" loading="lazy"><div class="npc-card-body"><h4>Jean Pierre Polnareff（ジャン・ピエール・ポルナレフ）</h4><div class="npc-location">杜王町内</div><p>サイドクエストを提供するNPC。</p></div></div>
@@ -124,13 +113,11 @@
             <div class="npc-card"><img src="images/76512c809b26.webp" alt="Yuto Horigome" loading="lazy"><div class="npc-card-body"><h4>Yuto Horigome（堀米雄斗）</h4><div class="npc-location">杜王町内</div><p>「Fede LNG, XX」クエスト: Gold Coin 5枚を渡す。報酬: Skateboard x1 + 5k XP。</p></div></div>
         </div>
 
-        <p class="sub-label" data-category="enemy" style="margin-top:2rem;">Enemy NPCs（敵NPC）</p>
+        <p class="sub-label" style="margin-top:2rem;">Enemy NPCs（敵NPC）</p>
         <div class="npc-grid">
             <div class="npc-card"><div class="npc-card-body"><h4>Night Vampire（ナイトバンパイア）</h4><div class="npc-location">バス停 #10 付近 / キラークイン出現周辺（夜限定）</div><p>夜間にのみ出現する敵NPC。バス停10番辺りやキラークインが湧く周辺に出現する。</p></div></div>
             <div class="npc-card"><img src="images/zombie-cyborg-spawn.png" alt="Zombie Cyborg" loading="lazy"><div class="npc-card-body"><h4>Zombie Cyborg（ゾンビサイボーグ）</h4><div class="npc-location">バス停 #18 付近とその周辺</div><p>バス停18番周辺に出現する敵NPC。上の画像が出現ポイント。</p></div></div>
         </div>
-
-        <div class="search-no-results" id="npc-no-results">検索結果が見つかりませんでした</div>
     </section>
 
     <hr class="section-divider">
@@ -171,57 +158,9 @@
             <a href="https://discord.gg/YpDSv6cF3Q" target="_blank">LUNA670のDiscord鯖</a>
         </p>
         <p>このサイトはファンメイドの非公式攻略ガイドです。<br>元データ: <a href="https://trello.com/b/wtzgwqIf" target="_blank">公式Trelloボード</a></p>
-        <p style="margin-top:.8rem; font-size:.8rem; color:var(--text-dim);">最終更新: 2026.03.14</p>
+        <p style="margin-top:.8rem; font-size:.8rem; color:var(--text-dim);">最終更新: 2026.03.13</p>
     </div>
 </footer>
-
-<script>
-    let currentNPCFilter = 'all';
-    function setNPCFilter(filter, btn) {
-        currentNPCFilter = filter;
-        document.querySelectorAll('.search-filter-bar .filter-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        filterNPCs();
-    }
-    function filterNPCs() {
-        const query = document.getElementById('npc-search').value.toLowerCase();
-        const labels = document.querySelectorAll('#npcs .sub-label[data-category]');
-        let totalVisible = 0;
-        labels.forEach(label => {
-            const cat = label.dataset.category;
-            const grid = label.nextElementSibling;
-            if (!grid) return;
-            // Find the correct grid (skip non-grid elements)
-            let targetGrid = label.nextElementSibling;
-            while (targetGrid && !targetGrid.classList.contains('npc-grid')) {
-                targetGrid = targetGrid.nextElementSibling;
-            }
-            if (!targetGrid) return;
-
-            const showCat = currentNPCFilter === 'all' || currentNPCFilter === cat;
-            if (!showCat) {
-                label.classList.add('search-hidden');
-                targetGrid.classList.add('search-hidden');
-                return;
-            }
-            label.classList.remove('search-hidden');
-            targetGrid.classList.remove('search-hidden');
-
-            let gridVisible = 0;
-            targetGrid.querySelectorAll('.npc-card').forEach(card => {
-                const match = !query || card.textContent.toLowerCase().includes(query);
-                card.classList.toggle('search-hidden', !match);
-                if (match) gridVisible++;
-            });
-            if (gridVisible === 0 && query) {
-                label.classList.add('search-hidden');
-                targetGrid.classList.add('search-hidden');
-            }
-            totalVisible += gridVisible;
-        });
-        document.getElementById('npc-no-results').style.display = totalVisible === 0 ? 'block' : 'none';
-    }
-</script>
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-JEYRF0CQYB"></script>
 <script>
