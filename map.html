@@ -97,13 +97,23 @@
         .map-help { position:absolute; bottom:16px; left:50%; transform:translateX(-50%); background:rgba(10,10,26,.8); border:1px solid var(--border); border-radius:8px; padding:4px 14px; font-size:.75rem; color:var(--text-dim); z-index:40; white-space:nowrap; pointer-events:none; }
 
         @media (max-width:768px) {
-            .map-container { height:65vh; }
-            .filter-panel { width:220px; padding:12px; }
+            body { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+            .map-outer { width:180vw; border-radius:8px; }
+            .map-container { width:100%; height:auto; aspect-ratio:2560/1442; overflow:visible; }
+            #map { transform:none !important; cursor:default; }
+            .map-bg { width:100%; height:100%; }
+            .map-marker { z-index:10; }
+            .map-marker:hover { transform:translate(-50%,-50%) scale(1.3); }
+            .filter-panel { position:fixed; top:0; left:0; width:80vw; max-width:300px; height:100vh; z-index:500; border-radius:0; }
             .filter-panel.collapsed { transform:translateX(-100%); }
-            .map-tooltip { max-width:90vw; }
-            .map-help { font-size:.65rem; bottom:10px; }
-            .map-controls { bottom:10px; right:10px; }
-            .ctrl-btn { width:36px; height:36px; font-size:1rem; }
+            .filter-toggle { position:fixed; left:0; top:50%; transform:translateY(-50%); width:32px; height:64px; z-index:501; border-radius:0 8px 8px 0; right:auto; }
+            .filter-panel:not(.collapsed) ~ .map-container .filter-toggle,
+            .filter-panel.collapsed .filter-toggle { right:-32px; }
+            .map-tooltip { max-width:70vw; min-width:200px; }
+            .map-help { font-size:.65rem; bottom:10px; white-space:normal; text-align:center; }
+            .map-controls { bottom:10px; right:10px; position:fixed; z-index:100; }
+            .ctrl-btn { display:none; }
+            .hover-tt { display:none !important; }
         }
     </style>
 </head>
@@ -425,6 +435,14 @@ function toggleFilters() {
     const b = document.getElementById('filterToggleBtn');
     p.classList.toggle('collapsed');
     b.innerHTML = p.classList.contains('collapsed') ? '&#9664;' : '&#9654;';
+    // モバイルでフィルター開いた時のオーバーレイ
+    if (isMobile()) {
+        let overlay = document.getElementById('filter-overlay');
+        if (!p.classList.contains('collapsed')) {
+            if (!overlay) { overlay = document.createElement('div'); overlay.id = 'filter-overlay'; overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);z-index:499;'; overlay.onclick = toggleFilters; document.body.appendChild(overlay); }
+            overlay.style.display = 'block';
+        } else if (overlay) { overlay.style.display = 'none'; }
+    }
 }
 
 // ===== PAN & ZOOM =====
@@ -442,19 +460,15 @@ function zoomAtPoint(newZ, cx, cy) {
 }
 function zoomIn() { zoomAtPoint(zoom * 1.15, window.innerWidth/2, window.innerHeight/2); }
 function zoomOut() { zoomAtPoint(zoom * 0.85, window.innerWidth/2, window.innerHeight/2); }
+const isMobile = () => window.innerWidth <= 768;
+
 function resetView() {
+    if (isMobile()) { zoom = 1; offsetX = 0; offsetY = 0; return; }
     const container = document.querySelector('.map-container');
     const cw = container.clientWidth, ch = container.clientHeight;
-    // モバイル: 高さに合わせて横はドラッグで移動 / PC: 全体表示
-    if (window.innerWidth <= 768) {
-        zoom = ch / bgH;
-        offsetX = (cw / zoom - bgW) / 2;
-        offsetY = 0;
-    } else {
-        zoom = Math.min(cw / bgW, ch / bgH);
-        offsetX = (cw / zoom - bgW) / 2;
-        offsetY = (ch / zoom - bgH) / 2;
-    }
+    zoom = Math.min(cw / bgW, ch / bgH);
+    offsetX = (cw / zoom - bgW) / 2;
+    offsetY = (ch / zoom - bgH) / 2;
     setTransform();
 }
 
@@ -475,17 +489,19 @@ function setupControls() {
     document.addEventListener('mouseup', () => { isDragging = false; map.style.cursor='grab'; });
     document.querySelector('.map-container').addEventListener('wheel', e => { e.preventDefault(); zoomAtPoint(zoom * (e.deltaY > 0 ? 0.9 : 1.1), e.clientX, e.clientY); }, {passive:false});
 
-    let touchDist = 0, startZoom = 1;
-    const mapContainer = document.querySelector('.map-container');
-    mapContainer.addEventListener('touchstart', e => {
-        if (e.touches.length === 2) { touchDist = Math.hypot(e.touches[0].clientX-e.touches[1].clientX, e.touches[0].clientY-e.touches[1].clientY); startZoom = zoom; e.preventDefault(); }
-        else if (e.touches.length === 1 && shouldPan(e)) { isDragging = true; dragStart = {mx:e.touches[0].clientX, my:e.touches[0].clientY, ox:offsetX, oy:offsetY}; e.preventDefault(); }
-    }, {passive:false});
-    mapContainer.addEventListener('touchmove', e => {
-        if (e.touches.length === 2) { e.preventDefault(); const d = Math.hypot(e.touches[0].clientX-e.touches[1].clientX, e.touches[0].clientY-e.touches[1].clientY); zoomAtPoint(startZoom*d/touchDist, (e.touches[0].clientX+e.touches[1].clientX)/2, (e.touches[0].clientY+e.touches[1].clientY)/2); }
-        else if (e.touches.length === 1 && isDragging) { if (e.target.closest('.map-tooltip')) { isDragging=false; return; } e.preventDefault(); const f = zoom<=1?1+2*(1-zoom):1; offsetX = dragStart.ox + (e.touches[0].clientX-dragStart.mx)*f; offsetY = dragStart.oy + (e.touches[0].clientY-dragStart.my)*f; setTransform(); }
-    }, {passive:false});
-    mapContainer.addEventListener('touchend', () => { isDragging = false; });
+    if (!isMobile()) {
+        let touchDist = 0, startZoom = 1;
+        const mapContainer = document.querySelector('.map-container');
+        mapContainer.addEventListener('touchstart', e => {
+            if (e.touches.length === 2) { touchDist = Math.hypot(e.touches[0].clientX-e.touches[1].clientX, e.touches[0].clientY-e.touches[1].clientY); startZoom = zoom; e.preventDefault(); }
+            else if (e.touches.length === 1 && shouldPan(e)) { isDragging = true; dragStart = {mx:e.touches[0].clientX, my:e.touches[0].clientY, ox:offsetX, oy:offsetY}; e.preventDefault(); }
+        }, {passive:false});
+        mapContainer.addEventListener('touchmove', e => {
+            if (e.touches.length === 2) { e.preventDefault(); const d = Math.hypot(e.touches[0].clientX-e.touches[1].clientX, e.touches[0].clientY-e.touches[1].clientY); zoomAtPoint(startZoom*d/touchDist, (e.touches[0].clientX+e.touches[1].clientX)/2, (e.touches[0].clientY+e.touches[1].clientY)/2); }
+            else if (e.touches.length === 1 && isDragging) { if (e.target.closest('.map-tooltip')) { isDragging=false; return; } e.preventDefault(); const f = zoom<=1?1+2*(1-zoom):1; offsetX = dragStart.ox + (e.touches[0].clientX-dragStart.mx)*f; offsetY = dragStart.oy + (e.touches[0].clientY-dragStart.my)*f; setTransform(); }
+        }, {passive:false});
+        mapContainer.addEventListener('touchend', () => { isDragging = false; });
+    }
 
     document.addEventListener('click', e => {
         if (document.getElementById('tooltip').style.display === 'block' && !e.target.closest('.map-tooltip') && !e.target.closest('.map-marker')) closeTooltip();
