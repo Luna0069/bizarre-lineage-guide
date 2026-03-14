@@ -181,7 +181,7 @@
             <button class="ctrl-btn" onclick="resetView()" title="リセット" style="font-size:.85rem;">↺</button>
         </div>
 
-        <div class="map-help">ドラッグで移動 / スクロールでズーム</div>
+        <div class="map-help">ドラッグで移動 / ピンチでズーム</div>
         <div class="hover-tt" id="hover-tt"></div>
         <div class="map-tooltip" id="tooltip"></div>
     </div>
@@ -445,9 +445,16 @@ function zoomOut() { zoomAtPoint(zoom * 0.85, window.innerWidth/2, window.innerH
 function resetView() {
     const container = document.querySelector('.map-container');
     const cw = container.clientWidth, ch = container.clientHeight;
-    zoom = Math.min(cw / bgW, ch / bgH);
-    offsetX = (cw / zoom - bgW) / 2;
-    offsetY = (ch / zoom - bgH) / 2;
+    // モバイル: 高さに合わせて横はドラッグで移動 / PC: 全体表示
+    if (window.innerWidth <= 768) {
+        zoom = ch / bgH;
+        offsetX = (cw / zoom - bgW) / 2;
+        offsetY = 0;
+    } else {
+        zoom = Math.min(cw / bgW, ch / bgH);
+        offsetX = (cw / zoom - bgW) / 2;
+        offsetY = (ch / zoom - bgH) / 2;
+    }
     setTransform();
 }
 
