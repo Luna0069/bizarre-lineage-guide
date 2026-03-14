@@ -1,44 +1,21 @@
- name: Discord Notification
-
+name: Discord Notification
   on:
     push:
       branches: [master]
-
   jobs:
     notify:
       runs-on: ubuntu-latest
       steps:
-        - name: Send Discord Notification
+        - name: Notify Discord
           env:
-            DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+            WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URL }}
           run: |
-            COMMIT_MSG=$(echo '${{ github.event.head_commit.message }}' | head -1)
-            COMMIT_URL="${{ github.event.head_commit.url }}"
-            SITE_URL="https://luna0069.github.io/bizarre-lineage-guide/"
-
-            curl -H "Content-Type: application/json" \
-              -d "{
-                \"embeds\": [{
-                  \"title\": \"📖 攻略サイトが更新されました！\",
-                  \"description\": \"${COMMIT_MSG}\",
-                  \"url\": \"${SITE_URL}\",
-                  \"color\": 5814783,
-                  \"fields\": [
-                    {
-                      \"name\": \"🔗 サイトを見る\",
-                      \"value\": \"[bizarre-lineage-guide](${SITE_URL})\",
-                      \"inline\": true
-                    },
-                    {
-                      \"name\": \"📝 変更内容\",
-                      \"value\": \"[コミットを見る](${COMMIT_URL})\",
-                      \"inline\": true
-                    }
-                  ],
-                  \"footer\": {
-                    \"text\": \"Bizarre Lineage Guide\"
-                  },
-                  \"timestamp\": \"$(date -u +%Y-%m-%dT%H:%M:%SZ)\"
-                }]
-              }" \
-              "$DISCORD_WEBHOOK_URL"
+            MSG=$(echo '${{ github.event.head_commit.message }}' | head -1)
+            URL="${{ github.event.head_commit.url }}"
+            SITE="https://luna0069.github.io/bizarre-lineage-guide/"
+            curl -H "Content-Type: application/json" -d "{\"embeds\":[{\"title\":\"📖
+  攻略サイトが更新されました！\",\"description\":\"${MSG}\",\"url\":\"${SITE}\",\"color\":5814783,\"fi
+  elds\":[{\"name\":\"🔗
+  サイトを見る\",\"value\":\"[攻略サイト](${SITE})\",\"inline\":true},{\"name\":\"📝
+  変更内容\",\"value\":\"[コミット](${URL})\",\"inline\":true}],\"footer\":{\"text\":\"Bizarre Lineage
+   Guide\"},\"timestamp\":\"$(date -u +%Y-%m-%dT%H:%M:%SZ)\"}]}" "$WEBHOOK"
