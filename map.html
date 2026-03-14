@@ -96,8 +96,9 @@
         /* Help text */
         .map-help { position:absolute; bottom:16px; left:50%; transform:translateX(-50%); background:rgba(10,10,26,.8); border:1px solid var(--border); border-radius:8px; padding:4px 14px; font-size:.75rem; color:var(--text-dim); z-index:40; white-space:nowrap; pointer-events:none; }
 
-        /* マップ横スクロール矢印 */
-        .map-scroll-area { display:none; }
+        /* マップ横スクロール矢印（PCでは非表示） */
+        .map-scroll-area { position:relative; }
+        .map-arrow { display:none; }
 
         /* モバイル用: マップ下フィルター */
         .filter-below-map { display:none; }
@@ -118,7 +119,6 @@
             .map-marker { z-index:10; }
             .map-marker:hover { transform:translate(-50%,-50%) scale(1.3); }
             .filter-panel-desktop { display:none !important; }
-            .map-scroll-area { display:block; position:relative; }
             .map-arrow { position:absolute; top:50%; transform:translateY(-50%); z-index:60; width:36px; height:60px; background:rgba(10,10,26,.85); border:1px solid var(--border); color:#b89aff; font-size:1.2rem; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:.2s; }
             .map-arrow:active { background:rgba(108,60,224,.4); color:#fff; }
             .map-arrow-left { left:0; border-radius:0 10px 10px 0; border-left:none; }
