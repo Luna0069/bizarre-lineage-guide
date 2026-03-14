@@ -96,23 +96,28 @@
         /* Help text */
         .map-help { position:absolute; bottom:16px; left:50%; transform:translateX(-50%); background:rgba(10,10,26,.8); border:1px solid var(--border); border-radius:8px; padding:4px 14px; font-size:.75rem; color:var(--text-dim); z-index:40; white-space:nowrap; pointer-events:none; }
 
+        /* モバイル用: マップ下フィルター */
+        .filter-below-map { display:none; }
+
         @media (max-width:768px) {
-            body { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+            .filter-below-map { display:block; background:rgba(10,10,26,.95); border:1px solid var(--border); border-radius:12px; padding:16px; margin-top:1rem; }
+            .filter-below-map .quick-btns { margin-bottom:8px; }
+            .filter-below-map .search-box { margin-bottom:8px; }
+            .filter-below-map .search-box input { width:100%; padding:8px 10px; background:rgba(255,255,255,.05); border:1px solid var(--border); border-radius:6px; color:var(--text); font-size:.85rem; font-family:inherit; outline:none; box-sizing:border-box; }
+            .filter-below-map #filter-list-mobile { max-height:50vh; overflow-y:auto; scrollbar-width:thin; scrollbar-color:var(--primary) transparent; }
+            body { overflow-x:hidden; }
+            .site-header, .nav-sticky, footer { width:100%; }
+            .map-scroll-wrapper { overflow-x:auto; -webkit-overflow-scrolling:touch; }
             .map-outer { width:180vw; border-radius:8px; }
             .map-container { width:100%; height:auto; aspect-ratio:2560/1442; overflow:visible; }
             #map { transform:none !important; cursor:default; }
             .map-bg { width:100%; height:100%; }
             .map-marker { z-index:10; }
             .map-marker:hover { transform:translate(-50%,-50%) scale(1.3); }
-            .filter-panel { position:fixed; top:0; left:0; width:80vw; max-width:300px; height:100vh; z-index:500; border-radius:0; }
-            .filter-panel.collapsed { transform:translateX(-100%); }
-            .filter-toggle { position:fixed; left:0; top:50%; transform:translateY(-50%); width:32px; height:64px; z-index:501; border-radius:0 8px 8px 0; right:auto; }
-            .filter-panel:not(.collapsed) ~ .map-container .filter-toggle,
-            .filter-panel.collapsed .filter-toggle { right:-32px; }
+            .filter-panel-desktop { display:none !important; }
             .map-tooltip { max-width:70vw; min-width:200px; }
             .map-help { font-size:.65rem; bottom:10px; white-space:normal; text-align:center; }
-            .map-controls { bottom:10px; right:10px; position:fixed; z-index:100; }
-            .ctrl-btn { display:none; }
+            .map-controls { display:none; }
             .hover-tt { display:none !important; }
         }
     </style>
@@ -159,41 +164,59 @@
         <p>NPC・ボス・バス停・衣装の場所をマップ上で確認 — ドラッグで移動、スクロールでズーム</p>
     </div>
 
-    <div class="map-outer" id="mapOuter">
-        <!-- Filter Panel -->
-        <div class="filter-panel" id="filterPanel">
-            <div class="filter-toggle" onclick="toggleFilters()" id="filterToggleBtn">&#9654;</div>
-            <div class="filter-header">
-                <h3>フィルター</h3>
+    <div class="map-scroll-wrapper">
+        <div class="map-outer" id="mapOuter">
+            <!-- Filter Panel (PC: サイドバー / モバイル: 下に表示) -->
+            <div class="filter-panel filter-panel-desktop" id="filterPanel">
+                <div class="filter-toggle" onclick="toggleFilters()" id="filterToggleBtn">&#9654;</div>
+                <div class="filter-header">
+                    <h3>フィルター</h3>
+                </div>
+                <div class="quick-btns">
+                    <button class="quick-btn" onclick="showAll()">全て表示</button>
+                    <button class="quick-btn" onclick="hideAll()">全て非表示</button>
+                    <button class="quick-btn" onclick="markAllUncompleted()" style="grid-column:span 2;">完了マークをリセット</button>
+                </div>
+                <div class="search-box">
+                    <input type="text" id="filter-search" placeholder="名前・カテゴリで検索..." oninput="searchElements()">
+                </div>
+                <div id="filter-list"></div>
             </div>
-            <div class="quick-btns">
-                <button class="quick-btn" onclick="showAll()">全て表示</button>
-                <button class="quick-btn" onclick="hideAll()">全て非表示</button>
-                <button class="quick-btn" onclick="markAllUncompleted()" style="grid-column:span 2;">完了マークをリセット</button>
-            </div>
-            <div class="search-box">
-                <input type="text" id="filter-search" placeholder="名前・カテゴリで検索..." oninput="searchElements()">
-            </div>
-            <div id="filter-list"></div>
-        </div>
 
-        <!-- Map -->
-        <div class="map-container">
-            <div id="map">
-                <img src="images/map-bg.png" class="map-bg" draggable="false">
+            <!-- Map -->
+            <div class="map-container">
+                <div id="map">
+                    <img src="images/map-bg.png" class="map-bg" draggable="false">
+                </div>
             </div>
-        </div>
 
-        <!-- Controls -->
-        <div class="map-controls">
-            <button class="ctrl-btn" onclick="zoomIn()" title="ズームイン">+</button>
-            <button class="ctrl-btn" onclick="zoomOut()" title="ズームアウト">−</button>
-            <button class="ctrl-btn" onclick="resetView()" title="リセット" style="font-size:.85rem;">↺</button>
-        </div>
+            <!-- Controls -->
+            <div class="map-controls">
+                <button class="ctrl-btn" onclick="zoomIn()" title="ズームイン">+</button>
+                <button class="ctrl-btn" onclick="zoomOut()" title="ズームアウト">−</button>
+                <button class="ctrl-btn" onclick="resetView()" title="リセット" style="font-size:.85rem;">↺</button>
+            </div>
 
-        <div class="map-help">ドラッグで移動 / ピンチでズーム</div>
-        <div class="hover-tt" id="hover-tt"></div>
-        <div class="map-tooltip" id="tooltip"></div>
+            <div class="map-help">ドラッグで移動 / ピンチでズーム</div>
+            <div class="hover-tt" id="hover-tt"></div>
+            <div class="map-tooltip" id="tooltip"></div>
+        </div>
+    </div>
+
+    <!-- モバイル用: フィルターをマップ下に表示 -->
+    <div class="filter-below-map" id="filterBelowMap">
+        <div class="section-header" style="margin-bottom:.8rem;">
+            <h3 style="font-size:1.1rem;">フィルター（表示切替）</h3>
+        </div>
+        <div class="quick-btns">
+            <button class="quick-btn" onclick="showAll()">全て表示</button>
+            <button class="quick-btn" onclick="hideAll()">全て非表示</button>
+            <button class="quick-btn" onclick="markAllUncompleted()" style="grid-column:span 2;">完了マークをリセット</button>
+        </div>
+        <div class="search-box">
+            <input type="text" id="filter-search-mobile" placeholder="名前・カテゴリで検索..." oninput="searchElements()">
+        </div>
+        <div id="filter-list-mobile"></div>
     </div>
 </main>
 
@@ -278,7 +301,6 @@ function buildFilters() {
         }
     });
 
-    const list = document.getElementById('filter-list');
     let html = '';
     for (const g in categories) {
         const grp = categories[g];
@@ -297,7 +319,10 @@ function buildFilters() {
         html += '</div>';
         groupVisibility[g] = true;
     }
-    list.innerHTML = html;
+    document.getElementById('filter-list').innerHTML = html;
+    // モバイル用フィルターにも同じHTMLを設定
+    const mobileList = document.getElementById('filter-list-mobile');
+    if (mobileList) mobileList.innerHTML = html;
 }
 
 // ===== CREATE MARKERS =====
@@ -404,7 +429,7 @@ function toggleGroupVis(group) {
     if (!isOn) { sw.classList.add('on'); els.forEach(e=>e.classList.remove('map-element-hidden')); items.forEach(i=>i.classList.add('active')); }
     else { sw.classList.remove('on'); els.forEach(e=>e.classList.add('map-element-hidden')); items.forEach(i=>i.classList.remove('active')); }
 }
-function toggleGroup(group) { document.getElementById('group-'+group.replace(/\s+/g,'-')).classList.toggle('collapsed'); }
+function toggleGroup(group) { document.querySelectorAll('#group-'+group.replace(/\s+/g,'-')).forEach(el=>el.classList.toggle('collapsed')); }
 function showAll() {
     document.querySelectorAll('.map-marker').forEach(e=>e.classList.remove('map-element-hidden'));
     document.querySelectorAll('.fc-item').forEach(i=>i.classList.add('active'));
@@ -423,7 +448,9 @@ function markAllUncompleted() {
     document.querySelectorAll('.map-marker').forEach(m=>m.classList.remove('completed'));
 }
 function searchElements() {
-    const term = document.getElementById('filter-search').value.toLowerCase().trim();
+    const desktop = document.getElementById('filter-search');
+    const mobile = document.getElementById('filter-search-mobile');
+    const term = (desktop && desktop.value || mobile && mobile.value || '').toLowerCase().trim();
     document.querySelectorAll('.map-marker').forEach(el => {
         const match = !term || el.dataset.name.includes(term) || el.dataset.category.toLowerCase().includes(term);
         el.classList.toggle('search-mismatch', !match && !!term);
@@ -514,10 +541,6 @@ window.onload = () => {
     createMarkers();
     setupControls();
     resetView();
-    if (window.innerWidth <= 768) {
-        document.getElementById('filterPanel').classList.add('collapsed');
-        document.getElementById('filterToggleBtn').innerHTML = '&#9664;';
-    }
 };
 </script>
 </body>
