@@ -73,11 +73,11 @@
         .marker-dot { border-radius:50%; border:2px solid #fff; box-shadow:0 2px 8px rgba(0,0,0,.4); }
 
         /* Tooltip */
-        .map-tooltip { position:fixed; background:rgba(10,10,26,.95); border:2px solid #b89aff; border-radius:14px; padding:16px; max-width:360px; max-height:40vh; overflow-y:auto; z-index:200; display:none; box-shadow:0 16px 40px rgba(0,0,0,.7); color:var(--text); line-height:1.6; min-width:260px; scrollbar-width:thin; scrollbar-color:var(--primary) transparent; }
+        .map-tooltip { position:fixed; background:rgba(10,10,26,.95); border:2px solid #b89aff; border-radius:12px; padding:12px; max-width:280px; max-height:40vh; overflow-y:auto; z-index:200; display:none; box-shadow:0 16px 40px rgba(0,0,0,.7); color:var(--text); line-height:1.5; min-width:180px; font-size:.85rem; scrollbar-width:thin; scrollbar-color:var(--primary) transparent; }
         .map-tooltip::-webkit-scrollbar { width:6px; }
         .map-tooltip::-webkit-scrollbar-thumb { background:var(--primary); border-radius:4px; }
-        .map-tooltip h3 { color:#b89aff; margin-bottom:8px; border-bottom:1px solid var(--border); padding-bottom:6px; font-size:1rem; }
-        .map-tooltip p { color:var(--text-dim); font-size:.88rem; }
+        .map-tooltip h3 { color:#b89aff; margin-bottom:6px; border-bottom:1px solid var(--border); padding-bottom:4px; font-size:.9rem; }
+        .map-tooltip p { color:var(--text-dim); font-size:.82rem; }
         .map-tooltip .tt-close { position:absolute; top:8px; right:14px; background:none; border:none; color:var(--text-dim); font-size:1.6rem; cursor:pointer; transition:.2s; }
         .map-tooltip .tt-close:hover { color:#b89aff; }
         .map-tooltip .tt-cat { font-size:.72rem; color:var(--text-dim); margin-top:8px; }
@@ -377,20 +377,22 @@ function showTooltip(el, target) {
     t.classList.remove('fade-out');
     t.classList.add('fade-in');
 
-    const isMobile = window.innerWidth <= 500;
-    if (isMobile) {
-        t.style.left = '5%'; t.style.width = '90%'; t.style.bottom = '20px'; t.style.top = 'auto'; t.style.transform = 'none';
-    } else {
-        const rect = target.getBoundingClientRect();
-        t.style.width = 'auto'; t.style.bottom = 'auto';
-        t.style.left = (rect.left + rect.width/2) + 'px';
-        t.style.top = (rect.top - 10) + 'px';
-        t.style.transform = 'translate(-50%, -100%)';
-        const tr = t.getBoundingClientRect();
-        if (tr.top < 10) { t.style.top = (rect.bottom + 10) + 'px'; t.style.transform = 'translate(-50%, 0)'; }
-        if (tr.left < 10) t.style.left = '10px';
-        if (tr.right > window.innerWidth - 10) t.style.left = (window.innerWidth - tr.width - 10) + 'px';
+    const rect = target.getBoundingClientRect();
+    t.style.width = 'auto'; t.style.bottom = 'auto'; t.style.right = 'auto';
+    // マーカーの左側に表示
+    t.style.left = (rect.left - 10) + 'px';
+    t.style.top = (rect.top + rect.height/2) + 'px';
+    t.style.transform = 'translate(-100%, -50%)';
+    // 画面外チェック
+    const tr = t.getBoundingClientRect();
+    if (tr.left < 5) {
+        // 左に収まらない→右側に表示
+        t.style.left = (rect.right + 10) + 'px';
+        t.style.transform = 'translate(0, -50%)';
     }
+    const tr2 = t.getBoundingClientRect();
+    if (tr2.top < 5) { t.style.top = '5px'; t.style.transform = t.style.transform.replace('-50%', '0'); }
+    if (tr2.bottom > window.innerHeight - 5) { t.style.top = (window.innerHeight - tr2.height - 5) + 'px'; }
     hideHover();
 }
 function closeTooltip() {
