@@ -15,7 +15,8 @@ jobs:
             MSG=$(echo "${{ github.event.head_commit.message }}" | head -1)
             URL="${{ github.event.head_commit.url }}"
             SITE="https://luna0069.github.io/bizarre-lineage-guide/"
-            JSON="{\"embeds\":[{\"title\":\"Site Updated\""
+            JSON="{\"content\":\"<@&1482354254269251654>\""
+            JSON="$JSON,\"embeds\":[{\"title\":\"Site Updated\""
             JSON="$JSON,\"description\":\"$MSG\""
             JSON="$JSON,\"url\":\"$SITE\""
             JSON="$JSON,\"color\":5814783}]}"
