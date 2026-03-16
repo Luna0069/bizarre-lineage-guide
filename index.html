@@ -284,9 +284,41 @@
             <a href="https://discord.gg/YpDSv6cF3Q" target="_blank">LUNA670のDiscord鯖</a>
         </p>
         <p>このサイトはファンメイドの非公式攻略ガイドです。<br>元データ: <a href="https://trello.com/b/wtzgwqIf" target="_blank">公式Trelloボード</a></p>
+        <p style="margin-top:.5rem;"><a href="#" onclick="document.getElementById('privacy-modal').style.display='flex';return false;" style="color:var(--text-dim); text-decoration:underline;">プライバシーポリシー</a></p>
         <p style="margin-top:.8rem; font-size:.8rem; color:var(--text-dim);">最終更新: 2026.03.16</p>
     </div>
 </footer>
+
+<!-- プライバシーポリシー モーダル -->
+<div id="privacy-modal" style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,.7); align-items:center; justify-content:center; padding:1rem;" onclick="if(event.target===this)this.style.display='none'">
+    <div style="background:var(--card-bg,#1a1a2e); border:1px solid var(--border,#333); border-radius:12px; max-width:640px; width:100%; max-height:80vh; overflow-y:auto; padding:2rem; position:relative;">
+        <button onclick="document.getElementById('privacy-modal').style.display='none'" style="position:absolute; top:1rem; right:1rem; background:none; border:none; color:#fff; font-size:1.5rem; cursor:pointer;">&times;</button>
+        <h2 style="margin-top:0; font-size:1.3rem;">プライバシーポリシー</h2>
+        <p style="font-size:.9rem; line-height:1.8; color:var(--text-dim,#aaa);">
+            当サイト（bizarre-lineage-guide.com）は、以下の方針に基づき運営しています。
+        </p>
+        <h3 style="font-size:1rem; margin-top:1.2rem;">広告について</h3>
+        <p style="font-size:.85rem; line-height:1.8; color:var(--text-dim,#aaa);">
+            当サイトでは、Google AdSense による広告配信を行っています。Google はユーザーの興味に基づいた広告を表示するために Cookie を使用することがあります。詳しくは <a href="https://policies.google.com/technologies/ads?hl=ja" target="_blank" style="color:#ff6b35;">Google のポリシー</a>をご確認ください。
+        </p>
+        <h3 style="font-size:1rem; margin-top:1.2rem;">アクセス解析について</h3>
+        <p style="font-size:.85rem; line-height:1.8; color:var(--text-dim,#aaa);">
+            当サイトでは、Google Analytics を利用してアクセス情報を収集しています。データは匿名で収集されており、個人を特定するものではありません。詳しくは <a href="https://marketingplatform.google.com/about/analytics/terms/jp/" target="_blank" style="color:#ff6b35;">Google Analytics 利用規約</a>をご確認ください。
+        </p>
+        <h3 style="font-size:1rem; margin-top:1.2rem;">コメント機能について</h3>
+        <p style="font-size:.85rem; line-height:1.8; color:var(--text-dim,#aaa);">
+            当サイトのコメント機能は匿名で利用できます。投稿内容は Firebase Firestore に保存されますが、個人情報の入力は不要です。
+        </p>
+        <h3 style="font-size:1rem; margin-top:1.2rem;">免責事項</h3>
+        <p style="font-size:.85rem; line-height:1.8; color:var(--text-dim,#aaa);">
+            当サイトは「Bizarre Lineage」の非公式ファンサイトです。掲載情報の正確性には努めていますが、内容を保証するものではありません。ゲーム内のデータや仕様は予告なく変更される場合があります。
+        </p>
+        <h3 style="font-size:1rem; margin-top:1.2rem;">お問い合わせ</h3>
+        <p style="font-size:.85rem; line-height:1.8; color:var(--text-dim,#aaa);">
+            ご質問やご要望は <a href="https://discord.gg/YpDSv6cF3Q" target="_blank" style="color:#ff6b35;">Discord サーバー</a>までお願いします。
+        </p>
+    </div>
+</div>
 
 <script>
     function copyCode(btn) {
