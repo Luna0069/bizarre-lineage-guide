@@ -228,3 +228,11 @@ footer { background:rgba(0,0,0,.3); border-top:1px solid var(--border); padding:
 .quest-step-card h5 { font-size:.85rem; font-weight:700; margin-bottom:.3rem; color:var(--text); }
 .quest-step-card p { font-size:.78rem; color:var(--text-dim); line-height:1.5; }
 .quest-step-arrow { flex-shrink:0; color:rgba(108,60,224,.5); font-size:.9rem; }
+
+/* 忍者AdMax PC/SP切り替え */
+.admax-pc { display:block; }
+.admax-sp { display:none; }
+@media(max-width:768px) {
+    .admax-pc { display:none; }
+    .admax-sp { display:block; }
+}
